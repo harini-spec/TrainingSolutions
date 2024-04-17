@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DoctorAppointmentDALLibrary
 {
-        internal class PatientRepository : IRepository<int, Patient>
+        public class PatientRepository : IRepository<int, Patient>
         {
             readonly Dictionary<int, Patient> _patients;
             public PatientRepository()
@@ -44,7 +44,7 @@ namespace DoctorAppointmentDALLibrary
             }
             
             /// <summary>
-            /// Checks if the given key is present. If found, deletes the Patient record in the given key 
+            /// Checks if the given ID is present. If found, deletes the Patient record in the given ID 
             /// </summary>
             /// <param name="key">ID of the Patient</param>
             /// <returns>Deleted Patient data if present, else null</returns>
