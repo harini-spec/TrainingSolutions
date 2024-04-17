@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ModelLibrary
 {
-    internal interface IGovtRules
+    public interface IGovtRules
     {
         public double EmployeePF(double basicSalary);
         public string LeaveDetails();

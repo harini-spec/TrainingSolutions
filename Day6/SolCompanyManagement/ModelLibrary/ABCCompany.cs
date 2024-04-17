@@ -55,6 +55,7 @@ namespace ModelLibrary
             Salary = basicSalary - (basicSalary * 3.67/100);
             EmployeeContribution = basicSalary * 3.67/100;
             EmployerContribution = basicSalary * 8.33/100;
+            Console.WriteLine("HEREEEE");
             return EmployerContribution + EmployeeContribution;
         }
 
@@ -84,6 +85,7 @@ namespace ModelLibrary
         /// <returns>Leave Details as string type</returns>
         public string LeaveDetails()
         {
+            Console.WriteLine("Leaveeeeeeeeeee");
             return "1 day of Casual Leave per Month " +
                 "\n\t\t\t\t\t\t  12 days of Sick Leave per Year " +
                 "\n\t\t\t\t\t\t  10 days of Privilege Leave per year";

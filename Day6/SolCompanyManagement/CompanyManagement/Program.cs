@@ -8,20 +8,25 @@ namespace CompanyManagement
         {
             Console.WriteLine("Enter the Company :");
             string Company = Console.ReadLine();
+
+            // By passing Company object to interface 
+            // Here we are passing the object and getting it in IGovtRules Interface reference - Inner logic will be hidden 
+            CompanyGovtRules companyGovtRules = new CompanyGovtRules();
+
             if (Company == "ABC")
             {
-                ABCCompany ABC = new ABCCompany();
+                Company ABC = new ABCCompany();
                 ABC.BuildEmployeeFromConsole();
-                ABC.PrintEmployeeDetails();            
+                companyGovtRules.CalculateBenefits(ABC, ABC.BasicSalary, ABC.ServiceCompletedYears);
+                ABC.PrintEmployeeDetails();
             }
             else
             {
                 XYZCompany XYZ = new XYZCompany();
                 XYZ.BuildEmployeeFromConsole();
+                companyGovtRules.CalculateBenefits(XYZ, XYZ.BasicSalary, XYZ.ServiceCompletedYears);
                 XYZ.PrintEmployeeDetails();
             }
-
-            
         }
     }
 }

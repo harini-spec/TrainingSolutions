@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ModelLibrary
+namespace ModelLibrary 
 {
     //and data should be displayed using properties.
     public class Company : IGovtRules
@@ -16,7 +16,7 @@ namespace ModelLibrary
         public double BasicSalary { get; set; }
         public string CompanyName { get; set; }
         public double PF { get; set; }
-        public double ServiceCompletedYears { get; set; }
+        public int ServiceCompletedYears { get; set; }
         public double GratuityAmount { get; set; }
         public double Salary {  get; set; }
 
@@ -76,19 +76,16 @@ namespace ModelLibrary
             Console.WriteLine($"Total PF Amount \t\t\t\t: {PF}");
         }
 
-        public double EmployeePF(double basicSalary)
-        {
-            throw new NotImplementedException();
-        }
+        public virtual double EmployeePF(double basicSalary) { return 0; }
 
         public string LeaveDetails()
         {
-            throw new NotImplementedException();
+            return "";
         }
 
         public double CalculateGratuityAmount(double serviceCompleted, double basicSalary)
         {
-            throw new NotImplementedException();
+            return 0;
         }
     }
 }
