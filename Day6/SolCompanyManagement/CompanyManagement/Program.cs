@@ -17,6 +17,7 @@ namespace CompanyManagement
             {
                 Company ABC = new ABCCompany();
                 ABC.BuildEmployeeFromConsole();
+                ABC.EmployeePF(ABC.BasicSalary);
                 companyGovtRules.CalculateBenefits(ABC, ABC.BasicSalary, ABC.ServiceCompletedYears);
                 ABC.PrintEmployeeDetails();
             }
