@@ -14,9 +14,9 @@ namespace HotelManagementModels
             Name = string.Empty;
             PhoneNo = string.Empty;
             Preferences = string.Empty;
-            Reservations = new List<Reservation>();
+            Reservations = new List<int>();
         }
-        public Customer(int id, string name, string phoneNo, string preferences, Reservation reservation)
+        public Customer(int id, string name, string phoneNo, string preferences, int reservation)
         {
             Id = id;
             Name = name;
@@ -29,6 +29,6 @@ namespace HotelManagementModels
         public string Name { get; set; }
         public string PhoneNo { get; set; }
         public string Preferences { get; set; }
-        public List<Reservation> Reservations { get; set; }
+        public List<int> Reservations { get; set; }
     }
 }
