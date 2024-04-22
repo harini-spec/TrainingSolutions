@@ -1,5 +1,6 @@
 ﻿namespace HotelManagementDAL
 {
+
     public interface IRepository<K, T> where T : class
     {
         T Add(T item);
