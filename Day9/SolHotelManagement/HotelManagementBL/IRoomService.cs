@@ -13,6 +13,6 @@ namespace HotelManagementBL
         bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID);
         Room GetRoomByID(int RoomID);
         List<Room> GetAllRooms();
-        void AddReservation(Reservation reservation);
+        void AddReservation(int id);
     }
 }

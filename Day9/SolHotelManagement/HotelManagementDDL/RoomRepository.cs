@@ -47,11 +47,10 @@ namespace HotelManagementDAL
 
         public Room Get(int key)
         {
-            return _rooms[key];
-            //if (_rooms.ContainsKey(key))
-            //    return _rooms[key];
-            //else
-            //    return null;
+            if (_rooms.ContainsKey(key))
+                return _rooms[key];
+            else
+                return null;
         }
 
         public List<Room> GetAll()

@@ -35,5 +35,12 @@ namespace HotelManagementBL
             customer.Reservations.Add(reservation.Id);
             _CustomerRepository.Update(customer);
         }
+
+        public List<int> GetReservationList(int id)
+        {
+            Customer customer = _CustomerRepository.Get(id);
+            List<int> reservations = customer.Reservations;
+            return reservations;
+        }
     }
 }

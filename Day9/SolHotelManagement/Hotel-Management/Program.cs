@@ -8,7 +8,6 @@ namespace Hotel_Management
 {
     public class Program
     {
-
         public void AddRoom(IRoomService roomBL)
         {
             try
@@ -22,7 +21,7 @@ namespace Hotel_Management
                 room.Features = Console.ReadLine();
                 Console.WriteLine("Enter Room's Nightly rate:");
                 room.NightlyRate = Convert.ToDouble(Console.ReadLine());
-                Console.WriteLine(roomBL.AddRoom(room));
+                roomBL.AddRoom(room);
             }
             catch(RoomAlreadyExistsException raee)
             {
@@ -46,10 +45,6 @@ namespace Hotel_Management
                 reservation.Customer = Convert.ToInt32(Console.ReadLine());
                 Console.WriteLine("Enter the Room ID:");
                 reservation.Room = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter the occupancy quantity:");
-                reservation.OccupancyCount = Convert.ToInt32(Console.ReadLine());
-                Console.WriteLine("Enter your room preference if any:");
-                reservation.Preferences = Console.ReadLine();
                 Console.WriteLine("Enter the check-in date:");
                 reservation.CheckInDate = Convert.ToDateTime(Console.ReadLine());
                 Console.WriteLine("Enter the check-out date:");
@@ -57,10 +52,11 @@ namespace Hotel_Management
 
                 if (CheckAvailability(reservation, roomBL))
                 {
-                    int id = reservationBL.AddReservation(reservation, reservation.Room);
-                    Console.WriteLine("Reservation successfully added!");
+                    List<Room> rooms = roomBL.GetAllRooms();
+                    int id = reservationBL.AddReservation(reservation, rooms);
                     customerBL.AddReservation(reservationBL.GetReservationByID(id));
-                    roomBL.AddReservation(reservationBL.GetReservationByID(id));
+                    roomBL.AddReservation(id);
+                    Console.WriteLine("Reservation successfully added!");
                     PrintReservationDetails(id, reservationBL, roomBL, customerBL);
                 }
                 else
@@ -81,18 +77,24 @@ namespace Hotel_Management
             Console.WriteLine("--------------------------------------------");
             Reservation reservation = reservationBL.GetReservationByID(id);
             Customer customer = customerBL.GetCustomerByID(reservation.Customer);
-            Console.WriteLine(reservation.Room);
+            Console.WriteLine("Reservation ID: " + id);
+            Console.WriteLine("Room ID: " + reservation.Room);
             Room room = roomBL.GetRoomByID(reservation.Room);
             Console.WriteLine("Customer Name: " + customer.Name);
             Console.WriteLine("Customer Mobile: " + customer.PhoneNo);
+            DisplayReservedRoomDetails(reservation, room);
+            Console.WriteLine("Cancellation Policy: " + reservation.CancellationPolicy);
+            Console.WriteLine("--------------------------------------------");
+        }
+
+        public void DisplayReservedRoomDetails(Reservation reservation, Room room)
+        {
             Console.WriteLine("Room Type: " + room.RoomType);
             Console.WriteLine("Room features: " + room.Features);
             Console.WriteLine("Check in date: " + reservation.CheckInDate);
             Console.WriteLine("Check out date: " + reservation.CheckOutDate);
-            Console.WriteLine("Occupancy count: " + reservation.OccupancyCount);
+            Console.WriteLine("Occupancy count: " + room.OccupancyCapacity);
             Console.WriteLine("Total cost: " + reservation.TotalCost);
-            Console.WriteLine("Cancellation Policy: " + reservation.CancellationPolicy);
-            Console.WriteLine("--------------------------------------------");
         }
 
         public void CreateCustomer(ICustomerService customerBL)
@@ -116,7 +118,7 @@ namespace Hotel_Management
         public void DisplayRooms(IRoomService roomBL)
         {
             List<Room> rooms = roomBL.GetAllRooms();
-            Console.WriteLine("ID \t Room Type \t Features \t Max Occupancy \t Nightly cost");
+            Console.WriteLine("ID \t Room Type\tFeatures \t Max Occupancy \t Nightly cost");
             foreach (Room room in rooms)
             {
                 Console.WriteLine(room.Id + "   \t" + room.ToString());
@@ -130,9 +132,12 @@ namespace Hotel_Management
                 Console.WriteLine("Enter your reservation ID");
                 int id = Convert.ToInt32(Console.ReadLine());
                 Reservation reservation = reservationBL.GetReservationByID(id);
-                Console.WriteLine("Check in date: " + reservation.CheckInDate);
-                Console.WriteLine("Check out date: " + reservation.CheckOutDate);
-                reservationBL.ModifyBooking(reservation);
+                Console.WriteLine("Check in date: ");
+                reservation.CheckInDate = Convert.ToDateTime(Console.ReadLine());
+                Console.WriteLine("Check out date: ");
+                reservation.CheckOutDate = Convert.ToDateTime(Console.ReadLine());
+                List<Room> rooms = roomBL.GetAllRooms();
+                reservationBL.ModifyBooking(reservation, rooms);
                 Console.WriteLine("Modified successfully");
                 PrintReservationDetails(reservation.Id, reservationBL, roomBL, customerBL);
             }
@@ -158,6 +163,29 @@ namespace Hotel_Management
 
         }
 
+        public void DisplayAllReservations(IReservationService reservationBL, IRoomService roomBL, ICustomerService customerBL)
+        {
+            Console.WriteLine("Enter customer ID");
+            int id = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("--------------------------------------------");
+            Customer customer = customerBL.GetCustomerByID(id);
+            
+            Console.WriteLine("Customer Name: " + customer.Name);
+            Console.WriteLine("Customer Mobile: " + customer.PhoneNo);
+            
+            List<int> reservations = customerBL.GetReservationList(id);
+
+            foreach(int reservation in reservations)
+            {
+                Reservation UserReservation = reservationBL.GetReservationByID(reservation);
+                Room room = roomBL.GetRoomByID(UserReservation.Room);
+                Console.WriteLine("Room ID: " + UserReservation.Room);
+
+                DisplayReservedRoomDetails(UserReservation, room);
+            }
+            
+        }
+
         public void DisplayMenu()
         {
             Program program = new Program();
@@ -171,8 +199,9 @@ namespace Hotel_Management
                 Console.WriteLine("2. Display Rooms");
                 Console.WriteLine("3. Create customer account");
                 Console.WriteLine("4. Make reservation");
-                Console.WriteLine("5. Modify reservation");
-                Console.WriteLine("6. Cancel reservation");
+                Console.WriteLine("5. Display all user's reservation");
+                Console.WriteLine("6. Modify reservation");
+                Console.WriteLine("7. Cancel reservation");
                 Console.WriteLine("0 to exit");
                 choice = Console.ReadLine();
                 switch (choice)
@@ -190,9 +219,12 @@ namespace Hotel_Management
                         program.MakeReservation(roomBL, reservationBL, customerBL);
                         break;
                     case "5":
-                        program.ModifyReservation(reservationBL, roomBL, customerBL);
+                        program.DisplayAllReservations(reservationBL, roomBL, customerBL);
                         break;
                     case "6":
+                        program.ModifyReservation(reservationBL, roomBL, customerBL);
+                        break;
+                    case "7":
                         program.CancelReservation(reservationBL);
                         break;
                 }

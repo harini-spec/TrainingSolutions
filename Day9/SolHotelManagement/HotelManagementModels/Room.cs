@@ -37,7 +37,7 @@ namespace HotelManagementModels
 
         public override string ToString()
         {
-            return " " + RoomType + " \t\t" + Features + " \t\t" + OccupancyCapacity + " \t\t" + NightlyRate ;
+            return " " + RoomType + "\t\t" + Features + "\t\t\t" + OccupancyCapacity + " \t\t" + NightlyRate ;
         }
     }
 }

@@ -18,9 +18,15 @@ namespace HotelManagementBL
             _RoomRepository = new RoomRepository();
         }
 
-        public int AddReservation(Reservation reservation, int roomID)
+        public int AddReservation(Reservation reservation, List<Room> rooms)
         {
-            reservation.TotalCost = CalculateCost(reservation, roomID);
+            Room room = new Room();
+            for(int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].Id == reservation.Room)
+                    room = rooms[i];
+            }
+            reservation.TotalCost = CalculateCost(reservation, room);
             reservation.CancellationPolicy = AddCancellationPolicy();
             var result = _ReservationRepository.Add(reservation);
             if (result != null)
@@ -33,9 +39,8 @@ namespace HotelManagementBL
             return "80% refund if you cancel the reservation within 24 hours. If not, no refund will be given";
         }
 
-        public double CalculateCost(Reservation reservation, int id)
+        public double CalculateCost(Reservation reservation, Room room)
         {
-            Room room = _RoomRepository.Get(id);
             int days = (reservation.CheckOutDate - reservation.CheckInDate).Days;
             return days * room.NightlyRate;
         }
@@ -55,9 +60,15 @@ namespace HotelManagementBL
             return _ReservationRepository.Get(ID);
         }
 
-        public Reservation ModifyBooking(Reservation reservation)
+        public Reservation ModifyBooking(Reservation reservation, List<Room> rooms)
         {
-            reservation.TotalCost = CalculateCost(reservation, reservation.Room);
+            Room room = new Room();
+            for (int i = 0; i < rooms.Count; i++)
+            {
+                if (rooms[i].Id == reservation.Room)
+                    room = rooms[i];
+            }
+            reservation.TotalCost = CalculateCost(reservation, room);
             return _ReservationRepository.Update(reservation);
         }
     }

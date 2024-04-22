@@ -29,7 +29,8 @@ namespace HotelManagementBL
 
         public bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID)
         {
-            Room room = _RoomRepository.Get(RoomID);
+
+           Room room = _RoomRepository.Get(RoomID);
             List<int> reservations = room.Reservations;
             foreach (int reservation in reservations)
             {
@@ -39,7 +40,9 @@ namespace HotelManagementBL
                     return true;
                 }
                 if (ExisitingReservation.CheckInDate == checkin || ExisitingReservation.CheckOutDate == checkout || (checkin > ExisitingReservation.CheckInDate && checkin < ExisitingReservation.CheckOutDate) || (checkout > ExisitingReservation.CheckInDate && checkout < ExisitingReservation.CheckOutDate))
+                {
                     return false;
+                }
             }
             return true;
         }
@@ -56,10 +59,10 @@ namespace HotelManagementBL
             return _RoomRepository.GetAll();
         }
 
-        public void AddReservation(Reservation reservation)
+        public void AddReservation(int id)
         {
-            Room room = GetRoomByID(reservation.Room);
-            room.Reservations.Add(reservation.Id);
+            Room room = GetRoomByID(id);
+            room.Reservations.Add(id);
             _RoomRepository.Update(room);
         }
     }
