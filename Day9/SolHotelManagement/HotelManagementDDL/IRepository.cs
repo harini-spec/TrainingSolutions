@@ -1,4 +1,4 @@
-﻿namespace HotelManagementDDL
+﻿namespace HotelManagementDAL
 {
     public interface IRepository<K, T> where T : class
     {

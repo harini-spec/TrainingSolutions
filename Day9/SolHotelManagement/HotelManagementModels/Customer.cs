@@ -6,35 +6,29 @@ using System.Threading.Tasks;
 
 namespace HotelManagementModels
 {
-    internal class Customer
+    public class Customer
     {
         public Customer() 
         {
             Id = 0;
             Name = string.Empty;
             PhoneNo = string.Empty;
-            OccupancyCount = 0;
-            CheckInDate = DateTime.Now;
-            CheckOutDate = DateTime.Now;
             Preferences = string.Empty;
+            Reservations = new List<Reservation>();
         }
-        public Customer(int id, string name, string phoneNo, int occupancyCount, DateTime checkInDate, DateTime checkOutDate, string preferences)
+        public Customer(int id, string name, string phoneNo, string preferences, Reservation reservation)
         {
             Id = id;
             Name = name;
             PhoneNo = phoneNo;
-            OccupancyCount = occupancyCount;
-            CheckInDate = checkInDate;
-            CheckOutDate = checkOutDate;
             Preferences = preferences;
+            Reservations.Add(reservation);
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string PhoneNo { get; set; }
-        public int OccupancyCount { get; set; }
-        public DateTime CheckInDate { get; set; }
-        public DateTime CheckOutDate { get; set; }
         public string Preferences { get; set; }
+        public List<Reservation> Reservations { get; set; }
     }
 }
