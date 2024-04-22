@@ -8,4 +8,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelManagementBL\HotelManagementBL.csproj" />
+    <ProjectReference Include="..\HotelManagementModels\HotelManagementModels.csproj" />
+  </ItemGroup>
+
 </Project>

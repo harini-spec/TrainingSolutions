@@ -13,6 +13,8 @@ namespace HotelManagementDAL
 
         public int GenerateId()
         {
+            if (_customers.Count == 0)
+                return 1;
             int id = _customers.Keys.Max();
             return ++id;
         }

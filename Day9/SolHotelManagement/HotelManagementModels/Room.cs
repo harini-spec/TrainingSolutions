@@ -12,12 +12,12 @@ namespace HotelManagementModels
         {
             Id = 0;
             RoomType = string.Empty;
-            Features = new List<string>();
+            Features = string.Empty;
             OccupancyCapacity = 0;
             NightlyRate = 0;
         }
 
-        public Room(int id, string roomType, List<string> features, int occupancyCapacity, double nightlyRate)
+        public Room(int id, string roomType, string features, int occupancyCapacity, double nightlyRate)
         {
             Id = id;
             RoomType = roomType;
@@ -28,10 +28,13 @@ namespace HotelManagementModels
 
         public int Id { get; set; }
         public string RoomType {  get; set; }
-        public List<string> Features { get; set; }
+        public string Features { get; set; }
         public int OccupancyCapacity { get; set; }
         public double NightlyRate { get; set; }
 
-
+        public override string ToString()
+        {
+            return RoomType + " " + Features + " " + OccupancyCapacity + " " + NightlyRate ;
+        }
     }
 }
