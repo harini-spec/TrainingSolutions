@@ -31,7 +31,7 @@ namespace Hotel_Management
 
         public bool CheckAvailability(Reservation reservation, IRoomService roomBL)
         {
-            if(roomBL.CheckRoomAvailability(reservation.CheckInDate, reservation.CheckOutDate, reservation.Room))
+            if(roomBL.CheckRoomAvailability(reservation.CheckInDate, reservation.CheckOutDate, reservation.Room, roomBL.GetAllRooms()))
                 return true;
             return false;
         }
@@ -165,23 +165,30 @@ namespace Hotel_Management
 
         public void DisplayAllReservations(IReservationService reservationBL, IRoomService roomBL, ICustomerService customerBL)
         {
-            Console.WriteLine("Enter customer ID");
-            int id = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("--------------------------------------------");
-            Customer customer = customerBL.GetCustomerByID(id);
-            
-            Console.WriteLine("Customer Name: " + customer.Name);
-            Console.WriteLine("Customer Mobile: " + customer.PhoneNo);
-            
-            List<int> reservations = customerBL.GetReservationList(id);
-
-            foreach(int reservation in reservations)
+            try
             {
-                Reservation UserReservation = reservationBL.GetReservationByID(reservation);
-                Room room = roomBL.GetRoomByID(UserReservation.Room);
-                Console.WriteLine("Room ID: " + UserReservation.Room);
+                Console.WriteLine("Enter customer ID");
+                int id = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("--------------------------------------------");
+                Customer customer = customerBL.GetCustomerByID(id);
 
-                DisplayReservedRoomDetails(UserReservation, room);
+                Console.WriteLine("Customer Name: " + customer.Name);
+                Console.WriteLine("Customer Mobile: " + customer.PhoneNo);
+
+                List<int> reservations = customerBL.GetReservationList(id);
+
+                foreach (int reservation in reservations)
+                {
+                    Reservation UserReservation = reservationBL.GetReservationByID(reservation);
+                    Room room = roomBL.GetRoomByID(UserReservation.Room);
+                    Console.WriteLine("Room ID: " + UserReservation.Room);
+
+                    DisplayReservedRoomDetails(UserReservation, room);
+                }
+            }
+            catch(NoReservationsExistsException nree)
+            {
+                Console.WriteLine(nree.Message);
             }
             
         }

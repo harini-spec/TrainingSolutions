@@ -27,10 +27,17 @@ namespace HotelManagementBL
             throw new RoomAlreadyExistsException();
         }
 
-        public bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID)
+        public bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID, List<Room> rooms)
         {
-           Room room = _RoomRepository.Get(RoomID);
-            List<int> reservations = room.Reservations;
+            Room CurrentRoom = new Room();
+            foreach(var room in rooms)
+            {
+                if(room.Id == RoomID)
+                    CurrentRoom = room;
+
+            }
+           //Room room = _RoomRepository.Get(RoomID);
+            List<int> reservations = CurrentRoom.Reservations;
             foreach (int reservation in reservations)
             {
                 Reservation ExisitingReservation = _ReservationRepository.Get(reservation);

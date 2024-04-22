@@ -40,7 +40,9 @@ namespace HotelManagementBL
         {
             Customer customer = _CustomerRepository.Get(id);
             List<int> reservations = customer.Reservations;
-            return reservations;
+            if(reservations != null)
+                return reservations;
+            throw new NoReservationsExistsException();
         }
     }
 }
