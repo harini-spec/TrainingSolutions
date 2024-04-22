@@ -10,7 +10,9 @@ namespace HotelManagementBL
     public interface IRoomService
     {
         int AddRoom(Room room);
-        bool CheckRoomAvailability(int RoomID);
-        Room GetRoomByID(int RoomID);        
+        bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID);
+        Room GetRoomByID(int RoomID);
+        List<Room> GetAllRooms();
+        void AddReservation(Reservation reservation);
     }
 }

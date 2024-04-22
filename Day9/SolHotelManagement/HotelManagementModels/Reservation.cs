@@ -19,9 +19,10 @@ namespace HotelManagementModels
             OccupancyCount = 0;
             TotalCost = 0;
             CancellationPolicy = string.Empty;
+            Preferences = string.Empty;
         }
 
-        public Reservation(int id, int customer, int room, DateTime checkInDate, DateTime checkOutDate, int occupancyCount, double totalCost, string cancellationPolicy)
+        public Reservation(int id, int customer, int room, DateTime checkInDate, DateTime checkOutDate, int occupancyCount, double totalCost, string cancellationPolicy, string preferences)
         {
             Id = id;
             Customer = customer;
@@ -31,11 +32,13 @@ namespace HotelManagementModels
             OccupancyCount = occupancyCount;
             TotalCost = totalCost;
             CancellationPolicy = cancellationPolicy;
+            Preferences = preferences;
         }
 
         public int Id { get; set; }
         public int Customer { get; set; }
         public int Room { get; set; }
+        public string Preferences { get; set; }
         public DateTime CheckInDate { get; set; }
         public DateTime CheckOutDate { get; set; }
         public int OccupancyCount { get; set; }

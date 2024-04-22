@@ -11,9 +11,12 @@ namespace HotelManagementBL
     public class RoomBL : IRoomService
     {
         readonly IRepository<int, Room> _RoomRepository;
+        readonly IRepository<int, Reservation> _ReservationRepository;
+
         public RoomBL()
         {
             _RoomRepository = new RoomRepository();
+            _ReservationRepository = new ReservationRepository();
         }
 
         public int AddRoom(Room room)
@@ -24,14 +27,40 @@ namespace HotelManagementBL
             throw new RoomAlreadyExistsException();
         }
 
-        public bool CheckRoomAvailability(int RoomID)
+        public bool CheckRoomAvailability(DateTime checkin, DateTime checkout, int RoomID)
         {
-            throw new NotImplementedException();
+            Room room = _RoomRepository.Get(RoomID);
+            List<int> reservations = room.Reservations;
+            foreach (int reservation in reservations)
+            {
+                Reservation ExisitingReservation = _ReservationRepository.Get(reservation);
+                if(ExisitingReservation == null) 
+                {
+                    return true;
+                }
+                if (ExisitingReservation.CheckInDate == checkin || ExisitingReservation.CheckOutDate == checkout || (checkin > ExisitingReservation.CheckInDate && checkin < ExisitingReservation.CheckOutDate) || (checkout > ExisitingReservation.CheckInDate && checkout < ExisitingReservation.CheckOutDate))
+                    return false;
+            }
+            return true;
         }
 
         public Room GetRoomByID(int RoomID)
         {
-            return _RoomRepository.Get(RoomID);
+            if(_RoomRepository.Get(RoomID)!=null)
+                return _RoomRepository.Get(RoomID);
+            throw new RoomDoesNotExistException();
+        }
+
+        public List<Room> GetAllRooms()
+        {
+            return _RoomRepository.GetAll();
+        }
+
+        public void AddReservation(Reservation reservation)
+        {
+            Room room = GetRoomByID(reservation.Room);
+            room.Reservations.Add(reservation.Id);
+            _RoomRepository.Update(room);
         }
     }
 }

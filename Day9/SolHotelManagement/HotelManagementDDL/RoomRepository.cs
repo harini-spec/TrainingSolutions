@@ -23,14 +23,15 @@ namespace HotelManagementDAL
             int id = _rooms.Keys.Max();
             return ++id;
         }
+
         public Room Add(Room item)
         {
             if (_rooms.ContainsValue(item))
                 return null;
-            int id = GenerateId();
-            item.Id = id;
-            _rooms.Add(id, item);
-            return _rooms[id];
+            int Id = GenerateId();
+            item.Id = Id;
+            _rooms.Add(Id, item);
+            return _rooms[Id];
         }
 
         public Room Delete(int key)
@@ -46,8 +47,11 @@ namespace HotelManagementDAL
 
         public Room Get(int key)
         {
-            //Console.WriteLine(_rooms[key]);
-            return _rooms.ContainsKey(key) ? _rooms[key] : null;
+            return _rooms[key];
+            //if (_rooms.ContainsKey(key))
+            //    return _rooms[key];
+            //else
+            //    return null;
         }
 
         public List<Room> GetAll()

@@ -9,10 +9,11 @@ namespace HotelManagementBL
 {
     public interface IReservationService
     {
-        List<Reservation> GetReservations(int CustomerID);
-        int AddReservation(Reservation reservation);
+        int AddReservation(Reservation reservation, int roomID);
         Reservation GetReservationByID(int ID);
         Reservation ModifyBooking(Reservation reservation);
         Reservation CancelBooking(int ID);
+        double CalculateCost(Reservation reservation, int RoomID);
+        string AddCancellationPolicy();
     }
 }
