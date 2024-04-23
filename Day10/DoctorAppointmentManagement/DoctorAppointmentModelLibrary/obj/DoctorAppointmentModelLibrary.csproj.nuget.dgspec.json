@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day7\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj": {}
+    "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day10\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day7\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj": {
+    "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day10\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day7\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day10\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj",
         "projectName": "DoctorAppointmentModelLibrary",
-        "projectPath": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day7\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj",
+        "projectPath": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day10\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\DoctorAppointmentModelLibrary.csproj",
         "packagesPath": "C:\\Users\\VC\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day7\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\obj\\",
+        "outputPath": "C:\\Users\\VC\\Desktop\\Presidio\\TrainingSolutions\\Day10\\DoctorAppointmentManagement\\DoctorAppointmentModelLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
