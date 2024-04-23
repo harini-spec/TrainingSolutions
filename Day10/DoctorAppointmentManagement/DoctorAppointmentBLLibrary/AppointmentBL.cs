@@ -11,9 +11,9 @@ namespace DoctorAppointmentBLLibrary
     public class AppointmentBL : IAppointmentService
     {
         readonly IRepository<int, Appointment> _AppointmentRepository;
-        public AppointmentBL()
+        public AppointmentBL(IRepository<int, Appointment> _appointmentRepository)
         {
-            _AppointmentRepository = new AppointmentRepository();
+            _AppointmentRepository = _appointmentRepository;
         }
         public int AddAppointment(Appointment appointment)
         {

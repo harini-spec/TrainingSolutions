@@ -12,9 +12,9 @@ namespace DoctorAppointmentBLLibrary
     {
         readonly IRepository<int, Patient> _PatientRepository;
 
-        public PatientBL()
+        public PatientBL(IRepository<int, Patient> _patientRepository)
         {
-            _PatientRepository = new PatientRepository();
+            _PatientRepository = _patientRepository;
         }
         public int AddPatient(Patient patient)
         {

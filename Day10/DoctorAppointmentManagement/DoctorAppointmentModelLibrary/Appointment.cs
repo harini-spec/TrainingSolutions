@@ -10,29 +10,26 @@ namespace DoctorAppointmentModelLibrary
 {
     public class Appointment
     {
-        Doctor doctor;
+        public int doctorId;
 
-        Patient patient;
+        public int patientId;
         public int Id { get; set; }
         public DateTime AppointmentDate { get; set; }
 
-        public string Status;
         public Appointment()
         {
-            doctor = new Doctor();
-            patient = new Patient();
+            doctorId = 0;
+            patientId = 0;
             Id = 0;
             AppointmentDate = new DateTime();
-            Status = string.Empty;
         }
 
-        public Appointment(int id, DateTime appointmentDate, Doctor doctor, Patient patient, string status)
+        public Appointment(int id, DateTime appointmentDate, int doctor, int patient)
         {
             Id = id;
             AppointmentDate = appointmentDate;
-            this.doctor = doctor;
-            this.patient = patient;
-            Status = status;
+            this.doctorId = doctor;
+            this.patientId = patient;
         }
 
         /// <summary>
@@ -43,7 +40,7 @@ namespace DoctorAppointmentModelLibrary
         public override bool Equals(object? obj)
         {
             Appointment appointment = obj as Appointment;
-            if (this.patient.Name.Equals(appointment.patient.Name) && this.AppointmentDate.Equals(appointment.AppointmentDate))
+            if (this.patientId.Equals(appointment.patientId) && this.doctorId.Equals(appointment.doctorId) && this.AppointmentDate.Equals(appointment.AppointmentDate))
                 return true;
             return false;
         }
@@ -54,7 +51,7 @@ namespace DoctorAppointmentModelLibrary
         /// <returns>Properties as string</returns>
         public override string ToString()
         {
-            return patient.Name + " " + doctor.Name + " " + AppointmentDate + " " + Status;
+            return patientId + " " + doctorId + " " + AppointmentDate;
         }
     }
 }
