@@ -59,10 +59,7 @@ namespace DoctorAppointmentBLLibrary
         {
             Doctor doctor = _DoctorRepository.Get(DoctorId);
             if (doctor != null)
-                if (doctor.Appointments == null)
-                    throw new NoAppointmentsFoundException();
-                else
-                    return doctor.Appointments;
+                return doctor.Appointments;
             throw new DoctorDoesNotExistException();
         }
 
