@@ -8,7 +8,7 @@ namespace DoctorAppointmentModelLibrary
 {
     public class Patient
     {
-        public List<Appointment> Appointments;
+        public List<int> Appointments;
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
@@ -17,7 +17,7 @@ namespace DoctorAppointmentModelLibrary
 
         public Patient()
         {
-            Appointments = new List<Appointment>();
+            Appointments = new List<int>();
             Id = 0;
             Name = string.Empty;
             Age = 0;
@@ -25,7 +25,7 @@ namespace DoctorAppointmentModelLibrary
             Description = string.Empty;
         }
 
-        public Patient(Doctor doctor, List<Appointment> appointments, int id, string name, int age, string gender, string description)
+        public Patient(Doctor doctor, List<int> appointments, int id, string name, int age, string gender, string description)
         {
             this.Appointments = appointments;
             Id = id;

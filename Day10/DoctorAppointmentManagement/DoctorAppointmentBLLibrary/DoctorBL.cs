@@ -59,10 +59,10 @@ namespace DoctorAppointmentBLLibrary
         {
             Doctor doctor = _DoctorRepository.Get(DoctorId);
             if (doctor != null)
-                if (doctor.Appointments == null)
-                    throw new NoAppointmentsFoundException();
-                else
+                if (doctor.Appointments.Count > 0)
                     return doctor.Appointments;
+                else
+                    throw new NoAppointmentsFoundException();
             throw new DoctorDoesNotExistException();
         }
 
@@ -85,7 +85,10 @@ namespace DoctorAppointmentBLLibrary
                     if (doctor.Specialization == specialization)
                         DoctorsInSpecialization.Add(doctor);
                 }
-                return DoctorsInSpecialization;
+                if (DoctorsInSpecialization.Count > 0)
+                    return DoctorsInSpecialization;
+                else
+                    throw new NoDoctorRecordsFoundException();
             }
             throw new NoDoctorRecordsFoundException();
         }

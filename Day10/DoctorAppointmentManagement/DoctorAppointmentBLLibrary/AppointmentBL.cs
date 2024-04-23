@@ -11,9 +11,9 @@ namespace DoctorAppointmentBLLibrary
     public class AppointmentBL : IAppointmentService
     {
         readonly IRepository<int, Appointment> _AppointmentRepository;
-        public AppointmentBL()
+        public AppointmentBL(IRepository<int, Appointment> _appointmentRepository)
         {
-            _AppointmentRepository = new AppointmentRepository();
+            _AppointmentRepository = _appointmentRepository;
         }
         public int AddAppointment(Appointment appointment)
         {
@@ -67,19 +67,10 @@ namespace DoctorAppointmentBLLibrary
                 foreach (var appointment in appointments)
                     if (appointment.AppointmentDate == date)
                         result.Add(appointment);
-                return result;
-            }
-            throw new AppointmentNotFoundException();
-        }
-
-        public Appointment UpdateStatus(int id, string status)
-        {
-            Appointment appointment = _AppointmentRepository.Get(id);
-            if (appointment != null)
-            {
-                appointment.Status = status;
-                _AppointmentRepository.Update(appointment);
-                return appointment;
+                if (result.Count > 0)
+                    return result;
+                else
+                    throw new AppointmentNotFoundException();
             }
             throw new AppointmentNotFoundException();
         }

@@ -12,9 +12,9 @@ namespace DoctorAppointmentBLLibrary
     {
         readonly IRepository<int, Patient> _PatientRepository;
 
-        public PatientBL()
+        public PatientBL(IRepository<int, Patient> _patientRepository)
         {
-            _PatientRepository = new PatientRepository();
+            _PatientRepository = _patientRepository;
         }
         public int AddPatient(Patient patient)
         {
@@ -35,11 +35,14 @@ namespace DoctorAppointmentBLLibrary
             throw new PatientDoesNotExistException();
         }
 
-        public List<Appointment> GetPatientAppointments(int id)
+        public List<int> GetPatientAppointments(int id)
         {
             Patient patient = _PatientRepository.Get(id);
             if (patient != null)
-                return patient.Appointments;
+                if(patient.Appointments.Count > 0)
+                    return patient.Appointments;
+                else 
+                    throw new NoAppointmentsFoundException();
             throw new PatientDoesNotExistException();
         }
 

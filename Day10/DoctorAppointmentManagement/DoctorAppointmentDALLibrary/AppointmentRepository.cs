@@ -69,7 +69,9 @@ namespace DoctorAppointmentDALLibrary
         /// <returns>Appointment record if present, else null</returns>
         public Appointment Get(int key)
         {
-            return _appointments[key] ?? null;
+            if( _appointments.ContainsKey(key))
+                return _appointments[key];
+            return null;
         }
 
         /// <summary>

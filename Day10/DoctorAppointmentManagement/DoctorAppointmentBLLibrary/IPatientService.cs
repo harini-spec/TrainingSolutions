@@ -12,7 +12,7 @@ namespace DoctorAppointmentBLLibrary
         int AddPatient(Patient patient);
         Patient getPatientById(int id);
         Patient ChangePatientName(int PatientId, string NewPatientName);
-        List<Appointment> GetPatientAppointments(int id);
+        List<int> GetPatientAppointments(int id);
 
     }
 }
