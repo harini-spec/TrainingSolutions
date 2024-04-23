@@ -71,17 +71,5 @@ namespace DoctorAppointmentBLLibrary
             }
             throw new AppointmentNotFoundException();
         }
-
-        public Appointment UpdateStatus(int id, string status)
-        {
-            Appointment appointment = _AppointmentRepository.Get(id);
-            if (appointment != null)
-            {
-                appointment.Status = status;
-                _AppointmentRepository.Update(appointment);
-                return appointment;
-            }
-            throw new AppointmentNotFoundException();
-        }
     }
 }

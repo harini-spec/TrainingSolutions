@@ -12,7 +12,6 @@ namespace DoctorAppointmentBLLibrary
         int AddAppointment(Appointment appointment);
         Appointment GetAppointmentById(int id);
         List<Appointment> GetAppointmentsByAppointmentDate(DateTime date);
-        Appointment UpdateStatus(int id, string status);
         Appointment ChangeDate(int id, DateTime newDate);
         Appointment CancelAppointment(int id);
 
