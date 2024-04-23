@@ -50,7 +50,7 @@ namespace DoctorAppointmentDALLibrary
         /// <returns>Deleted Doctor data if present, else null</returns>
         public Doctor Delete(int key)
         {
-            if(_doctors.ContainsKey(key))
+            if (_doctors.ContainsKey(key))
             {
                 Doctor doctor = _doctors[key];
                 _doctors.Remove(key);
@@ -69,7 +69,9 @@ namespace DoctorAppointmentDALLibrary
         /// <returns>Doctor record if present, else null</returns>
         public Doctor Get(int key)
         {
-            return _doctors[key] ?? null;
+            if (_doctors.ContainsKey(key))
+                return _doctors[key];
+            return null;
         }
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace DoctorAppointmentDALLibrary
         /// <returns>Updated Doctor record</returns>
         public Doctor Update(Doctor item)
         {
-            if(_doctors.ContainsValue(item))
+            if (_doctors.ContainsValue(item))
             {
                 _doctors[item.Id] = item;
                 return _doctors[item.Id];

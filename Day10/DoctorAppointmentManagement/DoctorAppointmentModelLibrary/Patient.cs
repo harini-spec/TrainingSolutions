@@ -9,8 +9,6 @@ namespace DoctorAppointmentModelLibrary
     public class Patient
     {
         public List<Appointment> Appointments;
-        public List<Doctor> Doctors;
-
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
@@ -20,18 +18,16 @@ namespace DoctorAppointmentModelLibrary
         public Patient()
         {
             Appointments = new List<Appointment>();
-            Doctors = new List<Doctor>();
             Id = 0;
             Name = string.Empty;
-            Age = 0;    
+            Age = 0;
             Gender = string.Empty;
             Description = string.Empty;
         }
 
-        public Patient(Doctor doctor, List<Appointment> appointments, List<Doctor> doctors, int id, string name, int age, string gender, string description)
+        public Patient(Doctor doctor, List<Appointment> appointments, int id, string name, int age, string gender, string description)
         {
             this.Appointments = appointments;
-            this.Doctors = doctors;
             Id = id;
             Name = name;
             Age = age;
@@ -47,7 +43,7 @@ namespace DoctorAppointmentModelLibrary
         public override bool Equals(object? obj)
         {
             Patient patient = obj as Patient;
-            if(this.Name.Equals(patient.Name) && this.Description.Equals(patient.Description))
+            if (this.Name.Equals(patient.Name) && this.Description.Equals(patient.Description))
                 return true;
             return false;
         }

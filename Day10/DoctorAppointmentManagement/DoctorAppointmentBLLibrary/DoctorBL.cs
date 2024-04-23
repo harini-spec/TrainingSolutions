@@ -13,9 +13,9 @@ namespace DoctorAppointmentBLLibrary
     {
         readonly IRepository<int, Doctor> _DoctorRepository;
 
-        public DoctorBL()
+        public DoctorBL(IRepository<int, Doctor> _doctorRepository)
         {
-            _DoctorRepository = new DoctorRepository();
+            _DoctorRepository = _doctorRepository;
         }
 
         public int AddDoctor(Doctor doctor)
@@ -31,12 +31,12 @@ namespace DoctorAppointmentBLLibrary
         public Doctor ChangeName(int DoctorID, string DoctorNewName)
         {
             Doctor doctor = _DoctorRepository.Get(DoctorID);
-            if(doctor != null)
+            if (doctor != null)
             {
                 doctor.Name = DoctorNewName;
                 return (_DoctorRepository.Update(doctor));
             }
-            throw new DoctorDoesNotExistException();            
+            throw new DoctorDoesNotExistException();
         }
 
         public List<Doctor> GetAllDoctors()
@@ -47,18 +47,29 @@ namespace DoctorAppointmentBLLibrary
             throw new NoDoctorRecordsFoundException();
         }
 
+        public Doctor DeleteDoctor(int id)
+        {
+            Doctor doctor = _DoctorRepository.Get(id);
+            if (doctor != null)
+                return _DoctorRepository.Delete(id);
+            throw new DoctorDoesNotExistException();
+        }
+
         public List<int> GetDoctorAppointments(int DoctorId)
         {
             Doctor doctor = _DoctorRepository.Get(DoctorId);
             if (doctor != null)
-                return doctor.Appointments;
+                if (doctor.Appointments == null)
+                    throw new NoAppointmentsFoundException();
+                else
+                    return doctor.Appointments;
             throw new DoctorDoesNotExistException();
         }
 
         public Doctor GetDoctorByID(int id)
         {
             Doctor doctor = _DoctorRepository.Get(id);
-            if(doctor != null)
+            if (doctor != null)
                 return doctor;
             throw new DoctorDoesNotExistException();
         }
@@ -67,11 +78,11 @@ namespace DoctorAppointmentBLLibrary
         {
             List<Doctor> doctors = _DoctorRepository.GetAll();
             List<Doctor> DoctorsInSpecialization = new List<Doctor>();
-            if(doctors != null)
+            if (doctors != null)
             {
-                foreach(var doctor in doctors)
+                foreach (var doctor in doctors)
                 {
-                    if(doctor.Specialization == specialization)
+                    if (doctor.Specialization == specialization)
                         DoctorsInSpecialization.Add(doctor);
                 }
                 return DoctorsInSpecialization;

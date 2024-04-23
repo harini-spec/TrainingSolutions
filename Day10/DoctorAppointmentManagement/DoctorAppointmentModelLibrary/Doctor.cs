@@ -1,10 +1,10 @@
-﻿namespace DoctorAppointmentModelLibrary
+﻿using DoctorAppointmentBLLibrary;
+
+namespace DoctorAppointmentModelLibrary
 {
     public class Doctor
     {
         public List<int> Appointments;
-        public List<int> Patients;
-
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
@@ -15,7 +15,6 @@
         public Doctor()
         {
             Appointments = new List<int>();
-            Patients = new List<int>();
             Id = 0;
             Name = string.Empty;
             Age = 0;
@@ -24,9 +23,8 @@
             Experience = 0;
         }
 
-        public Doctor(int id, string name, int age, string specialization, string qualification, int experience, List<int> patients, List<int> appointments)
+        public Doctor(int id, string name, int age, string specialization, string qualification, int experience, List<int> appointments)
         {
-            Patients = patients;
             Appointments = appointments;
             Id = id;
             Name = name;
@@ -44,7 +42,7 @@
         public override bool Equals(object? obj)
         {
             Doctor doctor = obj as Doctor;
-            if(doctor.Name == this.Name && doctor.Age == this.Age && doctor.Qualification == this.Qualification && doctor.Experience == this.Experience)
+            if (doctor.Name == this.Name && doctor.Age == this.Age && doctor.Qualification == this.Qualification && doctor.Experience == this.Experience && doctor.Specialization == this.Specialization)
                 return true;
             return false;
         }

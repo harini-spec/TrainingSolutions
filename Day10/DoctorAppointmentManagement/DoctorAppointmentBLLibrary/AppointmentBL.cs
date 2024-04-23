@@ -11,14 +11,14 @@ namespace DoctorAppointmentBLLibrary
     public class AppointmentBL : IAppointmentService
     {
         readonly IRepository<int, Appointment> _AppointmentRepository;
-        public AppointmentBL() 
+        public AppointmentBL()
         {
             _AppointmentRepository = new AppointmentRepository();
         }
         public int AddAppointment(Appointment appointment)
         {
             var result = _AppointmentRepository.Add(appointment);
-            if(result != null)
+            if (result != null)
             {
                 return result.Id;
             }
@@ -28,7 +28,7 @@ namespace DoctorAppointmentBLLibrary
         public Appointment CancelAppointment(int id)
         {
             Appointment appointment = _AppointmentRepository.Get(id);
-            if(appointment != null)
+            if (appointment != null)
             {
                 _AppointmentRepository.Delete(id);
                 return appointment;
@@ -39,7 +39,7 @@ namespace DoctorAppointmentBLLibrary
         public Appointment ChangeDate(int id, DateTime newDate)
         {
             Appointment appointment = _AppointmentRepository.Get(id);
-            if(appointment != null)
+            if (appointment != null)
             {
                 appointment.AppointmentDate = newDate;
                 _AppointmentRepository.Update(appointment);
@@ -62,10 +62,10 @@ namespace DoctorAppointmentBLLibrary
         {
             List<Appointment> appointments = _AppointmentRepository.GetAll();
             List<Appointment> result = new List<Appointment>();
-            if(appointments != null)
+            if (appointments != null)
             {
-                foreach(var appointment in appointments)
-                    if(appointment.AppointmentDate == date)
+                foreach (var appointment in appointments)
+                    if (appointment.AppointmentDate == date)
                         result.Add(appointment);
                 return result;
             }

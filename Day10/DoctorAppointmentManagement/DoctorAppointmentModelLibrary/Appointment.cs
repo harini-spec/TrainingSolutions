@@ -17,8 +17,8 @@ namespace DoctorAppointmentModelLibrary
         public DateTime AppointmentDate { get; set; }
 
         public string Status;
-        public Appointment() 
-        { 
+        public Appointment()
+        {
             doctor = new Doctor();
             patient = new Patient();
             Id = 0;
@@ -43,7 +43,7 @@ namespace DoctorAppointmentModelLibrary
         public override bool Equals(object? obj)
         {
             Appointment appointment = obj as Appointment;
-            if(this.patient.Name.Equals(appointment.patient.Name) && this.AppointmentDate.Equals(appointment.AppointmentDate))
+            if (this.patient.Name.Equals(appointment.patient.Name) && this.AppointmentDate.Equals(appointment.AppointmentDate))
                 return true;
             return false;
         }
