@@ -67,7 +67,10 @@ namespace DoctorAppointmentBLLibrary
                 foreach (var appointment in appointments)
                     if (appointment.AppointmentDate == date)
                         result.Add(appointment);
-                return result;
+                if (result.Count > 0)
+                    return result;
+                else
+                    throw new AppointmentNotFoundException();
             }
             throw new AppointmentNotFoundException();
         }
