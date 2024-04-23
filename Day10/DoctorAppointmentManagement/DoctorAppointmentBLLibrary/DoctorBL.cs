@@ -13,7 +13,7 @@ namespace DoctorAppointmentBLLibrary
     {
         readonly IRepository<int, Doctor> _DoctorRepository;
 
-        DoctorBL()
+        public DoctorBL()
         {
             _DoctorRepository = new DoctorRepository();
         }
@@ -30,7 +30,6 @@ namespace DoctorAppointmentBLLibrary
 
         public Doctor ChangeName(int DoctorID, string DoctorNewName)
         {
-            List<Doctor> doctors = _DoctorRepository.GetAll();
             Doctor doctor = _DoctorRepository.Get(DoctorID);
             if(doctor != null)
             {

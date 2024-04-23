@@ -16,7 +16,7 @@ namespace DoctorAppointmentModelLibrary
         public int Id { get; set; }
         public DateTime AppointmentDate { get; set; }
 
-        string Status;
+        public string Status;
         public Appointment() 
         { 
             doctor = new Doctor();

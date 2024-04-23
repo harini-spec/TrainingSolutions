@@ -1,4 +1,5 @@
-﻿using DoctorAppointmentModelLibrary;
+﻿using DoctorAppointmentDALLibrary;
+using DoctorAppointmentModelLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,34 +10,78 @@ namespace DoctorAppointmentBLLibrary
 {
     public class AppointmentBL : IAppointmentService
     {
+        readonly IRepository<int, Appointment> _AppointmentRepository;
+        public AppointmentBL() 
+        {
+            _AppointmentRepository = new AppointmentRepository();
+        }
         public int AddAppointment(Appointment appointment)
         {
-            throw new NotImplementedException();
+            var result = _AppointmentRepository.Add(appointment);
+            if(result != null)
+            {
+                return result.Id;
+            }
+            throw new AppointmentNotFoundException();
         }
 
         public Appointment CancelAppointment(int id)
         {
-            throw new NotImplementedException();
+            Appointment appointment = _AppointmentRepository.Get(id);
+            if(appointment != null)
+            {
+                _AppointmentRepository.Delete(id);
+                return appointment;
+            }
+            throw new AppointmentNotFoundException();
         }
 
         public Appointment ChangeDate(int id, DateTime newDate)
         {
-            throw new NotImplementedException();
+            Appointment appointment = _AppointmentRepository.Get(id);
+            if(appointment != null)
+            {
+                appointment.AppointmentDate = newDate;
+                _AppointmentRepository.Update(appointment);
+                return appointment;
+            }
+            throw new AppointmentNotFoundException();
         }
 
         public Appointment GetAppointmentById(int id)
         {
-            throw new NotImplementedException();
+            Appointment appointment = _AppointmentRepository.Get(id);
+            if (appointment != null)
+            {
+                return appointment;
+            }
+            throw new AppointmentNotFoundException();
         }
 
         public List<Appointment> GetAppointmentsByAppointmentDate(DateTime date)
         {
-            throw new NotImplementedException();
+            List<Appointment> appointments = _AppointmentRepository.GetAll();
+            List<Appointment> result = new List<Appointment>();
+            if(appointments != null)
+            {
+                foreach(var appointment in appointments)
+                    if(appointment.AppointmentDate == date)
+                        result.Add(appointment);
+                return result;
+            }
+            throw new AppointmentNotFoundException();
         }
 
         public Appointment UpdateStatus(int id, string status)
         {
-            throw new NotImplementedException();
+            Appointment appointment = _AppointmentRepository.Get(id);
+            if (appointment != null)
+            {
+                appointment.Status = status;
+                _AppointmentRepository.Update(appointment);
+                return appointment;
+            }
+            throw new AppointmentNotFoundException();
         }
     }
 }

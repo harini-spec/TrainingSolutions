@@ -11,10 +11,8 @@ namespace DoctorAppointmentBLLibrary
     {
         int AddPatient(Patient patient);
         Patient getPatientById(int id);
-        Patient ChangePatientName(string OldPatientName, string NewPatientName);
-        Patient UpdatePatientHistory(int id, string PastAppointmentSummary);
+        Patient ChangePatientName(int PatientId, string NewPatientName);
         List<Appointment> GetPatientAppointments(int id);
-        Patient GetPatientHistory(int id);
 
     }
 }
