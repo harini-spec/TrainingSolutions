@@ -39,7 +39,10 @@ namespace DoctorAppointmentBLLibrary
         {
             Patient patient = _PatientRepository.Get(id);
             if (patient != null)
-                return patient.Appointments;
+                if(patient.Appointments.Count > 0)
+                    return patient.Appointments;
+                else 
+                    throw new NoAppointmentsFoundException();
             throw new PatientDoesNotExistException();
         }
 
