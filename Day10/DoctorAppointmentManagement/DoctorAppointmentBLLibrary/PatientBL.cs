@@ -19,22 +19,12 @@ namespace DoctorAppointmentBLLibrary
             throw new NotImplementedException();
         }
 
-        public Patient DeletePatientById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Appointment> GetPatientAppointments(int id)
         {
             throw new NotImplementedException();
         }
 
         public Patient getPatientById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Patient getPatientByName(string PatientName)
         {
             throw new NotImplementedException();
         }

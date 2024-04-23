@@ -2,8 +2,8 @@
 {
     public class Doctor
     {
-        List<Appointment> Appointments;
-        List<Patient> Patients;
+        public List<int> Appointments;
+        public List<int> Patients;
 
         public int Id { get; set; }
         public string Name { get; set; }
@@ -14,8 +14,8 @@
 
         public Doctor()
         {
-            Appointments = new List<Appointment>();
-            Patients = new List<Patient>();
+            Appointments = new List<int>();
+            Patients = new List<int>();
             Id = 0;
             Name = string.Empty;
             Age = 0;
@@ -24,7 +24,7 @@
             Experience = 0;
         }
 
-        public Doctor(int id, string name, int age, string specialization, string qualification, int experience, List<Patient> patients, List<Appointment> appointments)
+        public Doctor(int id, string name, int age, string specialization, string qualification, int experience, List<int> patients, List<int> appointments)
         {
             Patients = patients;
             Appointments = appointments;

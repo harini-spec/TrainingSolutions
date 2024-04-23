@@ -34,16 +34,6 @@ namespace DoctorAppointmentBLLibrary
             throw new NotImplementedException();
         }
 
-        public List<Appointment> GetAppointmentsByDoctorName(string DoctorName)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Appointment> GetAppointmentsByPatientName(string PatientName)
-        {
-            throw new NotImplementedException();
-        }
-
         public Appointment UpdateStatus(int id, string status)
         {
             throw new NotImplementedException();
