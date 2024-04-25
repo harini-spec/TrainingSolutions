@@ -12,7 +12,7 @@ namespace ShoppingBLLibrary
         public Customer AddCustomer(Customer customer);
         public Customer GetCustomer(int id);
         public Customer UpdateCustomer(Customer customer);
-        public Customer DeleteCustomer(Customer customer);
+        public Customer DeleteCustomer(int id);
 
     }
 }
