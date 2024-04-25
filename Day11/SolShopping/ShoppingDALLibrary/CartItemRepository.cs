@@ -13,7 +13,8 @@ namespace ShoppingDALLibrary
         List<CartItem> cartItems = new List<CartItem>();
         public CartItem Add(CartItem item)
         {
-            if (cartItems != null)
+            if(cartItems.Contains(item)) { throw new CartItemAlreadyExistsException(); }
+            if (item != null)
             {
                 cartItems.Add(item);
                 return item;
@@ -40,12 +41,25 @@ namespace ShoppingDALLibrary
 
         public CartItem GetByKey(int CartId, int productId)
         {
+            bool cart = false, pdt = false;
             for(int i = 0; i < cartItems.Count; i++)
             {
                 if (cartItems[i].CartId == CartId && cartItems[i].ProductId == productId)
+                {
+                    cart = true;
+                    pdt = true;
                     return cartItems[i];
+                }
+                else if (cartItems[i].CartId == CartId)
+                    cart = true;
+                else if (cartItems[i].ProductId == productId)
+                    pdt = true;
             }
-            throw new NoCartItemWithGivenIdException();
+            if(!cart)
+                throw new NoCartWithGivenIdException();
+            if (!pdt)
+                throw new NoProductWithGivenIdException();
+            return null;
         }
 
         public CartItem Update(CartItem item)

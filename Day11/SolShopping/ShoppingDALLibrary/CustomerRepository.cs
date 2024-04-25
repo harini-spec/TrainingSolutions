@@ -13,6 +13,7 @@ namespace ShoppingDALLibrary
 
         public override Customer Add(Customer item)
         {
+            if (items.Contains(item)) throw new CustomerAlreadyExistsException();
             if(item != null)
             {
                 item.Id = GenerateId();

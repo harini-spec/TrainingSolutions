@@ -3,6 +3,7 @@ using ShoppingModelLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace ShoppingDALLibrary
 
         public override Cart Add(Cart item)
         {
+            if(items.Contains(item)) throw new CartAlreadyExistsException();
             if (item != null)
             {
                 item.Id = GenerateId();
