@@ -9,7 +9,7 @@ namespace ShoppingBLLibrary
 {
     public interface ICartItemService
     {
-        public CartItem AddCartItem(CartItem cartItem);
+        public CartItem AddCartItem(CartItem cartItem, Product product);
         public double CalculateCost(CartItem cartItem); 
         public CartItem UpdateCartItem(CartItem cartItem);
         public CartItem DeleteCartItem(CartItem cartItem);

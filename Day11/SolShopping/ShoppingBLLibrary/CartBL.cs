@@ -17,11 +17,14 @@ namespace ShoppingBLLibrary
             _CartRepository = cartRepository;
         }
 
-        public Cart AddCart(Cart cart)
+        public Cart AddCart(Cart cart, Customer customer)
         {
             Cart NewCart = new Cart();
             try
             {
+                if (customer == null)
+                    throw new NullDataException();
+                cart.Customer = customer;
                 NewCart = _CartRepository.Add(cart);
             }
             catch (NullDataException)

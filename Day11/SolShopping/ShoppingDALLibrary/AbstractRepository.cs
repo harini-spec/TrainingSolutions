@@ -8,7 +8,7 @@ namespace ShoppingDALLibrary
 {
     public abstract class AbstractRepository<K, T> : IRepository<K, T>
     {
-        protected IList<T> items = new List<T>();
+        protected List<T> items = new List<T>();
         public int GenerateId()
         {
             if (items.Count == 0)
@@ -21,9 +21,11 @@ namespace ShoppingDALLibrary
             items.Add(item);
             return item;
         }
+
         public virtual ICollection<T> GetAll()
         {
-            if(items.ToList<T>().Count != 0)
+
+            if (items.ToList<T>().Count != 0)
                 return items.ToList<T>();
             throw new NoRecordsFoundException();
         }

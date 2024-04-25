@@ -16,11 +16,14 @@ namespace ShoppingBLLibrary
         {
             _CartItemRepository = cartItemRepository;
         }
-        public CartItem AddCartItem(CartItem cartItem)
+        public CartItem AddCartItem(CartItem cartItem, Product product)
         {
             CartItem NewCartItem = new CartItem();
             try
             {
+                if (product == null)
+                    throw new NullDataException();
+                cartItem.Product = product;
                 cartItem.Price = CalculateCost(cartItem);
                 NewCartItem = _CartItemRepository.Add(NewCartItem);
             }
