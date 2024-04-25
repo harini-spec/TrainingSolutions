@@ -22,15 +22,19 @@ namespace ShoppingBLLibrary
             {
                 throw new NullDataException();
             }
+            catch(CustomerAlreadyExistsException) 
+            { 
+                throw new CustomerAlreadyExistsException(); 
+            }
             return NewCustomer;
         }
 
-        public Customer DeleteCustomer(Customer customer)
+        public Customer DeleteCustomer(int id)
         {
             Customer DeletedCustomer = new Customer();
             try
             {
-                DeletedCustomer = _CustomerRepository.Delete(customer.Id);
+                DeletedCustomer = _CustomerRepository.Delete(id);
             }
             catch(NoCustomerWithGivenIdException)
             {
