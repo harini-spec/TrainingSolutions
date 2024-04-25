@@ -16,25 +16,20 @@ namespace ShoppingRepositoryTest
         {
             CartRepository = new CartRepository();
             List<CartItem> cartItems1 = new List<CartItem>();
-            Product product1 = new Product() { Id = 1, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem1 = new CartItem() { ProductId = 1, CartId = 1, Product = product1, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem1 = new CartItem() { ProductId = 1, CartId = 1, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems1.Add(cartItem1);
 
-            Product product2 = new Product() { Id = 1, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem2 = new CartItem() { ProductId = 2, CartId = 1, Product = product2, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem2 = new CartItem() { ProductId = 2, CartId = 1, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems1.Add(cartItem2);
 
-            Product product3 = new Product() { Id = 1, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem3 = new CartItem() { ProductId = 3, CartId = 1, Product = product3, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem3 = new CartItem() { ProductId = 3, CartId = 1, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems1.Add(cartItem3);
 
-            Product product4 = new Product() { Id = 1, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem4 = new CartItem() { ProductId = 4, CartId = 1, Product = product4, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem4 = new CartItem() { ProductId = 4, CartId = 1, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems1.Add(cartItem4);
 
             List<CartItem> cartItems2 = new List<CartItem>();
-            Product product = new Product() { Id = 2, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem5 = new CartItem() { ProductId = 1, CartId = 2, Product = product, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem5 = new CartItem() { ProductId = 1, CartId = 2, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems2.Add(cartItem5);
 
             Customer customer1 = new Customer() { Id = 1, Name = "Hana", Phone = "9999999999", Age = 19 };
@@ -51,8 +46,7 @@ namespace ShoppingRepositoryTest
         {
             // Arrange
             List<CartItem> cartItems = new List<CartItem>();
-            Product product = new Product() { Id = 1, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 3, Product = product, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 3, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems.Add(cartItem);
 
             Customer customer = new Customer() { Id = 3, Name = "Sana", Phone = "9999999999", Age = 19 };
@@ -70,8 +64,7 @@ namespace ShoppingRepositoryTest
         {
             // Arrange
             List<CartItem> cartItems = new List<CartItem>();
-            Product product = new Product() { Id = 3, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 2, Product = product, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 2, Quantity = 5, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems.Add(cartItem);
 
             Customer customer = new Customer() { Id = 2, Name = "Sana", Phone = "9999999999", Age = 19 };
@@ -142,8 +135,7 @@ namespace ShoppingRepositoryTest
         {
             // Arrange
             List<CartItem> cartItems = new List<CartItem>();
-            Product product = new Product() { Id = 2, Price = 100, Name = "Toothpaste", QuantityInHand = 500 };
-            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 2, Product = product, Quantity = 10, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
+            CartItem cartItem = new CartItem() { ProductId = 1, CartId = 2, Quantity = 10, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             cartItems.Add(cartItem);
 
             Customer customer = new Customer() { Id = 1, Name = "Hana", Phone = "9999999999", Age = 19 };

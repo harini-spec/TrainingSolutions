@@ -15,11 +15,10 @@ namespace ShoppingModelLibrary
         public double Discount { get; set; }
         public DateTime PriceExpiryDate { get; set; }
 
-        public CartItem(int cartId, int productId, Product product, int quantity, double discount, DateTime priceExpiryDate)
+        public CartItem(int cartId, int productId, int quantity, double discount, DateTime priceExpiryDate)
         {
             CartId = cartId;
             ProductId = productId;
-            Product = product;
             Quantity = quantity;
             Discount = discount;
             PriceExpiryDate = priceExpiryDate;
