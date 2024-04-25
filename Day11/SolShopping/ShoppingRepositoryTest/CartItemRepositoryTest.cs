@@ -12,10 +12,9 @@ namespace ShoppingRepositoryTest
         public void Setup()
         {
             CartItemRepository = new CartItemRepository();
-            Product product1 = new Product() { Id = 1, Name = "ToothPaste", Price = 100, QuantityInHand = 5};
-            Product product2 = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 5 };
-            CartItem cartItem1 = new CartItem() { CartId = 1, ProductId = 1, Product = product1, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24)};
-            CartItem cartItem2 = new CartItem() { CartId = 1, ProductId = 2, Product = product2, Quantity = 3, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+
+            CartItem cartItem1 = new CartItem() { CartId = 1, ProductId = 1, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24)};
+            CartItem cartItem2 = new CartItem() { CartId = 1, ProductId = 2, Quantity = 3, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
             CartItemRepository.Add(cartItem1);
             CartItemRepository.Add(cartItem2);
         }
@@ -24,8 +23,7 @@ namespace ShoppingRepositoryTest
         public void AddSuccessTest()
         {
             // Arrange
-            Product product = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 10 };
-            CartItem cartItem = new CartItem() { CartId = 3, ProductId = 2, Product = product, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+            CartItem cartItem = new CartItem() { CartId = 3, ProductId = 2, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
 
             // Action 
             var result = CartItemRepository.Add(cartItem);
@@ -39,8 +37,7 @@ namespace ShoppingRepositoryTest
         public void AddFailTest()
         {
             // Arrange
-            Product product = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 10 };
-            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 1, Product = product, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 1, Quantity = 7, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
 
             // Action 
             var exception = Assert.Throws<CartItemAlreadyExistsException>(() => CartItemRepository.Add(cartItem));
@@ -126,8 +123,7 @@ namespace ShoppingRepositoryTest
         public void UpdateSuccessTest()
         {
             // Arrange
-            Product product = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 5 };
-            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 1, Product = product, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 1, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
 
             // Action 
             var result = CartItemRepository.Update(cartItem);
@@ -140,8 +136,7 @@ namespace ShoppingRepositoryTest
         public void UpdateCartIdFailTest()
         {
             // Arrange
-            Product product = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 5 };
-            CartItem cartItem = new CartItem() { CartId = 3, ProductId = 1, Product = product, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+            CartItem cartItem = new CartItem() { CartId = 3, ProductId = 1, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
 
 
             // Action 
@@ -155,8 +150,7 @@ namespace ShoppingRepositoryTest
         public void UpdateProductIdFailTest()
         {
             // Arrange
-            Product product = new Product() { Id = 2, Name = "Conditioner", Price = 500, QuantityInHand = 5 };
-            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 3, Product = product, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
+            CartItem cartItem = new CartItem() { CartId = 1, ProductId = 3, Quantity = 10, Discount = 0, PriceExpiryDate = DateTime.Now.AddHours(24) };
 
             // Action 
             var exception = Assert.Throws<NoProductWithGivenIdException>(() => CartItemRepository.Update(cartItem));

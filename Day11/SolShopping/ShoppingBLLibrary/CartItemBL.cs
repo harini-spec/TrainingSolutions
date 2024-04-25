@@ -3,6 +3,7 @@ using ShoppingModelLibrary;
 using ShoppingModelLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,6 @@ namespace ShoppingBLLibrary
 
         public bool CheckProductAvailability(CartItem cartItem, Product product)
         {
-            if (product == null) { throw new NoProductWithGivenIdException(); }
             if (product.QuantityInHand - cartItem.Quantity < 0)
                 return false;
             return true;
@@ -33,15 +33,17 @@ namespace ShoppingBLLibrary
             CartItem NewCartItem = new CartItem();
             try
             {
+                if (cartItem == null)
+                    throw new NullDataException();
                 Product product = _ProductRepository.GetByKey(ProductId);
                 if(CheckProductAvailability(cartItem, product))
                 {
                     cartItem.ProductId = ProductId;
                     cartItem.PriceExpiryDate = DateTime.Now.AddHours(24);
                     cartItem = CalculateCost(cartItem, product);
-                    NewCartItem = _CartItemRepository.Add(NewCartItem);
+                    NewCartItem = _CartItemRepository.Add(cartItem);
                     product.QuantityInHand = product.QuantityInHand - cartItem.Quantity;
-                    _ProductRepository.Add(product);
+                    _ProductRepository.Update(product);
                 }
                 else
                 {
@@ -67,15 +69,12 @@ namespace ShoppingBLLibrary
             return NewCartItem;
         }
 
+        [ExcludeFromCodeCoverage]
         public CartItem CalculateCost(CartItem cartItem, Product product)
         {
             cartItem.Discount = 0;
             if (cartItem.Quantity > 5)
                 throw new CartFullException();
-            if(cartItem == null)
-            {
-                throw new NullDataException();
-            }
             double TotalCost, TotalBeforeDiscount;
             TotalBeforeDiscount = cartItem.Quantity * product.Price;
             if (cartItem.Discount != 0)
@@ -114,15 +113,20 @@ namespace ShoppingBLLibrary
             CartItem UpdatedCartItem = new CartItem();
             try
             {
+                if (oldCartItem == null || cartItem == null) throw new NullDataException();
                 Product product = _ProductRepository.GetByKey(cartItem.ProductId);
                 if (CheckProductAvailability(cartItem, product))
                 {
                     cartItem = CalculateCost(cartItem, product);
-                    UpdatedCartItem = _CartItemRepository.Update(UpdatedCartItem);
+                    UpdatedCartItem = _CartItemRepository.Update(cartItem);
                     product.QuantityInHand += oldCartItem.Quantity - cartItem.Quantity;
                     _ProductRepository.Update(product);
                 }
                 else throw new NotEnoughStockException();
+            }
+            catch(NullDataException)
+            {
+                throw new NullDataException();
             }
             catch (NotEnoughStockException)
             {
