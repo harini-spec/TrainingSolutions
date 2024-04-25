@@ -27,15 +27,19 @@ namespace ShoppingBLLibrary
             {
                 throw new NullDataException();
             }
+            catch(ProductAlreadyExistsException) 
+            { 
+                throw new ProductAlreadyExistsException(); 
+            } 
             return NewProduct;
         }
 
-        public Product DeleteProduct(Product product)
+        public Product DeleteProduct(int id)
         {
             Product DeletedProduct = new Product();
             try
             {
-                DeletedProduct = _ProductRepository.Delete(product.Id);
+                DeletedProduct = _ProductRepository.Delete(id);
             }
             catch (NoProductWithGivenIdException)
             {
