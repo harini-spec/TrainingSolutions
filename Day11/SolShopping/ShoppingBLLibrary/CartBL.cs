@@ -25,6 +25,7 @@ namespace ShoppingBLLibrary
                 if (customer == null)
                     throw new NullDataException();
                 cart.Customer = customer;
+                cart.CustomerId = customer.Id;
                 NewCart = _CartRepository.Add(cart);
             }
             catch (NullDataException)
@@ -48,6 +49,64 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
+        public Cart UpdateCartItem(int CartId, CartItem cartItem)
+        {
+            Cart cart = new Cart();
+            Cart UpdatedCart = new Cart();
+            try
+            {
+                if(cartItem == null)
+                    throw new NullDataException();
+                cart = _CartRepository.GetByKey(CartId);
+
+                cart.CartItems.Add(cartItem);
+                cart = CalculateTotalPrice(cart);
+
+                CartItem UpdatedCartItem = new CartItem();
+                foreach (var Item in cart.CartItems)
+                {
+                    if (Item.ProductId == cartItem.ProductId)
+                        UpdatedCartItem = cartItem;
+                }
+                UpdatedCart = _CartRepository.Update(cart);
+            }
+
+            catch (NullDataException)
+            {
+                throw new NullDataException();
+            }
+            catch (NoCartWithGivenIdException)
+            {
+                throw new NoCartWithGivenIdException();
+            }
+            return UpdatedCart;
+        }
+        public Cart DeleteCartItem(int CartId, CartItem cartItem)
+        {
+            Cart cart = new Cart();
+            Cart DeletedCartItem = new Cart();
+            try
+            {
+                if (cartItem == null)
+                    throw new NullDataException();
+                cart = _CartRepository.GetByKey(CartId);
+                cart.CartItems.Remove(cartItem);
+                cart = CalculateTotalPrice(cart);
+
+                DeletedCartItem = _CartRepository.Update(cart);
+            }
+
+            catch (NullDataException)
+            {
+                throw new NullDataException();
+            }
+            catch (NoCartWithGivenIdException)
+            {
+                throw new NoCartWithGivenIdException();
+            }
+            return DeletedCartItem;
+        }
+
         public Cart AddCartItem(int CartId, CartItem cartItem)
         {
             Cart cart = new Cart();
@@ -57,16 +116,13 @@ namespace ShoppingBLLibrary
                 if (cartItem == null)
                     throw new NullDataException();
                 cart = _CartRepository.GetByKey(CartId);
-                if (cart.CartItems.Count >= 5)
-                    throw new CartFullException();
+
                 cart.CartItems.Add(cartItem);
-                cart.TotalPrice = CalculateTotalPrice(cart);
+                cart = CalculateTotalPrice(cart);
+                
                 UpdatedCart = _CartRepository.Update(cart);
             }
-            catch (CartFullException)
-            {
-                throw new CartFullException();
-            }
+
             catch(NullDataException)
             {
                 throw new NullDataException();
@@ -75,10 +131,10 @@ namespace ShoppingBLLibrary
             {
                 throw new NoCartWithGivenIdException();
             }
-            return cart;
+            return UpdatedCart;
         }
 
-        public double CalculateTotalPrice(Cart cart)
+        public Cart CalculateTotalPrice(Cart cart)
         {
             double TotalCost = 0;
             int TotalQuantity = 0;
@@ -88,11 +144,20 @@ namespace ShoppingBLLibrary
                 TotalQuantity += cart.CartItems[i].Quantity;
             }
 
-            if (TotalQuantity == 3 && TotalCost == 1500)
-                TotalCost = TotalCost - (TotalCost * 5 / 100);
+            // Discount
+            if (TotalQuantity == 3 && TotalCost >= 1500)
+                cart.Discount = 5;
+           
+            // Shipping
             if (cart.TotalPrice < 100)
-                TotalCost += 100;
-            return TotalCost;
+                cart.ShippingCharges = 100;
+
+            if(cart.Discount != 0)
+                cart.TotalPrice = cart.ShippingCharges + (TotalCost - (TotalCost * (cart.Discount / 100)));
+            else
+                cart.TotalPrice = cart.ShippingCharges + TotalCost;
+
+            return cart; ;
         }
 
         public Cart DeleteCart(Cart cart)

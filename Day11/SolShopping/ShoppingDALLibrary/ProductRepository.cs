@@ -12,6 +12,7 @@ namespace ShoppingDALLibrary
     {
         public override Product Add(Product item)
         {
+            if( items.Contains(item) ) { throw new ProductAlreadyExistsException(); }
             if (item != null)
             {
                 item.Id = GenerateId();

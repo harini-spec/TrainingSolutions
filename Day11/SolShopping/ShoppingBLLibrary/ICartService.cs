@@ -13,7 +13,9 @@ namespace ShoppingBLLibrary
         public Cart GetCart(int id);
         public List<CartItem> GetAllCartItemDetails(int id);
         public Cart AddCartItem(int CartId, CartItem cartItem);
-        public double CalculateTotalPrice(Cart cart);
+        public Cart UpdateCartItem(int CartId, CartItem cartItem);
+        public Cart DeleteCartItem(int CartId, CartItem cartItem);
+        public Cart CalculateTotalPrice(Cart cart);
         public Cart DeleteCart(Cart cart);
     }
 }

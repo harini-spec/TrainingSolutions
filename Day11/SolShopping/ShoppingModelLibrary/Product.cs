@@ -7,6 +7,8 @@
         public string Name { get; set; } = string.Empty;
         public string? Image { get; set; }
         public int QuantityInHand { get; set; }
+
+
         public override string ToString()
         {
             return "Id : " + Id +
@@ -17,13 +19,9 @@
 
         public bool Equals(Product? other)
         {
-            return this.Id.Equals(other.Id);
+            return this.Name.Equals(other.Name);
         }
 
-        public Product()
-        {
-
-        }
         public Product(int id, double price, string name, int quantityInHand)
         {
             Id = id;
@@ -40,5 +38,8 @@
             QuantityInHand = quantityInHand;
         }
 
+        public Product()
+        {
+        }
     }
 }
