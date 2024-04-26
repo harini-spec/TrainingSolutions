@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingModelLibrary 
 {
+    
     public class Cart : IEquatable<Cart>
     {
         public int Id { get; set; }
@@ -22,6 +23,13 @@ namespace ShoppingModelLibrary
             TotalPrice = 0;
             Discount = 0;
             ShippingCharges = 0;
+        }
+
+        public Cart(int customerId, Customer customer, List<CartItem> cartItems)
+        {
+            CustomerId = customerId;
+            Customer = customer;
+            CartItems = cartItems;
         }
 
         public Cart(int customerId, Customer customer, List<CartItem> cartItems, double totalPrice, double discount, int shippingCharges)

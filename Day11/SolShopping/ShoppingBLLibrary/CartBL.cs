@@ -28,10 +28,8 @@ namespace ShoppingBLLibrary
             Cart cart = new Cart();
             try
             {
-                if (CustomerID == 0)
-                    throw new NoCustomerWithGivenIdException();
                 Customer customer = _CustomerRepository.GetByKey(CustomerID);
-                cart.CustomerId = customer.Id;
+                cart.CustomerId = CustomerID;
                 cart.Customer = customer;
                 cart = _CartRepository.Add(cart);
             }
@@ -59,18 +57,18 @@ namespace ShoppingBLLibrary
         public Cart AddCartItem(int CartId, int CustomerId, int ProductId, int ProductQuantity)
         {
             Cart cart = new Cart();
-            if (CartId == 0)
-                cart = AddCart(CustomerId);
-            else 
-                cart = GetCart(CartId);
-            
             Cart UpdatedCart = new Cart();
 
-            if (ProductId == 0 || ProductQuantity == 0)
+            if (ProductQuantity == 0)
                 throw new NullDataException();
 
             try
-            { 
+            {
+                if (CartId == 0)
+                    cart = AddCart(CustomerId);
+                else
+                    cart = GetCart(CartId);
+
                 Product product = _ProductRepository.GetByKey(ProductId);
 
                 CartItem cartItem = new CartItem();
@@ -78,6 +76,9 @@ namespace ShoppingBLLibrary
                 cartItem.ProductId = ProductId;
                 cartItem.Quantity = ProductQuantity;
                 cartItem.PriceExpiryDate = DateTime.Now.AddHours(24);
+
+                if (cart.CartItems.Contains(cartItem))
+                    throw new ProductAlreadyExistsException();
 
                 if (CheckProductAvailability(cartItem, product))
                 {
@@ -111,6 +112,10 @@ namespace ShoppingBLLibrary
             {
                 throw new NoCustomerWithGivenIdException();
             }
+            catch(ProductAlreadyExistsException)
+            {
+                throw new ProductAlreadyExistsException();
+            }
             catch(CartFullException)
             {
                 throw new CartFullException();
@@ -125,6 +130,7 @@ namespace ShoppingBLLibrary
             return true;
         }
 
+        [ExcludeFromCodeCoverage]
         public CartItem CalculateCartItemTotalCost(CartItem cartItem, Product product)
         {
             cartItem.Discount = 0;
@@ -200,10 +206,6 @@ namespace ShoppingBLLibrary
                 }
                 else throw new NotEnoughStockException();
             }
-            catch (NullDataException)
-            {
-                throw new NullDataException();
-            }
             catch (NoProductWithGivenIdException)
             {
                 throw new NoProductWithGivenIdException();
@@ -226,6 +228,7 @@ namespace ShoppingBLLibrary
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
+            if(cartItem == null) { throw new NullDataException(); }
             try
             {
                 Product product = _ProductRepository.GetByKey(cartItem.ProductId);
@@ -236,11 +239,6 @@ namespace ShoppingBLLibrary
                 cart.CartItems.Remove(cartItem);
                 cart = CalculateTotalPrice(cart);
                 UpdatedCart = _CartRepository.Update(cart);
-            }
-
-            catch (NullDataException)
-            {
-                throw new NullDataException();
             }
             catch (NoProductWithGivenIdException)
             {
@@ -291,7 +289,7 @@ namespace ShoppingBLLibrary
             {
                 Cart cart = _CartRepository.GetByKey(id);
                 CartItems = cart.CartItems;
-                if (CartItems != null)
+                if (CartItems.Count != 0)
                     return CartItems;
                 else
                     throw new NoCartItemsFoundException();

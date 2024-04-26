@@ -16,6 +16,7 @@ namespace ShoppingDALLibrary
             int id = items.Count;
             return ++id;
         }
+
         public virtual T Add(T item)
         {
             items.Add(item);
