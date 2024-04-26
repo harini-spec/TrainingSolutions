@@ -16,7 +16,7 @@ namespace ShoppingBLLibrary
         public Cart UpdateCartItem(int CartId, CartItem cartItem); // from FE, call CartItem and Cart method
         public Cart DeleteCartItem(int CartId, CartItem cartItem); // from FE, call CartItem and Cart method
         public Cart CalculateTotalPrice(Cart cart);
-        public Cart DeleteCart(Cart cart);
+        public Cart DeleteCart(int cartID);
         public Cart DeleteAllCartItems(Cart cart);
     }
 }

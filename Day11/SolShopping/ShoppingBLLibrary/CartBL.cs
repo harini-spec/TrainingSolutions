@@ -3,6 +3,7 @@ using ShoppingModelLibrary;
 using ShoppingModelLibrary.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,8 @@ namespace ShoppingBLLibrary
             Cart NewCart = new Cart();
             try
             {
+                if (cart == null)
+                    throw new NullDataException();
                 Customer customer = _CustomerRepository.GetByKey(CustomerID);
                 cart.Customer = customer;
                 cart.CustomerId = customer.Id;
@@ -59,20 +62,17 @@ namespace ShoppingBLLibrary
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
-            cartItem.CartId = CartId;
-            _CartItemRepository.Update(cartItem);
-
+            
             try
             {
+                if (cartItem == null)
+                    throw new NullDataException();
+                cartItem.CartId = CartId;
+                _CartItemRepository.Update(cartItem);
                 cart = _CartRepository.GetByKey(CartId);
                 cart.CartItems.Add(cartItem);
                 cart = CalculateTotalPrice(cart);
                 UpdatedCart = _CartRepository.Update(cart);
-            }
-
-            catch (NullDataException)
-            {
-                throw new NullDataException();
             }
             catch (NoCartWithGivenIdException)
             {
@@ -81,6 +81,7 @@ namespace ShoppingBLLibrary
             return UpdatedCart;
         }
 
+        [ExcludeFromCodeCoverage]
         public Cart CalculateTotalPrice(Cart cart)
         {
             double TotalCost = 0;
@@ -172,11 +173,12 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart DeleteCart(Cart cart)
+        public Cart DeleteCart(int CartId)
         {
             Cart DeletedCart = new Cart();
             try
             {
+                Cart cart = _CartRepository.GetByKey(CartId);
                 cart = DeleteAllCartItems(cart);
                 DeletedCart = _CartRepository.Delete(cart.Id);
             }
