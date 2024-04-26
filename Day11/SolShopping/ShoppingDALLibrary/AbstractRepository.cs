@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,13 @@ namespace ShoppingDALLibrary
             return ++id;
         }
 
-        public virtual T Add(T item)
-        {
-            items.Add(item);
-            return item;
-        }
+        //public virtual T Add(T item)
+        //{
+        //    items.Add(item);
+        //    return item;
+        //}
+
+        public abstract T Add(T item);
 
         public virtual ICollection<T> GetAll()
         {
