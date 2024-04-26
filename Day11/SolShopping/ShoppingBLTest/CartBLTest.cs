@@ -54,7 +54,7 @@ namespace ShoppingBLTest
         {
             // Arrange
             Customer customer = new Customer() { Id = 2, Name = "Saraa", Phone = "9999988888", Age = 29 };
-            Cart cart = new Cart() { Customer = customer, CustomerId = 2};
+            Cart cart = new Cart() { Customer = customer, CustomerId = 2 };
 
             // Action 
             var result = cartBL.AddCart(cart, cart.CustomerId);

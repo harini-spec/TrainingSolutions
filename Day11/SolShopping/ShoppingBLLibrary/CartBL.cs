@@ -14,34 +14,32 @@ namespace ShoppingBLLibrary
     {
         readonly IRepository<int, Cart> _CartRepository;
         readonly IRepository<int, Customer> _CustomerRepository;
-        readonly ICartItemRepository _CartItemRepository;
         readonly IRepository<int, Product> _ProductRepository;
 
-        public CartBL(IRepository<int, Cart> cartRepository, IRepository<int, Customer> customerRepository, ICartItemRepository cartItemRepository, IRepository<int, Product> productRepository)
+        public CartBL(IRepository<int, Cart> cartRepository, IRepository<int, Customer> customerRepository, IRepository<int, Product> productRepository)
         {
             _CartRepository = cartRepository;
             _CustomerRepository = customerRepository;
-            _CartItemRepository = cartItemRepository;
             _ProductRepository = productRepository;
         }
 
-        public Cart AddCart(Cart cart, int CustomerID)
+        public Cart AddCart(int CustomerID)
         {
-            Cart NewCart = new Cart();
+            Cart cart = new Cart();
             try
             {
-                if (cart == null)
-                    throw new NullDataException();
+                if (CustomerID == 0)
+                    throw new NoCustomerWithGivenIdException();
                 Customer customer = _CustomerRepository.GetByKey(CustomerID);
-                cart.Customer = customer;
                 cart.CustomerId = customer.Id;
-                NewCart = _CartRepository.Add(cart);
+                cart.Customer = customer;
+                cart = _CartRepository.Add(cart);
             }
-            catch (NullDataException)
+            catch (NoCustomerWithGivenIdException)
             {
-                throw new NullDataException();
+                throw new NoCustomerWithGivenIdException();
             }
-            return NewCart;
+            return cart;
         }
 
         public Cart GetCart(int id)
@@ -58,30 +56,92 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart AddCartItem(int CartId, CartItem cartItem)
+        public Cart AddCartItem(int CartId, int CustomerId, int ProductId, int ProductQuantity)
         {
             Cart cart = new Cart();
-            Cart UpdatedCart = new Cart();
+            if (CartId == 0)
+                cart = AddCart(CustomerId);
+            else 
+                cart = GetCart(CartId);
             
+            Cart UpdatedCart = new Cart();
+
+            if (ProductId == 0 || ProductQuantity == 0)
+                throw new NullDataException();
+
             try
+            { 
+                Product product = _ProductRepository.GetByKey(ProductId);
+
+                CartItem cartItem = new CartItem();
+                cartItem.CartId = cart.Id;
+                cartItem.ProductId = ProductId;
+                cartItem.Quantity = ProductQuantity;
+                cartItem.PriceExpiryDate = DateTime.Now.AddHours(24);
+
+                if (CheckProductAvailability(cartItem, product))
+                {
+                    cartItem = CalculateCartItemTotalCost(cartItem, product);
+                    cart.CartItems.Add(cartItem);
+
+                    product.QuantityInHand = product.QuantityInHand - cartItem.Quantity;
+                    _ProductRepository.Update(product);
+
+                    cart = CalculateTotalPrice(cart);
+                    UpdatedCart = _CartRepository.Update(cart);
+                }
+                else
+                {
+                    throw new NotEnoughStockException();
+                }
+            }
+            catch (NotEnoughStockException)
             {
-                if (cartItem == null)
-                    throw new NullDataException();
-                cartItem.CartId = CartId;
-                _CartItemRepository.Update(cartItem);
-                cart = _CartRepository.GetByKey(CartId);
-                cart.CartItems.Add(cartItem);
-                cart = CalculateTotalPrice(cart);
-                UpdatedCart = _CartRepository.Update(cart);
+                throw new NotEnoughStockException();
+            }
+            catch (NoProductWithGivenIdException)
+            {
+                throw new NoProductWithGivenIdException();
             }
             catch (NoCartWithGivenIdException)
             {
                 throw new NoCartWithGivenIdException();
             }
+            catch (NoCustomerWithGivenIdException)
+            {
+                throw new NoCustomerWithGivenIdException();
+            }
+            catch(CartFullException)
+            {
+                throw new CartFullException();
+            }
             return UpdatedCart;
         }
 
-        [ExcludeFromCodeCoverage]
+        public bool CheckProductAvailability(CartItem cartItem, Product product)
+        {
+            if (product.QuantityInHand - cartItem.Quantity < 0)
+                return false;
+            return true;
+        }
+
+        public CartItem CalculateCartItemTotalCost(CartItem cartItem, Product product)
+        {
+            cartItem.Discount = 0;
+            if (cartItem.Quantity > 5)
+                throw new CartFullException();
+            double TotalCost, TotalBeforeDiscount;
+            TotalBeforeDiscount = cartItem.Quantity * product.Price;
+            if (cartItem.Discount != 0)
+            {
+                TotalCost = TotalBeforeDiscount - (TotalBeforeDiscount * (cartItem.Discount / 100));
+            }
+            else
+                TotalCost = TotalBeforeDiscount;
+            cartItem.Price = TotalCost;
+            return cartItem;
+        }
+
         public Cart CalculateTotalPrice(Cart cart)
         {
             double TotalCost = 0;
@@ -95,10 +155,14 @@ namespace ShoppingBLLibrary
             // Discount
             if (TotalQuantity == 3 && TotalCost >= 1500)
                 cart.Discount = 5;
+            else
+                cart.Discount = 0;
 
             // Shipping
             if (TotalCost < 100)
                 cart.ShippingCharges = 100;
+            else 
+                cart.ShippingCharges = 0;
 
             if (cart.Discount != 0)
                 cart.TotalPrice = cart.ShippingCharges + (TotalCost - (TotalCost * (cart.Discount / 100)));
@@ -108,21 +172,69 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart UpdateCartItem(int CartId, CartItem cartItem)
+        public Cart UpdateCartItem(int CartId, CartItem OldCartItem, CartItem NewCartItem)
+        {
+            Cart cart = new Cart();
+            Cart UpdatedCart = new Cart();
+            CartItem UpdatedCartItem = new CartItem();
+
+            if (OldCartItem == null || NewCartItem == null) throw new NullDataException();
+
+            try
+            {
+                cart = _CartRepository.GetByKey(CartId);
+                Product product = _ProductRepository.GetByKey(NewCartItem.ProductId);
+                product.QuantityInHand += OldCartItem.Quantity - NewCartItem.Quantity;
+                if (CheckProductAvailability(NewCartItem, product))
+                {
+                    NewCartItem = CalculateCartItemTotalCost(NewCartItem, product);
+                    _ProductRepository.Update(product);
+                    
+                    for (int i = 0; i < cart.CartItems.Count; i++)
+                    {
+                        if (cart.CartItems[i].ProductId == NewCartItem.ProductId)
+                            cart.CartItems[i] = NewCartItem;
+                    }
+                    cart = CalculateTotalPrice(cart);
+                    UpdatedCart = _CartRepository.Update(cart);
+                }
+                else throw new NotEnoughStockException();
+            }
+            catch (NullDataException)
+            {
+                throw new NullDataException();
+            }
+            catch (NoProductWithGivenIdException)
+            {
+                throw new NoProductWithGivenIdException();
+            }
+            catch (NoCartWithGivenIdException)
+            {
+                throw new NoCartWithGivenIdException();
+            }
+            catch (CartFullException)
+            {
+                throw new CartFullException();
+            }
+            catch (NotEnoughStockException)
+            {
+                throw new NotEnoughStockException();
+            }
+            return UpdatedCart;
+        }
+        public Cart DeleteCartItem(int CartId, CartItem cartItem)
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
             try
             {
-                cart = _CartRepository.GetByKey(CartId);
-                cart.CartItems.Add(cartItem);
-                cart = CalculateTotalPrice(cart);
+                Product product = _ProductRepository.GetByKey(cartItem.ProductId);
+                product.QuantityInHand += cartItem.Quantity;
+                _ProductRepository.Update(product);
 
-                for(int i=0;i<cart.CartItems.Count;i++)
-                {
-                    if (cart.CartItems[i].ProductId == cartItem.ProductId)
-                        cart.CartItems[i] = cartItem;
-                }
+                cart = _CartRepository.GetByKey(CartId);
+                cart.CartItems.Remove(cartItem);
+                cart = CalculateTotalPrice(cart);
                 UpdatedCart = _CartRepository.Update(cart);
             }
 
@@ -130,34 +242,15 @@ namespace ShoppingBLLibrary
             {
                 throw new NullDataException();
             }
+            catch (NoProductWithGivenIdException)
+            {
+                throw new NoProductWithGivenIdException();
+            }
             catch (NoCartWithGivenIdException)
             {
                 throw new NoCartWithGivenIdException();
             }
             return UpdatedCart;
-        }
-        public Cart DeleteCartItem(int CartId, CartItem cartItem)
-        {
-            Cart cart = new Cart();
-            Cart DeletedCartItem = new Cart();
-            try
-            {
-                cart = _CartRepository.GetByKey(CartId);
-                cart.CartItems.Remove(cartItem);
-                cart = CalculateTotalPrice(cart);
-
-                DeletedCartItem = _CartRepository.Update(cart);
-            }
-
-            catch (NullDataException)
-            {
-                throw new NullDataException();
-            }
-            catch (NoCartWithGivenIdException)
-            {
-                throw new NoCartWithGivenIdException();
-            }
-            return DeletedCartItem;
         }
 
         public Cart DeleteAllCartItems(Cart cart)
@@ -167,8 +260,6 @@ namespace ShoppingBLLibrary
                 Product product = _ProductRepository.GetByKey(cart.CartItems[i].ProductId);
                 product.QuantityInHand += cart.CartItems[i].Quantity;
                 _ProductRepository.Update(product);
-                _CartItemRepository.Delete(cart.CartItems[i].CartId, cart.CartItems[i].ProductId);
-                cart.CartItems.Remove(cart.CartItems[i]);
             }
             return cart;
         }
@@ -185,6 +276,10 @@ namespace ShoppingBLLibrary
             catch (NoCartWithGivenIdException)
             {
                 throw new NoCartWithGivenIdException();
+            }
+            catch (NoProductWithGivenIdException)
+            {
+                throw new NoProductWithGivenIdException();
             }
             return DeletedCart;
         }
