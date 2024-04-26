@@ -24,6 +24,13 @@ namespace ShoppingModelLibrary
             PriceExpiryDate = priceExpiryDate;
         }
 
+        public CartItem(int cartId, int productId, int quantity)
+        {
+            CartId = cartId;
+            ProductId = productId;
+            Quantity = quantity;
+        }
+
         public CartItem()
         {
         }
