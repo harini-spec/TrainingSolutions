@@ -42,7 +42,7 @@ namespace ShoppingRepositoryTest
         }
 
         [Test]
-        public void AddSuccessTest()
+        public async Task AddSuccessTest()
         {
             // Arrange
             List<CartItem> cartItems = new List<CartItem>();
@@ -53,7 +53,7 @@ namespace ShoppingRepositoryTest
             Cart cart = new Cart() { Customer = customer, CustomerId = 3, CartItems = cartItems };
 
             // Action 
-            var result = CartRepository.Add(cart);
+            var result = await CartRepository.Add(cart);
 
             // Assert
             Assert.AreEqual(3, result.Id);
@@ -71,7 +71,7 @@ namespace ShoppingRepositoryTest
             Cart cart = new Cart() { Customer = customer, CustomerId = 2, CartItems = cartItems };
 
             // Action 
-            var exception = Assert.Throws<CartAlreadyExistsException>(() => CartRepository.Add(cart));
+            var exception = Assert.ThrowsAsync<CartAlreadyExistsException>(() => CartRepository.Add(cart));
 
             // Assert
             Assert.AreEqual("Cart already exists", exception.Message);
@@ -84,17 +84,17 @@ namespace ShoppingRepositoryTest
             Cart cart = null;
 
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => CartRepository.Add(cart));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => CartRepository.Add(cart));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
         }
 
         [Test]
-        public void DeleteSuccessTest()
+        public async Task DeleteSuccessTest()
         {
             // Action 
-            var result = CartRepository.Delete(1);
+            var result = await CartRepository.Delete(1);
 
             // Assert
             Assert.AreEqual(1, result.Id);
@@ -104,17 +104,17 @@ namespace ShoppingRepositoryTest
         public void DeleteFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => CartRepository.Delete(5));
-
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => CartRepository.Delete(5));
+            
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void GetByKeySuccessTest()
+        public async Task GetByKeySuccessTest()
         {
             // Action 
-            var result = CartRepository.GetByKey(2);
+            var result = await CartRepository.GetByKey(2);
 
             // Assert
             Assert.AreEqual(2, result.Id);
@@ -124,14 +124,14 @@ namespace ShoppingRepositoryTest
         public void GetByKeyFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => CartRepository.GetByKey(5));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => CartRepository.GetByKey(5));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void UpdateSuccessTest()
+        public async Task UpdateSuccessTest()
         {
             // Arrange
             List<CartItem> cartItems = new List<CartItem>();
@@ -142,7 +142,7 @@ namespace ShoppingRepositoryTest
             Cart cart = new Cart() { Id = 1, Customer = customer, CustomerId = 1, CartItems = cartItems };
 
             // Action 
-            var result = CartRepository.Update(cart);
+            var result = await CartRepository.Update(cart);
 
             // Assert
             Assert.AreEqual(10, result.CartItems[0].Quantity);
@@ -159,17 +159,17 @@ namespace ShoppingRepositoryTest
             Cart cart = new Cart() { Id = 7, Customer = customer, CustomerId = 1, CartItems = cartItems };
 
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => CartRepository.Update(cart));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => CartRepository.Update(cart));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void GetAllSuccessTest()
+        public async Task GetAllSuccessTest()
         {
             // Action 
-            var result = CartRepository.GetAll();
+            var result = await CartRepository.GetAll();
 
             // Assert
             Assert.AreEqual(2, result.Count);
@@ -182,7 +182,7 @@ namespace ShoppingRepositoryTest
             CartRepository.Delete(1);
             CartRepository.Delete(2);
             // Action 
-            var exception = Assert.Throws<NoRecordsFoundException>(() => CartRepository.GetAll());
+            var exception = Assert.ThrowsAsync<NoRecordsFoundException>(() => CartRepository.GetAll());
 
             // Assert
             Assert.AreEqual("No records Found", exception.Message);

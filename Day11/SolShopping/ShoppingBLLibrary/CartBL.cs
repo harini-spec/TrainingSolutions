@@ -23,15 +23,15 @@ namespace ShoppingBLLibrary
             _ProductRepository = productRepository;
         }
 
-        public Cart AddCart(int CustomerID)
+        public async Task<Cart> AddCart(int CustomerID)
         {
             Cart cart = new Cart();
             try
             {
-                Customer customer = _CustomerRepository.GetByKey(CustomerID);
+                Customer customer = await _CustomerRepository.GetByKey(CustomerID);
                 cart.CustomerId = CustomerID;
                 cart.Customer = customer;
-                cart = _CartRepository.Add(cart);
+                cart = await _CartRepository.Add(cart);
             }
             catch (NoCustomerWithGivenIdException)
             {
@@ -40,12 +40,12 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart GetCart(int id)
+        public async Task<Cart> GetCart(int id)
         {
             Cart cart = new Cart();
             try
             {
-                cart = _CartRepository.GetByKey(id);
+                cart = await _CartRepository.GetByKey(id);
             }
             catch (NoCartWithGivenIdException)
             {
@@ -54,7 +54,7 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart AddCartItem(int CartId, int CustomerId, int ProductId, int ProductQuantity)
+        public async Task<Cart> AddCartItem(int CartId, int CustomerId, int ProductId, int ProductQuantity)
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
@@ -65,11 +65,11 @@ namespace ShoppingBLLibrary
             try
             {
                 if (CartId == 0)
-                    cart = AddCart(CustomerId);
+                    cart = await AddCart(CustomerId);
                 else
-                    cart = GetCart(CartId);
+                    cart = await GetCart(CartId);
 
-                Product product = _ProductRepository.GetByKey(ProductId);
+                Product product = await _ProductRepository.GetByKey(ProductId);
 
                 CartItem cartItem = new CartItem();
                 cartItem.CartId = cart.Id;
@@ -89,7 +89,7 @@ namespace ShoppingBLLibrary
                     _ProductRepository.Update(product);
 
                     cart = CalculateTotalPrice(cart);
-                    UpdatedCart = _CartRepository.Update(cart);
+                    UpdatedCart = await _CartRepository.Update(cart);
                 }
                 else
                 {
@@ -178,7 +178,7 @@ namespace ShoppingBLLibrary
             return cart;
         }
 
-        public Cart UpdateCartItem(int CartId, CartItem OldCartItem, CartItem NewCartItem)
+        public async Task<Cart> UpdateCartItem(int CartId, CartItem OldCartItem, CartItem NewCartItem)
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
@@ -188,8 +188,8 @@ namespace ShoppingBLLibrary
 
             try
             {
-                cart = _CartRepository.GetByKey(CartId);
-                Product product = _ProductRepository.GetByKey(NewCartItem.ProductId);
+                cart = await _CartRepository.GetByKey(CartId);
+                Product product = await _ProductRepository.GetByKey(NewCartItem.ProductId);
                 product.QuantityInHand += OldCartItem.Quantity - NewCartItem.Quantity;
                 if (CheckProductAvailability(NewCartItem, product))
                 {
@@ -202,7 +202,7 @@ namespace ShoppingBLLibrary
                             cart.CartItems[i] = NewCartItem;
                     }
                     cart = CalculateTotalPrice(cart);
-                    UpdatedCart = _CartRepository.Update(cart);
+                    UpdatedCart = await _CartRepository.Update(cart);
                 }
                 else throw new NotEnoughStockException();
             }
@@ -224,21 +224,21 @@ namespace ShoppingBLLibrary
             }
             return UpdatedCart;
         }
-        public Cart DeleteCartItem(int CartId, CartItem cartItem)
+        public async Task<Cart> DeleteCartItem(int CartId, CartItem cartItem)
         {
             Cart cart = new Cart();
             Cart UpdatedCart = new Cart();
             if(cartItem == null) { throw new NullDataException(); }
             try
             {
-                Product product = _ProductRepository.GetByKey(cartItem.ProductId);
+                Product product = await _ProductRepository.GetByKey(cartItem.ProductId);
                 product.QuantityInHand += cartItem.Quantity;
                 _ProductRepository.Update(product);
 
-                cart = _CartRepository.GetByKey(CartId);
+                cart = await _CartRepository.GetByKey(CartId);
                 cart.CartItems.Remove(cartItem);
                 cart = CalculateTotalPrice(cart);
-                UpdatedCart = _CartRepository.Update(cart);
+                UpdatedCart = await _CartRepository.Update(cart);
             }
             catch (NoProductWithGivenIdException)
             {
@@ -251,25 +251,25 @@ namespace ShoppingBLLibrary
             return UpdatedCart;
         }
 
-        public Cart DeleteAllCartItems(Cart cart)
+        public async Task<Cart> DeleteAllCartItems(Cart cart)
         {
             for(int i=0;i<cart.CartItems.Count;i++) 
             {
-                Product product = _ProductRepository.GetByKey(cart.CartItems[i].ProductId);
+                Product product = await _ProductRepository.GetByKey(cart.CartItems[i].ProductId);
                 product.QuantityInHand += cart.CartItems[i].Quantity;
                 _ProductRepository.Update(product);
             }
             return cart;
         }
 
-        public Cart DeleteCart(int CartId)
+        public async Task<Cart> DeleteCart(int CartId)
         {
             Cart DeletedCart = new Cart();
             try
             {
-                Cart cart = _CartRepository.GetByKey(CartId);
-                cart = DeleteAllCartItems(cart);
-                DeletedCart = _CartRepository.Delete(cart.Id);
+                Cart cart = await _CartRepository.GetByKey(CartId);
+                cart = await DeleteAllCartItems(cart);
+                DeletedCart = await _CartRepository.Delete(cart.Id);
             }
             catch (NoCartWithGivenIdException)
             {
@@ -282,12 +282,12 @@ namespace ShoppingBLLibrary
             return DeletedCart;
         }
 
-        public List<CartItem> GetAllCartItemDetails(int id)
+        public async Task<List<CartItem>> GetAllCartItemDetails(int id)
         {
             List<CartItem> CartItems = new List<CartItem>();
             try
             {
-                Cart cart = _CartRepository.GetByKey(id);
+                Cart cart = await _CartRepository.GetByKey(id);
                 CartItems = cart.CartItems;
                 if (CartItems.Count != 0)
                     return CartItems;

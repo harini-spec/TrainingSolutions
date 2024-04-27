@@ -48,14 +48,14 @@ namespace ShoppingBLTest
         }
 
         [Test]
-        public void UpdateCartItemSuccessTest()
+        public async Task UpdateCartItemSuccessTest()
         {
             // Arrange
             CartItem OldCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 3, Price = 300, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
             CartItem NewCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 4};
 
             // Action
-            var result = cartBL.UpdateCartItem(1, OldCartItem, NewCartItem);
+            var result = await cartBL.UpdateCartItem(1, OldCartItem, NewCartItem);
 
             // Assert
             Assert.AreEqual(400, result.TotalPrice);
@@ -65,7 +65,7 @@ namespace ShoppingBLTest
         public void UpdateCartItemEmptyInputFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => cartBL.UpdateCartItem(1, null, null));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => cartBL.UpdateCartItem(1, null, null));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
@@ -78,7 +78,7 @@ namespace ShoppingBLTest
             CartItem NewCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 4 };
 
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => cartBL.UpdateCartItem(1, null, NewCartItem));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => cartBL.UpdateCartItem(1, null, NewCartItem));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
@@ -91,7 +91,7 @@ namespace ShoppingBLTest
             CartItem OldCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 3, Price = 300, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
 
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => cartBL.UpdateCartItem(1, OldCartItem, null));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => cartBL.UpdateCartItem(1, OldCartItem, null));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
@@ -111,7 +111,7 @@ namespace ShoppingBLTest
 
 
             // Action 
-            var exception = Assert.Throws<NotEnoughStockException>(() => cartBL.UpdateCartItem(2, OldCartItem, NewCartItem));
+            var exception = Assert.ThrowsAsync<NotEnoughStockException>(() => cartBL.UpdateCartItem(2, OldCartItem, NewCartItem));
 
             // Assert
             Assert.AreEqual("Not enough products present in the storage unit", exception.Message);
@@ -125,7 +125,7 @@ namespace ShoppingBLTest
             CartItem NewCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 7};
 
             // Action 
-            var exception = Assert.Throws<CartFullException>(() => cartBL.UpdateCartItem(1, OldCartItem, NewCartItem));
+            var exception = Assert.ThrowsAsync<CartFullException>(() => cartBL.UpdateCartItem(1, OldCartItem, NewCartItem));
 
             // Assert
             Assert.AreEqual("Cart is full", exception.Message);
@@ -139,7 +139,7 @@ namespace ShoppingBLTest
             CartItem NewCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 7 };
 
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => cartBL.UpdateCartItem(5, OldCartItem, NewCartItem));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => cartBL.UpdateCartItem(5, OldCartItem, NewCartItem));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
@@ -154,14 +154,14 @@ namespace ShoppingBLTest
             CartItem NewCartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 7 };
 
             // Action 
-            var exception = Assert.Throws<NoProductWithGivenIdException>(() => cartBL.UpdateCartItem(1, OldCartItem, NewCartItem));
+            var exception = Assert.ThrowsAsync<NoProductWithGivenIdException>(() => cartBL.UpdateCartItem(1, OldCartItem, NewCartItem));
 
             // Assert
             Assert.AreEqual("Product with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void AddCartSuccessTest()
+        public async Task AddCartSuccessTest()
         {
             // Arrange
             int CartId = 0;
@@ -170,14 +170,14 @@ namespace ShoppingBLTest
             int ProductQuantity = 3;
 
             // Action 
-            var result = cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
+            var result = await cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
 
             // Assert
             Assert.AreEqual(2, result.Id);
         }
 
         [Test]
-        public void AddCartItemSuccessTest()
+        public async Task AddCartItemSuccessTest()
         {
             // Arrange
             int CartId = 1;
@@ -186,7 +186,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 3;
 
             // Action 
-            var result = cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
+            var result = await cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
 
             // Assert
             Assert.AreEqual(1, result.Id);
@@ -202,7 +202,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 0;
 
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
@@ -218,7 +218,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 3;
 
             // Action 
-            var exception = Assert.Throws<NoProductWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<NoProductWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Product with the given Id is not present", exception.Message);
@@ -234,7 +234,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 3;
 
             // Action 
-            var exception = Assert.Throws<NoCustomerWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<NoCustomerWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Customer with the given Id is not present", exception.Message);
@@ -250,7 +250,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 3;
 
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
@@ -266,7 +266,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 4;
 
             // Action 
-            var exception = Assert.Throws<NotEnoughStockException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<NotEnoughStockException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Not enough products present in the storage unit", exception.Message);
@@ -282,7 +282,7 @@ namespace ShoppingBLTest
             int ProductQuantity = 4;
 
             // Action 
-            var exception = Assert.Throws<ProductAlreadyExistsException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<ProductAlreadyExistsException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Product already exists!", exception.Message);
@@ -298,14 +298,14 @@ namespace ShoppingBLTest
             int ProductQuantity = 7;
 
             // Action 
-            var exception = Assert.Throws<CartFullException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
+            var exception = Assert.ThrowsAsync<CartFullException>(() => cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity));
 
             // Assert
             Assert.AreEqual("Cart is full", exception.Message);
         }
 
         [Test]
-        public void AddWithShippingSuccessTest()
+        public async Task AddWithShippingSuccessTest()
         {
             // Arrange
             int CartId = 0;
@@ -314,20 +314,20 @@ namespace ShoppingBLTest
             int ProductQuantity = 2;
 
             // Action 
-            var result = cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
+            var result = await cartBL.AddCartItem(CartId, CustomerId, ProductId, ProductQuantity);
 
             // Assert
             Assert.AreEqual(100, result.ShippingCharges);
         }
 
         [Test]
-        public void DeleteCartItemSuccessTest()
+        public async Task DeleteCartItemSuccessTest()
         {
             // Arrange
             CartItem cartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 3, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
 
             // Action 
-            var result = cartBL.DeleteCartItem(1, cartItem);
+            var result = await cartBL.DeleteCartItem(1, cartItem);
 
             // Assert
             Assert.AreEqual(1, result.Id);
@@ -340,7 +340,7 @@ namespace ShoppingBLTest
             CartItem cartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 3, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
 
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => cartBL.DeleteCartItem(5, cartItem));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => cartBL.DeleteCartItem(5, cartItem));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
@@ -350,7 +350,7 @@ namespace ShoppingBLTest
         public void DeleteCartItemNullDataFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => cartBL.DeleteCartItem(1, null));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => cartBL.DeleteCartItem(1, null));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
@@ -363,17 +363,17 @@ namespace ShoppingBLTest
             CartItem cartItem = new CartItem() { ProductId = 5, CartId = 1, Quantity = 3, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
 
             // Action 
-            var exception = Assert.Throws<NoProductWithGivenIdException>(() => cartBL.DeleteCartItem(1, cartItem));
+            var exception = Assert.ThrowsAsync<NoProductWithGivenIdException>(() => cartBL.DeleteCartItem(1, cartItem));
 
             // Assert
             Assert.AreEqual("Product with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void GetAllCartItemsSuccessTest()
+        public async Task GetAllCartItemsSuccessTest()
         {
             // Action 
-            var result = cartBL.GetAllCartItemDetails(1);
+            var result = await cartBL.GetAllCartItemDetails(1);
 
             // Assert
             Assert.AreEqual(1, result.Count);
@@ -383,7 +383,7 @@ namespace ShoppingBLTest
         public void GetAllCartItemsFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => cartBL.GetAllCartItemDetails(5));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => cartBL.GetAllCartItemDetails(5));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
@@ -396,21 +396,21 @@ namespace ShoppingBLTest
             Cart cart = new Cart();
             CartItem cartItem = new CartItem() { ProductId = 1, CartId = 1, Quantity = 3, Price = 500, Discount = 0, PriceExpiryDate = Convert.ToDateTime("2024 - 04 - 24") };
 
-            cart = cartBL.DeleteCartItem(1, cartItem);
+            cart = cartBL.DeleteCartItem(1, cartItem).Result;
             CartRepository.Update(cart);
 
             // Action 
-            var exception = Assert.Throws<NoCartItemsFoundException>(() => cartBL.GetAllCartItemDetails(1));
+            var exception = Assert.ThrowsAsync<NoCartItemsFoundException>(() => cartBL.GetAllCartItemDetails(1));
 
             // Assert
             Assert.AreEqual("Cart is empty - No cart items found", exception.Message);
         }
 
         [Test]
-        public void DeleteCartSuccessTest()
+        public async Task DeleteCartSuccessTest()
         {
             // Action 
-            var result = cartBL.DeleteCart(1);
+            var result = await cartBL.DeleteCart(1);
 
             // Assert
             Assert.AreEqual(1, result.Id);
@@ -421,7 +421,7 @@ namespace ShoppingBLTest
         {
 
             // Action 
-            var exception = Assert.Throws<NoCartWithGivenIdException>(() => cartBL.DeleteCart(5));
+            var exception = Assert.ThrowsAsync<NoCartWithGivenIdException>(() => cartBL.DeleteCart(5));
 
             // Assert
             Assert.AreEqual("Cart with the given Id is not present", exception.Message);
@@ -434,7 +434,7 @@ namespace ShoppingBLTest
             ProductRepository.Delete(1);
 
             // Action 
-            var exception = Assert.Throws<NoProductWithGivenIdException>(() => cartBL.DeleteCart(1));
+            var exception = Assert.ThrowsAsync<NoProductWithGivenIdException>(() => cartBL.DeleteCart(1));
 
             // Assert
             Assert.AreEqual("Product with the given Id is not present", exception.Message);

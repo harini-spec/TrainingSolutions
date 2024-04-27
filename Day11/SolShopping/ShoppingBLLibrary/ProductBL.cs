@@ -16,12 +16,12 @@ namespace ShoppingBLLibrary
         {
             _ProductRepository = productRepository;
         }
-        public Product AddProduct(Product product)
+        public async Task<Product> AddProduct(Product product)
         {
             Product NewProduct = new Product();
             try
             {
-                NewProduct = _ProductRepository.Add(product);
+                NewProduct = await _ProductRepository.Add(product);
             }
             catch (NullDataException)
             {
@@ -34,12 +34,12 @@ namespace ShoppingBLLibrary
             return NewProduct;
         }
 
-        public Product DeleteProduct(int id)
+        public async Task<Product> DeleteProduct(int id)
         {
             Product DeletedProduct = new Product();
             try
             {
-                DeletedProduct = _ProductRepository.Delete(id);
+                DeletedProduct = await _ProductRepository.Delete(id);
             }
             catch (NoProductWithGivenIdException)
             {
@@ -48,12 +48,12 @@ namespace ShoppingBLLibrary
             return DeletedProduct;
         }
 
-        public Product EditProduct(Product product)
+        public async Task<Product> EditProduct(Product product)
         {
             Product UpdatedProduct = new Product();
             try
             {
-                UpdatedProduct = _ProductRepository.Update(product);
+                UpdatedProduct = await _ProductRepository.Update(product);
             }
             catch (NoProductWithGivenIdException)
             {
@@ -62,26 +62,22 @@ namespace ShoppingBLLibrary
             return UpdatedProduct;
         }
 
-        public List<Product> GetAll()
+        public async Task<List<Product>> GetAll()
         {
-            List<Product> products = new List<Product>();
-            try
-            {
-                products = _ProductRepository.GetAll().ToList<Product>();
-            }
-            catch (NoRecordsFoundException)
+            var products = await _ProductRepository.GetAll();
+            if(products.Count == 0)
             {
                 throw new NoRecordsFoundException();
             }
-            return products;
+            return products.ToList();
         }
 
-        public Product GetProductById(int id)
+        public async Task<Product> GetProductById(int id)
         {
             Product product = new Product();
             try
             {
-                product = _ProductRepository.GetByKey(id);
+                product = await _ProductRepository.GetByKey(id);
             }
             catch (NoProductWithGivenIdException)
             {

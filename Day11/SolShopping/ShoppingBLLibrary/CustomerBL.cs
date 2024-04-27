@@ -11,12 +11,13 @@ namespace ShoppingBLLibrary
         {
             _CustomerRepository = customerRepository;
         }
-        public Customer AddCustomer(Customer customer)
+
+        public async Task<Customer> AddCustomer(Customer customer)
         {
             Customer NewCustomer = new Customer();
             try
             {
-                NewCustomer = _CustomerRepository.Add(customer);
+                NewCustomer = await _CustomerRepository.Add(customer);
             }
             catch(NullDataException)
             {
@@ -29,12 +30,12 @@ namespace ShoppingBLLibrary
             return NewCustomer;
         }
 
-        public Customer DeleteCustomer(int id)
+        public async Task<Customer> DeleteCustomer(int id)
         {
             Customer DeletedCustomer = new Customer();
             try
             {
-                DeletedCustomer = _CustomerRepository.Delete(id);
+                DeletedCustomer = await _CustomerRepository.Delete(id);
             }
             catch(NoCustomerWithGivenIdException)
             {
@@ -43,12 +44,12 @@ namespace ShoppingBLLibrary
             return DeletedCustomer;
         }
 
-        public Customer GetCustomer(int id)
+        public async Task<Customer> GetCustomer(int id)
         {
             Customer customer = new Customer();
             try
             {
-                customer = _CustomerRepository.GetByKey(id);
+                customer = await _CustomerRepository.GetByKey(id);
             }
             catch (NoCustomerWithGivenIdException)
             {
@@ -57,12 +58,12 @@ namespace ShoppingBLLibrary
             return customer;
         }
 
-        public Customer UpdateCustomer(Customer customer)
+        public async Task<Customer> UpdateCustomer(Customer customer)
         {
             Customer UpdatedCustomer = new Customer();
             try
             {
-                UpdatedCustomer = _CustomerRepository.Update(customer);
+                UpdatedCustomer = await _CustomerRepository.Update(customer);
             }
             catch (NoCustomerWithGivenIdException)
             {

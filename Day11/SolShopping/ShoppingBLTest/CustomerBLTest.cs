@@ -24,13 +24,13 @@ namespace ShoppingBLTest
         }
 
         [Test]
-        public void AddSuccessTest()
+        public async Task AddSuccessTest()
         {
             // Arrange
             Customer customer = new Customer() { Name = "Sarah", Phone = "9988776655", Age = 29 };
 
             // Action
-            var result = customerBL.AddCustomer(customer);
+            var result = await customerBL.AddCustomer(customer);
 
             // Assert
             Assert.AreEqual(3, result.Id);
@@ -43,7 +43,7 @@ namespace ShoppingBLTest
             Customer customer = new Customer() { Name = "Nana", Phone = "9999988888", Age = 29 };
 
             // Action 
-            var exception = Assert.Throws<CustomerAlreadyExistsException>(() => customerBL.AddCustomer(customer));
+            var exception = Assert.ThrowsAsync<CustomerAlreadyExistsException>(() => customerBL.AddCustomer(customer));
 
             // Assert
             Assert.AreEqual("Customer already exists!", exception.Message);
@@ -56,17 +56,17 @@ namespace ShoppingBLTest
             Customer customer = null;
 
             // Action 
-            var exception = Assert.Throws<NullDataException>(() => customerBL.AddCustomer(customer));
+            var exception = Assert.ThrowsAsync<NullDataException>(() => customerBL.AddCustomer(customer));
 
             // Assert
             Assert.AreEqual("No data provided", exception.Message);
         }
 
         [Test]
-        public void DeleteSuccessTest()
+        public async Task DeleteSuccessTest()
         {
             // Action 
-            var result = customerBL.DeleteCustomer(2);
+            var result = await customerBL.DeleteCustomer(2);
 
             // Assert
             Assert.AreEqual(2, result.Id);
@@ -76,17 +76,17 @@ namespace ShoppingBLTest
         public void DeleteFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NoCustomerWithGivenIdException>(() => customerBL.DeleteCustomer(5));
+            var exception = Assert.ThrowsAsync<NoCustomerWithGivenIdException>(() => customerBL.DeleteCustomer(5));
 
             // Assert
             Assert.AreEqual("Customer with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void GetByKeySuccessTest()
+        public async Task GetByKeySuccessTest()
         {
             // Action 
-            var result = customerBL.GetCustomer(2);
+            var result = await customerBL.GetCustomer(2);
 
             // Assert
             Assert.AreEqual(2, result.Id);
@@ -96,20 +96,20 @@ namespace ShoppingBLTest
         public void GetByKeyFailTest()
         {
             // Action 
-            var exception = Assert.Throws<NoCustomerWithGivenIdException>(() => customerBL.GetCustomer(5));
+            var exception = Assert.ThrowsAsync<NoCustomerWithGivenIdException>(() => customerBL.GetCustomer(5));
 
             // Assert
             Assert.AreEqual("Customer with the given Id is not present", exception.Message);
         }
 
         [Test]
-        public void UpdateSuccessTest()
+        public async Task UpdateSuccessTest()
         {
             // Arrange
             Customer customer = new Customer() { Id = 2, Name = "Sam", Phone = "9999988888", Age = 29 };
 
             // Action 
-            var result = customerBL.UpdateCustomer(customer);
+            var result = await customerBL.UpdateCustomer(customer);
 
             // Assert
             Assert.AreEqual("Sam", result.Name);
@@ -122,7 +122,7 @@ namespace ShoppingBLTest
             Customer customer = new Customer() { Id = 5, Name = "Nana", Phone = "9999988888", Age = 29 };
 
             // Action 
-            var exception = Assert.Throws<NoCustomerWithGivenIdException>(() => customerBL.UpdateCustomer(customer));
+            var exception = Assert.ThrowsAsync<NoCustomerWithGivenIdException>(() => customerBL.UpdateCustomer(customer));
 
             // Assert
             Assert.AreEqual("Customer with the given Id is not present", exception.Message);
