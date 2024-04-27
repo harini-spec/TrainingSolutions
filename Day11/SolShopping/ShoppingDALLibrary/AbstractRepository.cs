@@ -24,9 +24,9 @@ namespace ShoppingDALLibrary
         //    return item;
         //}
 
-        public abstract T Add(T item);
+        public abstract Task <T> Add(T item);
 
-        public virtual ICollection<T> GetAll()
+        public virtual async Task <ICollection<T>> GetAll()
         {
 
             if (items.ToList<T>().Count != 0)
@@ -34,11 +34,11 @@ namespace ShoppingDALLibrary
             throw new NoRecordsFoundException();
         }
 
-        public abstract T Delete(K key);
+        public abstract Task <T> Delete(K key);
 
-        public abstract T GetByKey(K key);
+        public abstract Task <T> GetByKey(K key);
 
-        public abstract T Update(T item);
+        public abstract Task <T> Update(T item);
 
     }
 }
