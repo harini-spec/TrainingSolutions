@@ -13,9 +13,7 @@ namespace DemoApp
         {
             int n = await GetInputFromUser();
             Dictionary<int, char> AlphabetValues = await AssignAlphabetValues();
-
             string Result = "";
-
 
             if (n <= 26)
                 Result += AlphabetValues[n];
@@ -40,6 +38,7 @@ namespace DemoApp
             }
             return Result;
         }
+        
         public async Task<Dictionary<int, char>> AssignAlphabetValues()
         {
             Dictionary<int, char> AlphabetValues = new Dictionary<int, char>();
@@ -52,7 +51,11 @@ namespace DemoApp
         public async Task<int> GetInputFromUser()
         {
             Console.WriteLine("Enter the column number to be converted: ");
-            int n = Convert.ToInt32(Console.ReadLine());
+            int n;
+            while(! int.TryParse(Console.ReadLine(), out n))
+            {
+                await Console.Out.WriteLineAsync("Please enter a valid number");
+            }
             return n;
         }
 
