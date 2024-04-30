@@ -101,9 +101,63 @@ update EMP set deptname = 'Recreation', bossno = 3 where empno = 17
 select * from EMP 
 
 -- insert data into item table
-insert into ITEM values ('Pocket Knife-Nile', 'E', 'Brown'), ('Pocket Knife-Avon', 'E', 'Brown'), ('Compass', 'N', null), ('Geo positioning system', 'N', null), ('Elephant Polo stick', 'R', 'Bamboo')
+insert into ITEM values 
+('Pocket Knife-Nile', 'E', 'Brown'), 
+('Pocket Knife-Avon', 'E', 'Brown'), 
+('Compass', 'N', null), 
+('Geo positioning system', 'N', null), 
+('Elephant Polo stick', 'R', 'Bamboo'),
+('Camel Saddle', 'R', 'Brown'),
+('Sextant', 'N', null),
+('Map Measure', 'N', null),
+('Boots-snake proof', 'C', 'Green'),
+('Pith Helmet', 'C', 'Khaki'),
+('Hat-polar Explorer', 'C', 'White'),
+('Exploring in 10 Easy Lessons', 'B', null),
+('Hammock', 'F', 'Khaki'),
+('How to win Foreign Friends', 'B', null),
+('Map case', 'E', 'Brown'),
+('Safari Chair', 'F', 'Khaki'),
+('safari cooking kit', 'F', 'Khaki'),
+('Stetson', 'C', 'Black'),
+('Tent - 2 person', 'F', 'Khaki'),
+('Tent -8 person', 'F', 'Khaki')
+
 select * from ITEM
 
 -- insert data into sales table
-insert into SALES values(2, 'Pocket Knife-Nile', 'Clothes'), (3, 'Pocket Knife-Nile', 'Recreation'), (2, 'Geo positioning system', 'Navigation'), (1, 'Compass', 'Navigation'), (1, 'Elephant Polo stick', 'Recreation')
+insert into SALES values
+(2, 'Pocket Knife-Nile', 'Clothes'), 
+(3, 'Pocket Knife-Nile', 'Recreation'), 
+(2, 'Geo positioning system', 'Navigation'), 
+(1, 'Compass', 'Navigation'), 
+(1, 'Elephant Polo stick', 'Recreation'),
+(2, 'Boots-snake proof', 'Clothes'), 
+(1, 'Pith Helmet', 'Clothes'), 
+(1, 'Sextant', 'Navigation'), 
+(3, 'Hat-polar Explorer', 'Clothes'), 
+(5, 'Pith Helmet', 'Equipment'), 
+(5, 'Map Measure', 'Navigation'), 
+(1, 'Geo positioning system', 'Books'),
+(1, 'Sextant', 'Books'), 
+(3, 'Pocket Knife-Nile', 'Books'), 
+(1, 'Pocket Knife-Nile', 'Navigation'), 
+(1, 'Pocket Knife-Nile', 'Equipment'), 
+(1, 'Sextant', 'Clothes'),
+(1, 'Exploring in 10 easy lessons', 'Books'),
+(1, 'Elephant Polo stick', 'Recreation'), 
+(1, 'Camel Saddle', 'Recreation')
+
 select * from SALES
+
+-- Fail to insert into sales
+-- Null Item name
+insert into SALES values(1, '', 'Equipment')
+insert into SALES values(1, '', 'Recreation')
+insert into SALES values(1, '', 'Furniture')
+
+-- Null Dept name
+insert into SALES values(1, 'Pocket Knife-Nile', '')
+insert into SALES values(1, 'How to win foreign friends', '')
+insert into SALES values(1, 'Compass', '')
+insert into SALES values(1, 'Pith Helmet', '')
