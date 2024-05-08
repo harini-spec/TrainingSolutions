@@ -8,35 +8,31 @@ namespace DoctorAppointmentModelLibrary
 {
     public class Patient
     {
-        List<Appointment> Appointments;
-        List<Doctor> Doctors;
-
+        public List<int> Appointments;
         public int Id { get; set; }
         public string Name { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
-        public string History { get; set; }
+        public string Description { get; set; }
 
         public Patient()
         {
-            Appointments = new List<Appointment>();
-            Doctors = new List<Doctor>();
+            Appointments = new List<int>();
             Id = 0;
             Name = string.Empty;
-            Age = 0;    
+            Age = 0;
             Gender = string.Empty;
-            History = string.Empty;
+            Description = string.Empty;
         }
 
-        public Patient(Doctor doctor, List<Appointment> appointments, List<Doctor> doctors, int id, string name, int age, string gender, string history)
+        public Patient(Doctor doctor, List<int> appointments, int id, string name, int age, string gender, string description)
         {
             this.Appointments = appointments;
-            this.Doctors = doctors;
             Id = id;
             Name = name;
             Age = age;
             Gender = gender;
-            History = history;
+            Description = description;
         }
 
         /// <summary>
@@ -47,7 +43,7 @@ namespace DoctorAppointmentModelLibrary
         public override bool Equals(object? obj)
         {
             Patient patient = obj as Patient;
-            if(this.Name.Equals(patient.Name) && this.History.Equals(patient.History))
+            if (this.Name.Equals(patient.Name) && this.Description.Equals(patient.Description))
                 return true;
             return false;
         }
@@ -58,7 +54,7 @@ namespace DoctorAppointmentModelLibrary
         /// <returns>Properties as string</returns>
         public override string ToString()
         {
-            return Name + " " + Age + " " + Gender + " " + History;
+            return Name + " " + Age + " " + Gender + " " + Description;
         }
     }
 }

@@ -4,7 +4,11 @@ use pubs
 create proc AuthorBookDetails_proc(@aname varchar(20))
 as
 begin
-	select a.au_fname as "Author Name", t.title as "Book Title", p.pub_name as "Publisher Name" from authors a join titleauthor ta on a.au_id = ta.au_id join titles t on t.title_id = ta.title_id join publishers p on p.pub_id = t.pub_id where a.au_fname = @aname
+	select a.au_fname as "Author Name", t.title as "Book Title", p.pub_name as "Publisher Name" 
+	from authors a join titleauthor ta on a.au_id = ta.au_id 
+	join titles t on t.title_id = ta.title_id 
+	join publishers p on p.pub_id = t.pub_id 
+	where a.au_fname = @aname
 end
 
 exec AuthorBookDetails_proc "Stearns"
@@ -15,10 +19,10 @@ drop proc AuthorBookDetails_proc
 create proc EmployeeSoldBookDetails_proc(@ename varchar(20))
 as
 begin
-	select e.fname "Employee Name", t.title "Book Title", t.price "Unit Price", s.qty "Quantity", (t.price * s.qty) "Total Cost" 
+	select e.fname "Employee Name", t.title "Book Title", t.price "Unit Price", sum(s.qty) "Quantity", sum(t.price * s.qty) "Total Cost" 
 	from employee e join titles t on t.pub_id = e.pub_id 
 	join sales s on s.title_id = t.title_id 
-	where e.fname = @ename  
+	where e.fname = @ename  group by t.title, t.price, e.fname
 end
 
 exec EmployeeSoldBookDetails_proc "Paolo"
@@ -37,42 +41,48 @@ select concat(au_fname, ' ', au_lname) from authors
 -- using CTE
 with OrderDetailsCTE(Title, Publiser_Name, Author_Name, Quantity, Unit_Price, Total_Cost)
 as
-(select t.title, p.pub_name, concat(a.au_fname, ' ', a.au_lname), s.qty, t.price, (t.price * s.qty) 
+(select t.title, p.pub_name, concat(a.au_fname, ' ', a.au_lname), sum(s.qty), t.price, sum(t.price * s.qty) 
 from titles t 
 join publishers p on t.pub_id = p.pub_id 
 join titleauthor ta on ta.title_id = t.title_id 
 join authors a on a.au_id = ta.au_id
-join sales s on s.title_id = t.title_id)
+join sales s on s.title_id = t.title_id
+group by t.title, p.pub_name, concat(a.au_fname, ' ', a.au_lname), t.price
+)
 
 select top 5 * from OrderDetailsCTE order by Total_Cost desc
 
 -- using view
 create view vwOrderDetails
 as
-(select t.title "Book Title", p.pub_name "Publisher Name", concat(a.au_fname, ' ', a.au_lname) "Author Name", s.qty "Quantity", t.price "Unit Price", (t.price * s.qty) "Total Cost"
+(select t.title "Book Title", p.pub_name "Publisher Name", concat(a.au_fname, ' ', a.au_lname) "Author Name", sum(s.qty) "Quantity", t.price "Unit Price", sum(t.price * s.qty) "Total Cost"
 from titles t 
 join publishers p on t.pub_id = p.pub_id 
 join titleauthor ta on ta.title_id = t.title_id 
 join authors a on a.au_id = ta.au_id
-join sales s on s.title_id = t.title_id)
+join sales s on s.title_id = t.title_id
+group by t.title, p.pub_name, concat(a.au_fname, ' ', a.au_lname), t.price)
 
 select top 5 * from vwOrderDetails order by [Total Cost] desc
 
 drop view vwOrderDetails
 
 -- using temp table
-select top 5 t.title "Book Title", p.pub_name "Publisher Name", concat(a.au_fname, ' ', a.au_lname) "Author Name", s.qty "Quantity", t.price "Unit Price", (t.price * s.qty) "Total Cost"
+select top 5 
+t.title "Book Title", p.pub_name "Publisher Name", concat(a.au_fname, ' ', a.au_lname) "Author Name", sum(s.qty) "Quantity", t.price "Unit Price", sum(t.price * s.qty) "Total Cost"
 from titles t 
 join publishers p on t.pub_id = p.pub_id 
 join titleauthor ta on ta.title_id = t.title_id		
 join authors a on a.au_id = ta.au_id
-join sales s on s.title_id = t.title_id order by [Total Cost] desc
+join sales s on s.title_id = t.title_id 
+group by t.title, p.pub_name, concat(a.au_fname, ' ', a.au_lname), t.price
+order by [Total Cost] desc 
 
 ------------------------------------------------------------------------------------------//
 
 select * from authors 
 select * from titles
-select * from titleauthor
+select * from titleauthor order by title_id
 select * from publishers 
 select * from sales  
 select * from employee order by fname 
