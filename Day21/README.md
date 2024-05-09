@@ -1,4 +1,5 @@
-# Hotel Booking System
+# Day 21
+## Hotel Booking System
 
 This ERD was developed using pair programming methodology. One, the driver, writes code while the other, the observer or navigator, reviews each line of code as it is typed in. The two programmers **SWITCH ROLES** frequently.
 
@@ -7,16 +8,7 @@ This ERD was developed using pair programming methodology. One, the driver, writ
 [[repo](https://github.com/JaivigneshJv/GenSpark)]
 
 
-## Entity Relationship Diagram (ERD)
-
-The ERD for this system includes the following entities:
-
-
-![ERD](HotelManagement-ERD.png)
-
-
-
-## Entities
+### Entities
 
 The entities in this system and their attributes are as follows:
 
@@ -28,46 +20,20 @@ The entities in this system and their attributes are as follows:
 - **Guest Features**: Guest Id, Features Id
 - **Room Features**: Room Id, Feature Id
 
-## Functional Requirements Coverage:
-- **Room Inventory Management**: Covered with the Rooms entity, including details like room type, features, capacity, nightly rate, and discount percentage.
-- **Reservation Processing:** Handled by the Reservation entity, which tracks booking details such as check-in and check-out dates, occupancy count, cancellation policy, total cost, and any applicable discounts.
-- **Guest Management:** Managed through the Guests entity, capturing guest contact details, preferences, loyalty points, and their reservation history.
-## Optional Enhancements Coverage:
-- **Loyalty Program Integration:** Supported by the Guests entity's loyalty points attribute, which can be used to implement loyalty programs offering discounts or complimentary services based on guest stays.
-- **Feedback and Rating System:** Implemented via the Feedback entity, enabling guests to provide feedback on their stay and rate the hotel's services, facilitating informed decisions for future guests.
+### Entity Relationship Diagram (ERD)
 
-## Functional Requirements [Application]
+![ERD](/Day21/Assets/HotelManagement-ERD.png)
 
-### Room Inventory Management
-Maintain a comprehensive inventory of available rooms, including details such as room type (e.g., single, double, suite), features (e.g., air conditioning, Wi-Fi, ocean view), occupancy capacity, and nightly rate.
 
-### Reservation Processing
-Enable guests to search for available rooms based on their desired check-in and check-out dates, room type, and occupancy needs. Allow guests to book rooms, providing personal details, specific preference. Generate reservation confirmations that include reservation details, total cost, and cancellation policies.
-
-### Guest Management
-Maintain records of guests including contact details, reservation history, and preferences. Implement functionality for guests to view their reservation details, modify bookings, or cancel reservations.
-
-#### Non-Functional Requirements:
-
-1. **User Interface:**
-   - Design an intuitive console interface with clear navigation and prompts to ensure ease of use for both guests and hotel staff.
-
-2. **Efficiency:**
-   - Ensure that the system processes bookings and updates quickly and accurately, especially during peak booking periods.
-
-3. **Reliability:**
-   - The system should be highly reliable, maintaining continuous operation and preserving data integrity.
-
-4. **Security:**
-   - Implement strong security measures to protect guest data and financial transactions from unauthorized access.
-
-5. **Scalability:**
-   - Design the system to easily accommodate growth in hotel size, number of bookings, and expansion into new locations without significant changes to the core architecture.
-
-#### Optional Enhancements:
-
-1. **Loyalty Program Integration:**
-   - Integrate a loyalty program to reward frequent guests with discounts, upgrades, or complimentary services.
-
-2. **Feedback and Rating System:**
-   - Include a system for guests t
+## Employee Request Tracker
+#### 1. User Registration
+![ERD](/Day21/Assets/01_Register.png)
+#### 2. User Login
+![ERD](/Day21/Assets/02_UserLogin.png)
+#### 3. User Request Menu
+![ERD](/Day21/Assets/03_UserRequestMenu.png)
+#### 4. Admin Login
+![ERD](/Day21/Assets/04_AdminLogin.png)
+#### 5. Admin Request Menu
+![ERD](/Day21/Assets/05_AdminRequestMenu.png)
+![ERD](/Day21/Assets/06_AdminRequestMenu.png)
