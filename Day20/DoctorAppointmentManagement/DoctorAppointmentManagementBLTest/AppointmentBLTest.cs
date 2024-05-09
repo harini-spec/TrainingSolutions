@@ -24,13 +24,13 @@ namespace DoctorAppointmentManagementBLTest
         public void AddAppointmentSuccessTest()
         {
             // Arrange
-            Appointment appointment = new Appointment(12, 1, Convert.ToDateTime("2024-10-20"), "Pending");
+            Appointment appointment = new Appointment(14, 2, Convert.ToDateTime("2024-10-20"), "Pending");
 
             // Action
             var result = AppointmentBL.AddAppointment(appointment);
 
             // Assert
-            Assert.AreEqual(13, result);
+            Assert.AreEqual(20, result);
         }
 
         [Test]

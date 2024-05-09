@@ -1,0 +1,9 @@
+Entity:
+Rooms - Id, Name, Type, Occupancy Capacity, Nightly rate, DiscountPercentage
+Guests - Id, Name, Phone No, Email, Loyalty points, List<Reservations>
+Reservation - Id, Room Id, Guest Id, CheckIn Date, Checkout Date, 
+              Occupancy Count, Cancellation Policy, Total cost, Discount 
+Feedback - Id, Guest Id, Reservation Id, Feedback, Rating, Feedback Date 
+Features - Id, Feature 
+Guest Features - Guest Id, Features Id 
+Room Features - Room Id, Feature Id 

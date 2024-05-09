@@ -20,15 +20,15 @@ namespace DoctorAppointmentManagementBLTest
         public void AddDoctorSuccessTest()
         {
             // Arrange
-            Appointment appointment = new Appointment(12, 1, Convert.ToDateTime("2024-10-10"), "Pending" );
+            Appointment appointment = new Appointment(14, 1, Convert.ToDateTime("2024-10-10"), "Pending" );
             HashSet<Appointment> appointments = new HashSet<Appointment>() { appointment };
-            Doctor doctor = new Doctor("Bhuvana", 36, "GS", "MBBS", 20, appointments);
+            Doctor doctor = new Doctor("Bhavana", 36, "GS", "MBBS", 20, appointments);
 
             // Action
             var result = DoctorBL.AddDoctor(doctor);
 
             // Assert
-            Assert.AreEqual(12, result);
+            Assert.AreEqual(14, result);
         }
 
         [Test]
