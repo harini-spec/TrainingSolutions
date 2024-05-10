@@ -1,4 +1,5 @@
 ﻿using DoctorAppointmentModelLibrary.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
@@ -61,8 +62,7 @@ namespace DoctorAppointmentDALLibrary
             /// <returns>Patient record if present, else null</returns>
             public Patient Get(int key)
             {
-                List<Patient> patients = context.Patients.ToList();
-                Patient patient = patients.SingleOrDefault(x => x.Id == key);
+                Patient patient = context.Patients.Include(p => p.Appointments).SingleOrDefault(x => x.Id == key);
                 if (patient != null)
                     return patient;
                 return null;
@@ -74,7 +74,7 @@ namespace DoctorAppointmentDALLibrary
             /// <returns>Patient records as a List</returns>
             public List<Patient> GetAll()
             {
-                List<Patient> patients = context.Patients.ToList();
+                List<Patient> patients = context.Patients.Include(p => p.Appointments).ToList();
                     if (patients.Count != 0)
                         return patients;
                 return null;

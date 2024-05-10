@@ -71,25 +71,25 @@ namespace DoctorAppointmentManagementBLTest
             Assert.AreEqual("Patient Record does not exist", exception.Message);
         }
 
-        //[Test]
-        //public void GetPatientAppointmentsSuccessTest()
-        //{
-        //    // Action
-        //    var result = PatientBL.GetPatientAppointments(1);
+        [Test]
+        public void GetPatientAppointmentsSuccessTest()
+        {
+            // Action
+            var result = PatientBL.GetPatientAppointments(1);
 
-        //    // Assert
-        //    Assert.AreEqual(1, result.Count);
-        //}
+            // Assert
+            Assert.AreEqual(4, result.Count);
+        }
 
-        //[Test]
-        //public void GetPatientAppointmentsExceptionNoAppointmentsTest()
-        //{
-        //    //Action
-        //    var exception = Assert.Throws<NoAppointmentsFoundException>(() => PatientBL.GetPatientAppointments(2));
+        [Test]
+        public void GetPatientAppointmentsExceptionNoAppointmentsTest()
+        {
+            //Action
+            var exception = Assert.Throws<NoAppointmentsFoundException>(() => PatientBL.GetPatientAppointments(4));
 
-        //    //Assert
-        //    Assert.AreEqual("No appointments were found", exception.Message);
-        //}
+            //Assert
+            Assert.AreEqual("No appointments were found", exception.Message);
+        }
 
         [Test]
         public void GetPatientAppointmentsNoPatientExceptionTest()

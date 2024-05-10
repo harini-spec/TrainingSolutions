@@ -168,34 +168,34 @@ namespace DoctorAppointmentManagementBLTest
             Assert.AreEqual("Doctor Record does not exist!", exception.Message);
         }
 
-        //[Test]
-        //public void GetDoctorAppointmentsSuccessTest()
-        //{
-        //    // Action
-        //    var result = DoctorBL.GetDoctorAppointments(12);
+        [Test]
+        public void GetDoctorAppointmentsSuccessTest()
+        {
+            // Action
+            var result = DoctorBL.GetDoctorAppointments(12);
 
-        //    // Assert
-        //    Assert.AreEqual(1, result.Count);
-        //}
+            // Assert
+            Assert.AreEqual(3, result.Count);
+        }
 
-        //[Test]
-        //public void GetDoctorAppointmentsExceptionNoAppointmentsTest()
-        //{
-        //    //Action
-        //    var exception = Assert.Throws<NoAppointmentsFoundException>(() => DoctorBL.GetDoctorAppointments(2));
+        [Test]
+        public void GetDoctorAppointmentsExceptionNoAppointmentsTest()
+        {
+            //Action
+            var exception = Assert.Throws<NoAppointmentsFoundException>(() => DoctorBL.GetDoctorAppointments(7));
 
-        //    //Assert
-        //    Assert.AreEqual("No appointments were found", exception.Message);
-        //}
+            //Assert
+            Assert.AreEqual("No appointments were found", exception.Message);
+        }
 
-        //[Test]
-        //public void GetDoctorAppointmentsNoDoctorExceptionTest()
-        //{
-        //    //Action
-        //    var exception = Assert.Throws<DoctorDoesNotExistException>(() => DoctorBL.GetDoctorAppointments(5));
+        [Test]
+        public void GetDoctorAppointmentsNoDoctorExceptionTest()
+        {
+            //Action
+            var exception = Assert.Throws<DoctorDoesNotExistException>(() => DoctorBL.GetDoctorAppointments(100));
 
-        //    //Assert
-        //    Assert.AreEqual("Doctor Record does not exist!", exception.Message);
-        //}
+            //Assert
+            Assert.AreEqual("Doctor Record does not exist!", exception.Message);
+        }
     }
 }
