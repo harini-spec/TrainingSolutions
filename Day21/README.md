@@ -27,13 +27,13 @@ The entities in this system and their attributes are as follows:
 
 ## Employee Request Tracker
 #### 1. User Registration
-![ERD](/Day21/Assets/01_Register.png)
+![ERT](/Day21/Assets/01_Register.png)
 #### 2. User Login
-![ERD](/Day21/Assets/02_UserLogin.png)
+![ERT](/Day21/Assets/02_UserLogin.png)
 #### 3. User Request Menu
-![ERD](/Day21/Assets/03_UserRequestMenu.png)
+![ERT](/Day21/Assets/03_UserRequestMenu.png)
 #### 4. Admin Login
-![ERD](/Day21/Assets/04_AdminLogin.png)
+![ERT](/Day21/Assets/04_AdminLogin.png)
 #### 5. Admin Request Menu
-![ERD](/Day21/Assets/05_AdminRequestMenu.png)
-![ERD](/Day21/Assets/06_AdminRequestMenu.png)
+![ERT](/Day21/Assets/05_AdminRequestMenu.png)
+![ERT](/Day21/Assets/06_AdminRequestMenu.png)
