@@ -142,5 +142,21 @@ namespace CodeFirstRequestTrackerApp
                 await Console.Out.WriteLineAsync(norf.Message);
             }
         }
+
+        // ----------------------------------------- Close open request ----------------------------------------------
+        public async Task CloseRequest()
+        {
+            try
+            {
+                await Console.Out.WriteLineAsync("Enter the Request Number: ");
+                int RequestNumber = Convert.ToInt32(Console.ReadLine());
+                Request request = await requestBL.CloseRequest(RequestNumber, LoggedInEmployee.Id);
+                await DisplayRequest(request);
+            }
+            catch (RequestAlreadyClosedException race)
+            {
+                await Console.Out.WriteLineAsync(race.Message);
+            }
+        }
     }
 }

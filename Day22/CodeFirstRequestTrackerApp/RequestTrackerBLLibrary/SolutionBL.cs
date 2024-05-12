@@ -38,8 +38,17 @@ namespace RequestTrackerBLLibrary
             Request request = await _RequestRaisedByRepository.Get(result.RequestNumber);
             if (request == null)
                 throw new RequestDoesNotExistException();
+
             if (await isValidUser(request.RequestRaisedBy, UserId))
             {
+                if (comment == "Solved")
+                {
+                    request.ClosedDate = DateTime.Now;
+                    request.RequestClosedBy = result.SolutionGivenBy;
+                    request.RequestStatus = "Closed";
+                    await _RequestRaisedByRepository.Update(request);
+                }
+
                 result.RequestRaiserComment = comment;
                 await _SolutionRepository.Update(result);
                 return result;

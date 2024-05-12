@@ -83,17 +83,18 @@ namespace CodeFirstRequestTrackerApp
                     "\n4. View all solutions " +
                     "\n5. Provide solution " +
                     "\n6. View feedbacks " +
+                    "\n7. Close request" +
                     "\nTo Exit, -1");
                 ch = Convert.ToInt32(Console.ReadLine());
                 switch (ch)
                 {
                     case 1: await new RequestFrontend().GetAllRequests(); break;
                     case 2: await new RequestFrontend().GetAllOpenRequests(); break;
-
                     case 3: await new RequestFrontend().GetRequestByRequestNumberForAdmin(); break;
                     case 4: await new SolutionFrontend().GetAllSolutionsForAdmin(); break;
                     case 5: await new SolutionFrontend().ProvideSolution(); break;
                     case 6: await new FeedbackFrontend().ViewFeedbacks(); break;
+                    case 7: await new RequestFrontend().CloseRequest(); break;
                 }
             } while (ch != -1);
         }

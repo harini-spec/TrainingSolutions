@@ -15,5 +15,6 @@ namespace RequestTrackerBLLibrary
         public Task<List<Request>> GetAllRequestsOfEmployee(int EmployeeId);
         public Task<List<Request>> GetAllRequests();
         public Task<List<Request>> GetAllOpenRequests();
+        public Task<Request> CloseRequest(int requestNumber, int id);
     }
 }

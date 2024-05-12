@@ -96,5 +96,17 @@ namespace RequestTrackerBLLibrary
                 throw new NoOpenRequestsFoundException();
             return result;
         }
+
+        public async Task<Request> CloseRequest(int requestNumber, int RequestClosedEmployee)
+        {
+            var result = await _RequestRepository.Get(requestNumber);
+            if (result.RequestStatus == "Closed" && result.RequestClosedBy != null)
+                throw new RequestAlreadyClosedException(result.RequestClosedByEmployee.Name);
+            result.RequestStatus = "Closed";
+            result.ClosedDate = DateTime.Now;
+            result.RequestClosedBy = RequestClosedEmployee;
+            await _RequestRepository.Update(result);
+            return result;
+        }
     }
 }

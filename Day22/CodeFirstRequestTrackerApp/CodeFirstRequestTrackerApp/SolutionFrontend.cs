@@ -49,7 +49,7 @@ namespace CodeFirstRequestTrackerApp
             await Console.Out.WriteLineAsync("Solution Date     : " + solution.SolutionDate);
             await Console.Out.WriteLineAsync("Solution          : " + solution.Solution);
             await Console.Out.WriteLineAsync("Solution given by : " + solution.SolutionGivenByEmployee.Name);
-            await Console.Out.WriteLineAsync("Your comment      : " + solution.RequestRaiserComment);
+            await Console.Out.WriteLineAsync("User comment      : " + solution.RequestRaiserComment);
             await Console.Out.WriteLineAsync("----------------------------------------------------------------");
         }
 
