@@ -44,9 +44,11 @@ namespace RequestTrackerBLLibrary
                 if (comment == "Solved")
                 {
                     request.ClosedDate = DateTime.Now;
+                    result.isSolved = true;
                     request.RequestClosedBy = result.SolutionGivenBy;
                     request.RequestStatus = "Closed";
                     await _RequestRaisedByRepository.Update(request);
+                    await _SolutionRepository.Update(result);
                 }
 
                 result.RequestRaiserComment = comment;
