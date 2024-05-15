@@ -64,6 +64,7 @@ namespace ClinicAppointmentManagement.Controllers
             }
         }
 
+        [Route("UpdateExperience")]
         [HttpPut]
         public async Task<ActionResult<Doctor>> UpdateDoctorExperience(int doctorID, int experience)
         {
