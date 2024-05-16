@@ -12,7 +12,7 @@ using PizzaApplicationAPI.Contexts;
 namespace PizzaApplicationAPI.Migrations
 {
     [DbContext(typeof(PizzaContext))]
-    [Migration("20240515135800_initial")]
+    [Migration("20240516110819_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,7 +54,7 @@ namespace PizzaApplicationAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("PizzaApplicationAPI.Models.Pizza", b =>
@@ -64,6 +64,9 @@ namespace PizzaApplicationAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("Availability")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -115,18 +118,12 @@ namespace PizzaApplicationAPI.Migrations
             modelBuilder.Entity("PizzaApplicationAPI.Models.User", b =>
                 {
                     b.HasOne("PizzaApplicationAPI.Models.Customer", "customer")
-                        .WithOne("user")
-                        .HasForeignKey("PizzaApplicationAPI.Models.User", "CustomerId")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("customer");
-                });
-
-            modelBuilder.Entity("PizzaApplicationAPI.Models.Customer", b =>
-                {
-                    b.Navigation("user")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

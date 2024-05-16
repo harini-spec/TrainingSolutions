@@ -27,7 +27,7 @@ namespace PizzaApplicationAPI.Services
                 var result = new List<Pizza>();
                 foreach (var pizza in pizzas)
                 {
-                    if (pizza.InStock > 0)
+                    if (pizza.InStock > 0 && pizza.Availability == true)
                     {
                         result.Add(pizza);
                     }
@@ -43,6 +43,31 @@ namespace PizzaApplicationAPI.Services
                 throw;
             }
             catch (NoPizzaInStockException)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<Pizza>> GetAllAvailablePizzas()
+        {
+            try
+            {
+                var pizzas = await _PizzaRepository.GetAll();
+                var result = new List<Pizza>();
+                foreach (var pizza in pizzas)
+                {
+                    if (pizza.Availability == true)
+                    {
+                        result.Add(pizza);
+                    }
+                }
+                if (result.Count == 0)
+                {
+                    throw new NoPizzasFoundException();
+                }
+                return result;
+            }
+            catch (NoPizzasFoundException)
             {
                 throw;
             }

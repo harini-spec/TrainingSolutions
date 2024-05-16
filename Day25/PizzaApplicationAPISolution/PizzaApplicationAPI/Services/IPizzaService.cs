@@ -6,5 +6,6 @@ namespace PizzaApplicationAPI.Services
     {
         Task<List<Pizza>> GetAllPizzasInStock();
         Task<Pizza> AddPizza(Pizza pizza);
+        Task<List<Pizza>> GetAllAvailablePizzas();
     }
 }

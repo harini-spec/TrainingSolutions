@@ -10,7 +10,7 @@ namespace PizzaApplicationAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Employees",
+                name: "Customers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -23,7 +23,7 @@ namespace PizzaApplicationAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.PrimaryKey("PK_Customers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,6 +37,7 @@ namespace PizzaApplicationAPI.Migrations
                     DiameterInches = table.Column<int>(type: "int", nullable: false),
                     IsVegetarian = table.Column<bool>(type: "bit", nullable: false),
                     UnitPrice = table.Column<float>(type: "real", nullable: false),
+                    Availability = table.Column<bool>(type: "bit", nullable: false),
                     InStock = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -57,9 +58,9 @@ namespace PizzaApplicationAPI.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.CustomerId);
                     table.ForeignKey(
-                        name: "FK_Users_Employees_CustomerId",
+                        name: "FK_Users_Customers_CustomerId",
                         column: x => x.CustomerId,
-                        principalTable: "Employees",
+                        principalTable: "Customers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -74,7 +75,7 @@ namespace PizzaApplicationAPI.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "Customers");
         }
     }
 }
