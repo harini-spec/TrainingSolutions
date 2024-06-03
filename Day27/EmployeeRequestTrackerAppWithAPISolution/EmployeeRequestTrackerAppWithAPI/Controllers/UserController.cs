@@ -14,9 +14,12 @@ namespace EmployeeRequestTrackerAppWithAPI.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        public UserController(IUserService userService)
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
 
         [HttpPost("Login")]
@@ -28,35 +31,41 @@ namespace EmployeeRequestTrackerAppWithAPI.Controllers
 
         public async Task<ActionResult<LoginReturnDTO>> Login(UserLoginDTO userLoginDTO)
         {
-            try
+            if (ModelState.IsValid)
             {
-                var result = await _userService.Login(userLoginDTO);
-                return Ok(result);
+                try
+                {
+                    var result = await _userService.Login(userLoginDTO);
+                    return Ok(result);
+                }
+                catch (UnauthorizedUserException uue)
+                {
+                    _logger.LogCritical(uue.Message);
+                    return Unauthorized(new ErrorModel(401, uue.Message));
+                }
+                catch (UserNotActiveException uue)
+                {
+                    return Unauthorized(new ErrorModel(401, uue.Message));
+                }
+                catch (NoUserFoundException nuf)
+                {
+                    _logger.LogCritical(nuf.Message);
+                    return NotFound(new ErrorModel(404, nuf.Message));
+                }
+                catch (NoSuchEmployeeException nse)
+                {
+                    return NotFound(new ErrorModel(404, nse.Message));
+                }
+                catch (ArgumentNullException ane)
+                {
+                    return BadRequest(new ErrorModel(400, ane.Message));
+                }
+                catch (Exception ex)
+                {
+                    return BadRequest(new ErrorModel(500, ex.Message));
+                }
             }
-            catch (UnauthorizedUserException uue)
-            {
-                return Unauthorized(new ErrorModel(401, uue.Message));
-            }
-            catch (UserNotActiveException uue)
-            {
-                return Unauthorized(new ErrorModel(401, uue.Message));
-            }
-            catch (NoUserFoundException nuf)
-            {
-                return NotFound(new ErrorModel(404, nuf.Message));
-            }
-            catch (NoSuchEmployeeException nse)
-            {
-                return NotFound(new ErrorModel(404, nse.Message));
-            }
-            catch(ArgumentNullException ane)
-            {
-                return BadRequest(new ErrorModel(400, ane.Message));
-            }
-            catch (Exception ex) 
-            {
-                return BadRequest(new ErrorModel(500, ex.Message));
-            }
+            return BadRequest("All details are not provided. Please check the object");
         }
 
         [HttpPost("Register")]

@@ -2,6 +2,7 @@
 using PizzaApplicationAPI.Models;
 using PizzaApplicationAPI.Models.DTOs;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 
@@ -23,7 +24,8 @@ namespace PizzaApplicationAPI.Services
 
             var claims = new List<Claim>()
             {
-                new Claim("UId", user.Id.ToString())
+                new Claim("UId", user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);

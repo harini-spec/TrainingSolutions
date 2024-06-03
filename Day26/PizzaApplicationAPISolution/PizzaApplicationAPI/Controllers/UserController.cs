@@ -16,6 +16,7 @@ namespace PizzaApplicationAPI.Controllers
             _userService = userService;
         }
 
+
         [HttpPost("Register")]
         [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Error), StatusCodes.Status400BadRequest)]
