@@ -1,0 +1,55 @@
+body{
+    background-color: rgb(32,36,45);
+    font-family :'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    font-size: medium;
+    padding: 20px;
+}
+
+ol li{
+    padding-top: 5px;
+}
+
+.MainBody{
+    background-image: linear-gradient(rgb(25,28,34), rgb(25,28,34), aqua);
+}
+
+.heading{
+    padding-top: 20px;
+}
+
+iframe{
+    border-radius: 30px;
+    border-color: rgb(25,28,34);
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+table{
+    width: 100%;
+    padding: 40px 70px 40px 70px;
+}
+
+#Name{
+    font-size: 270%;
+}
+
+.ContactLinks{
+    color: black;
+}
+
+button{
+    background-color: rgb(18, 233, 233);
+}
+
+h1, h2{
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+footer{
+    text-align: center;
+}
