@@ -1,0 +1,48 @@
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+h1{
+    margin: 0;
+    padding-bottom: 50px;
+}
+
+.flex-items img{
+    height: 300px;
+    width: 300px;
+}
+
+.flex-items{
+    text-align: center;
+    flex: 50%;
+}
+
+
+
+.flex-skill-items{
+    margin: 20px;
+    flex: 25%;
+    background-color: rgb(25,28,34);
+    text-align: center;
+    padding: 10px;
+    color: white;
+}
+
+.flex-skill-items h3{
+    margin: 0;
+    color: rgb(18, 233, 233);
+}
+
+@media (max-width:1200px) {
+    .flex-skill-items{
+        flex: 40%;
+    }
+}
+
+@media (max-width:800px) {
+    .flex-skill-items{
+        flex: 80%;
+    }
+}
