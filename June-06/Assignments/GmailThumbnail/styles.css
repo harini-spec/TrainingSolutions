@@ -1,0 +1,81 @@
+html, body {
+    margin: 0; width: 100vw; height: 100vh
+}
+
+body {
+  background: linear-gradient(to bottom right, white 50%, rgb(47, 128, 237) 50%); /* direction here specifies towards where the color gradient goes */
+}
+
+.flex-container{
+    padding: 3%;
+    padding-left: 4%;
+    display: flex;
+    flex-wrap: nowrap;
+    line-height: 1.2;
+}
+
+.flex-text{
+    flex: 40%;
+    margin-right: 100px;
+}
+
+.ad{
+    color: rgb(47, 128, 237);
+}
+
+.ad, .year{
+    font-weight: 800;
+    font-size: 60px;
+    font-family: 'Open Sans';
+}
+
+.list{
+    margin-top: 6%;
+    font-weight: 800;
+    font-size: 30px;
+    font-family: 'Open Sans';
+}
+
+.template{
+    font-weight: 600;
+    font-size: 60px;
+    font-family: 'Open Sans';
+}
+
+
+
+.flex-image{
+    flex:60%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.flex-inbox img{
+    height: 470px;
+}
+
+.android-under{
+    z-index: -1;
+    padding-top: 100px;
+    padding-left: 3%;
+    position: absolute;
+}
+
+.iphone-under{
+    position: absolute;
+    padding-top: 100px;
+    padding-left: 26%;
+}
+
+.iphone-over{
+    position: absolute;
+    padding-top: 150px;
+    padding-left: 23%;
+}
+
+.android-over{
+    position: absolute;
+    z-index: 1;
+    padding-top: 150px;
+}
+
