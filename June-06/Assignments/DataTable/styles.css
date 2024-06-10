@@ -1,0 +1,119 @@
+.sort{
+    color: gray;
+    position: absolute;
+    font-size: 12px;
+}
+
+p{
+    margin-bottom: 0 !important;
+}
+
+.head th{
+    font-weight: 500 ;
+    font-size: 14px;
+    color: gray ; 
+    background-color: rgb(247,249,253) !important;
+}
+
+.status{
+    background-color: grey;
+    border-radius: 20px;
+    text-align: center;
+    width: auto;
+}
+
+.head-right-align{
+    text-align: right;
+}
+
+.open{
+    background-color: rgb(240,241,250);
+    color: rgb(79,90,237);
+}
+
+.paid{
+    background-color: rgb(225,252,239);
+    color: green;
+}
+
+.due{
+    background-color: rgb(250,240,243);
+    color: red;
+}
+
+.inactive{
+    background-color: rgb(233,237,245);
+    padding-left: 9px;
+    padding-right: 9px;
+    color: gray;
+}
+
+.balance-red{
+    color: red;
+}
+
+.balance-green{
+    color: green;
+}
+
+.top-div{
+    background-color: rgb(247,249,253);
+    display: flex;
+}
+
+.filter button{
+    background-color: white;
+    color: rgb(70,79,96);
+    box-shadow: 0px 0px 1px 1px gray; 
+}
+
+.filter{
+    flex: 5%;
+    margin-left: 1%;
+    padding: 20px;
+}
+
+.input-container {
+    border-radius: 5px;
+    box-shadow: 0px 0px 1px 1px gray; 
+    border: 1px solid white;
+    flex: 15%;
+    display: flex;
+    flex-wrap: nowrap;
+    height: 40px;
+    background-color: white;
+    margin-top: 20px;
+    padding-left: 5px;
+}
+
+.icon i {
+    padding-top: 11px;
+    height: auto;
+    height: 75%;
+    color: gray;
+}
+
+.icon{
+    flex: 5%;
+}
+
+.input-box {
+    flex: 95%;
+    width: 400px;
+}
+
+input {
+    border: transparent !important;
+    color: gray !important; 
+}
+
+.Add-customer{
+    flex: 80;
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 3px;
+}
+
+.Add-customer button{
+    width: 170px;
+}
