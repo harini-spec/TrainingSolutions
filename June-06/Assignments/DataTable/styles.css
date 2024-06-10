@@ -108,12 +108,70 @@ input {
 }
 
 .Add-customer{
-    flex: 80;
+    flex: 80%;
     text-align: right;
     margin-top: 20px;
     margin-right: 3px;
+    min-width: 80px;
 }
 
-.Add-customer button{
-    width: 170px;
+.table{
+    min-width: 1500px;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+#rows{
+    border: transparent;
+}
+
+select{
+    color: rgb(104,113,130);
+}
+
+.open{
+    margin-right: 8px;
+}
+
+.close{
+    margin-left: 8px;
+    font-weight: 800;
+}
+
+.btn-pg{
+    padding: 0px 7px 0px 7px !important;
+    border: 1px solid rgb(141,150,166) !important;
+}
+
+.pagination-container{
+    padding-top: 10px;
+    display: flex;
+    color: rgb(104,113,130);
+    padding-bottom: 20px;
+    background-color: rgb(247,249,253);
+}
+
+select{
+    background-color: rgb(247,249,253);
+}
+
+option{
+    background-color: white;
+}
+
+.current-pages{
+    margin-left: 20px;
+    flex: 10%;
+}
+
+.rows{
+    text-align: right;
+    margin-right: 20px;
+    flex: 80%;
+}
+
+.pages{
+    min-width: 150px;
+    display: inline-block;
+    flex: 10%;
 }

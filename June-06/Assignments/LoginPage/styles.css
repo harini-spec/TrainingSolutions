@@ -8,8 +8,7 @@ body {
     position: relative;
     text-align: center;
     margin: auto;
-    max-width: 500px; 
-    height: 50%;
+    width: 18rem !important;
 
     position: absolute;
     top: 50%;
@@ -19,8 +18,8 @@ body {
 }
 
 .cart{
-    height: 160px;
-    width: 120px;
+    height: 20%;
+    width: 40%;
     text-align: center;
     padding-bottom: 60px;
 }
@@ -76,4 +75,22 @@ input {
 ::placeholder {
     color: rgb(225, 225, 225) !important;
     font-size: 15px;
+}
+
+@media (max-width: 992px) {
+    .container {
+        width: 25rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 20rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        width: 100% !important;
+    }
 }

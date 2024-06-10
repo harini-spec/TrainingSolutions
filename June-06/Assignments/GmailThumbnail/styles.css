@@ -1,9 +1,13 @@
 html, body {
-    margin: 0; width: 100vw; height: 100vh
+    margin: 0;     
+    width: 100%;
+    height: 100%;
 }
 
 body {
   background: linear-gradient(to bottom right, white 50%, rgb(47, 128, 237) 50%); /* direction here specifies towards where the color gradient goes */
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .flex-container{
@@ -43,7 +47,6 @@ body {
 }
 
 
-
 .flex-image{
     flex:60%;
     display: flex;
@@ -51,7 +54,7 @@ body {
 }
 
 .flex-inbox img{
-    height: 470px;
+    height: 475px;
 }
 
 .android-under{
@@ -79,3 +82,38 @@ body {
     padding-top: 150px;
 }
 
+@media (max-width: 1000px) {
+
+    .flex-container {
+        display: block;
+    }
+
+    .flex-image{
+        max-width: fit-content;
+    }
+
+    img{
+        height: 900px !important; 
+    }
+    
+    .android-under{
+        z-index: -1;
+        padding-left: 3%;
+        position: absolute;
+    }
+    
+    .iphone-under{
+        position: absolute;
+        padding-left: 52%;
+    }
+    
+    .iphone-over{
+        position: absolute;
+        padding-left: 49%;
+    }
+    
+    .android-over{
+        position: absolute;
+        z-index: 1;
+    }
+}
