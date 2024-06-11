@@ -1,0 +1,4 @@
+Frontend for backend API:
+    Responsive
+    SCSS comments if used any 
+    Proper folder structure

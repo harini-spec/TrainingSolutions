@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link href="/June-11/styles/HomeStyles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        $(function(){
+          $("#nav-placeholder").load("NavBar.html");
+        });
+    </script>
+</head>
+
+<body>
+
+    <div id="nav-placeholder"></div>
+    
+    <div class="main-container">
+        <h1 class="tagline">
+            India's No. 1 Online Bus Ticket Booking Site
+        </h1>
+        <div class="input-main-container">
+            <div class="mb-3 input-container first">
+                <div class="icon">
+                    <img src="/June-11/Media/Images/get-in.png" class="icon-img">
+                </div>
+                <div class="input-box">
+                    <input type="text" class="form-control from-location" placeholder="From">
+                </div>
+            </div>
+            <div class="mb-3 input-container">
+                <div class="icon">
+                    <img src="/June-11/Media/Images/get-off.png" class="icon-img">
+                </div>
+                <div class="input-box">
+                    <input type="text" class="form-control to-location" placeholder="To">
+                </div>
+            </div>
+            <div class="mb-3 input-container">
+                <div class="icon">
+                    <img src="/June-11/Media/Images/date.png" class="icon-img">
+                </div>
+                <div class="input-box">
+                    <input type="date" class="form-control date" placeholder="Date" value="Date"> 
+                </div>
+            </div>
+            <div class="mb-3 input-container last">
+                <button type="button" class="btn search">SEARCH BUSES</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <h2>Why Book Buses With EasyRide?</h2>
+        <div class="card-group">
+            <div class="card card1">
+                <img class="card-img-top mx-auto" src="/June-11/Media/Images/cancellation_free.png" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-text">Enjoy <b>free cancellation</b> with <b>Assured</b> Payment</h5>
+                </div>
+            </div>
+            <div class="card card2">
+                <img class="card-img-top mx-auto" src="/June-11/Media/Images/payment_gateway.png" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text">Enjoy <b>₹0</b> payment gateway fee via <b>UPI</b></p>
+                </div>
+            </div>
+            <div class="card card3">
+                <img class="card-img-top mx-auto" src="/June-11/Media/Images/cancellation_money.png" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text"><b>Instant Refund</b> on Booking Cancellation</p>
+                </div>
+            </div>
+            <div class="card card4">
+                <img class="card-img-top mx-auto" src="/June-11/Media/Images/customer-support.png" alt="Card image cap">
+                <div class="card-body">
+                    <p class="card-text"><b>24x7</b> customer support</p>
+                </div>
+            </div>
+            <div class="card card5">
+            <img class="card-img-top mx-auto" src="/June-11/Media/Images/irctc.png" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">IRCTC Authorized Partner</h5>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="faq-container">
+        <h2>FAQs related to Bus Tickets Booking </h2>
+        <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">Can I track the location of my booked bus online?</h5>
+              <p class="card-text">Yes, you can track your bus online by using our bus tracking app feature called “Track My Bus”. This feature allows passengers and their families to track the live bus location. You may follow your bus on a map and use the information to plan your trip to the boarding point and to get off at the correct stop. Family and friends may also check the bus position to schedule pick-ups and ensure safety.</p>
+            </div>
+          </div>
+          
+          <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">Can I cancel my bus ticket online?</h5>
+              <p class="card-text">Yes you can cancel bus tickets online, Most of the tickets can be canceled online. However, there are some bus tickets that can only be canceled through our call center. However please note that the cancellation fee and cancellation period may differ for specific bus services. Please contact any of our executives for cancellation details on any specific service.</p>
+            </div>
+          </div>
+          
+          <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">How can I cancel my bus ticket online?</h5>
+              <p class="card-text">To cancel the bus ticket online, you need to click on the cancellation link provided on our home page. Enter your ticket number and the e-mail ID that was provided at the time of bus booking and click on cancel ticket.</p>
+            </div>
+          </div>    
+
+          <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">How can I get a refund in case I cancel my ticket?</h5>
+              <p class="card-text">The refund is provided as per cancellation policy of the operator. The refund can be credited to the source of payment (Example: debit card, credit card, net banking). Wallet credit can be used for bus booking in future (within 6 months of cancellation).</p>
+            </div>
+          </div>  
+
+          <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">What happens if the bus does not leave on time or is canceled?</h5>
+              <p class="card-text">If your bus does not leave on time or is canceled, in such situations, you will need to consult the counter of the respective bus operators. You can also call the EasyRide customer care to discuss the appropriate actions.</p>
+            </div>
+          </div>  
+
+          <div class="card faq-card">
+            <div class="card-body">
+              <h5 class="card-title">I missed the bus. Do I get a refund?</h5>
+              <p class="card-text">EasyRide provides a 100% refund if the bus is missed due to either EasyRide or its partner company's fault. However, if the bus is missed due to any other reason not directly related to EasyRide no refund is provided.</p>
+            </div>
+          </div>  
+    </div>
+    
+</body>
+</html>

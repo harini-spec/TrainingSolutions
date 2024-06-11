@@ -1,0 +1,133 @@
+.tagline{
+    color: white;
+    font-weight: 700;
+    padding-top: 40px;
+    text-align: center;
+}
+
+.main-container{
+    background-image: url("/June-11/Media/Images/bg.jpg");
+    background-size: 100% 500px;
+}
+
+.input-main-container{
+    width : 100%;
+    height: 400px;
+    display: flex;
+    overflow-x: auto;
+}
+
+h1{
+    flex: 100%;
+}
+
+.first{
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    margin-left: 100px !important;
+}
+
+.last{
+    margin-right: 100px !important;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.last button{
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    background-color: rgb(28, 111, 93);
+    color: white;
+    font-size: 25px !important;
+}
+
+.input-container {
+    margin-top: 80px;
+    flex: 100% !important;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 25%;
+    width: 50% !important;
+}
+
+.icon{
+    flex: 10%;
+}
+
+.input-box {
+    flex: 90%;
+}
+
+.icon-img{
+    width: 50px;
+}
+
+.from-location, .to-location, .date{
+    height: 100% !important;
+    width: 250px !important;
+    border: none !important;
+    box-shadow: none;
+    font-size: 25px !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.search:hover{
+    background-color: rgb(10, 96, 77) !important;
+    color: white !important;
+}
+
+.carousel-container{
+    padding: 20px;
+    margin-bottom: 20px !important;
+}
+
+h2{
+    padding-bottom: 20px;
+}
+
+.card img{
+    padding-top: 10px;
+    left: 50%;
+    height: 100px;
+    width: 100px;
+}
+
+.card1{
+    background-color: rgb(252,237,203) !important;
+}
+.card2{
+    background-color: rgb(203,221,247) !important;
+}
+.card3{
+    background-color: rgb(219,241,227) !important;
+}
+.card4{
+    background-color: rgb(255, 218, 228) !important;
+}
+.card5{
+    background-color: rgb(251, 227, 227) !important;
+}
+
+.card{
+    border-radius: 20px !important;
+    margin-right: 20px;
+}
+
+.faq-container{
+    padding: 20px;
+}
+
+.faq-card{
+    background-color: rgb(242,243,248) !important;
+    margin-top: 20px;
+    font-size: 15px;
+}
