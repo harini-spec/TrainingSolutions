@@ -1,0 +1,66 @@
+body{
+    background-color: rgb(28, 111, 93) !important;
+}
+
+.main-login-container{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    min-width: 70%;
+    min-height: 60%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.login-input-container{
+    text-align: center;
+    margin: auto;
+    padding: 40px;
+    flex: 50%;
+}
+
+.login-input-container button{
+    margin: 20px;
+    background-color: rgb(28, 111, 93);
+}
+
+.login-input-container button:hover{
+    background-color: rgb(10, 96, 77);
+}
+
+.button-container a{
+    color: white;
+    text-decoration: none;
+}
+
+.login-image-container{
+    flex: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.login-image-container img{
+    border-radius: 20px !important;
+    margin: 20px;
+    height: 350px;
+    width: 450px;
+}
+
+.input-container{
+    margin: auto;
+    width: 80%;
+}
+
+.forgot-pwd{
+    margin-right: 50px !important;
+    margin-left: auto;
+    text-decoration: none;
+    color: black;
+    font-weight: 700;
+}
