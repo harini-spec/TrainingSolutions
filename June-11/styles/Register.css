@@ -1,0 +1,50 @@
+body{
+    background-color: rgb(28, 111, 93) !important;
+}
+
+.main-register-container{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    min-width: 80%;
+    min-height: 80%;
+    background-color: white;
+    border-radius: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    width: fit-content;
+}
+
+.register-input-container{
+    margin: auto;
+    padding: 40px;
+    flex: 50%;
+}
+
+.register-input-container button{
+    margin: 20px;
+    background-color: rgb(28, 111, 93);
+}
+
+.register-input-container button:hover{
+    background-color: rgb(10, 96, 77);
+}
+
+.button-container a{
+    color: white;
+    text-decoration: none;
+}
+
+.register-image-container{
+    flex: 50%;
+    margin: auto;
+    text-align: center;
+}
+
+.register-image-container img{
+    height: 400px;
+    width: 400px;
+}

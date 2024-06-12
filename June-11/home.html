@@ -9,6 +9,10 @@
         $(function(){
           $("#nav-placeholder").load("NavBar.html");
         });
+
+        $(function(){
+          $("#footer-placeholder").load("Footer.html");
+        });
     </script>
 </head>
 
@@ -52,7 +56,7 @@
     </div>
 
     <div class="carousel-container">
-        <h2>Why Book Buses With EasyRide?</h2>
+        <h3>Why Book Buses With EasyRide?</h3>
         <div class="card-group">
             <div class="card card1">
                 <img class="card-img-top mx-auto" src="/June-11/Media/Images/cancellation_free.png" alt="Card image cap">
@@ -90,49 +94,114 @@
     <hr/>
 
     <div class="faq-container">
-        <h2>FAQs related to Bus Tickets Booking </h2>
-        <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">Can I track the location of my booked bus online?</h5>
-              <p class="card-text">Yes, you can track your bus online by using our bus tracking app feature called “Track My Bus”. This feature allows passengers and their families to track the live bus location. You may follow your bus on a map and use the information to plan your trip to the boarding point and to get off at the correct stop. Family and friends may also check the bus position to schedule pick-ups and ensure safety.</p>
-            </div>
-          </div>
+        <h3>FAQs related to Bus Tickets Booking </h3>
+
+        <div id="accordion">
+            <!-- faq 1 -->
+            <div class="card faq-card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Can I track the location of my booked bus online?
+                  </button>
+                </h5>
+              </div>
           
-          <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">Can I cancel my bus ticket online?</h5>
-              <p class="card-text">Yes you can cancel bus tickets online, Most of the tickets can be canceled online. However, there are some bus tickets that can only be canceled through our call center. However please note that the cancellation fee and cancellation period may differ for specific bus services. Please contact any of our executives for cancellation details on any specific service.</p>
+              <div id="collapseOne" class="collapse faq-body" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    Yes, you can track your bus online by using our bus tracking app feature called “Track My Bus”. This feature allows passengers and their families to track the live bus location. You may follow your bus on a map and use the information to plan your trip to the boarding point and to get off at the correct stop. Family and friends may also check the bus position to schedule pick-ups and ensure safety.                
+                </div>
+              </div>
             </div>
-          </div>
-          
-          <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">How can I cancel my bus ticket online?</h5>
-              <p class="card-text">To cancel the bus ticket online, you need to click on the cancellation link provided on our home page. Enter your ticket number and the e-mail ID that was provided at the time of bus booking and click on cancel ticket.</p>
-            </div>
-          </div>    
 
-          <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">How can I get a refund in case I cancel my ticket?</h5>
-              <p class="card-text">The refund is provided as per cancellation policy of the operator. The refund can be credited to the source of payment (Example: debit card, credit card, net banking). Wallet credit can be used for bus booking in future (within 6 months of cancellation).</p>
+            <!-- faq 2 -->
+            <div class="card faq-card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                        Can I cancel my bus ticket online?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseTwo" class="collapse faq-body" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    Yes you can cancel bus tickets online, Most of the tickets can be canceled online. However, there are some bus tickets that can only be canceled through our call center.However please note that the cancellation fee and cancellation period may differ for specific bus services. Please contact any of our executives for cancellation details on any specific service.                  
+                  </div>
+                </div>
             </div>
-          </div>  
 
-          <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">What happens if the bus does not leave on time or is canceled?</h5>
-              <p class="card-text">If your bus does not leave on time or is canceled, in such situations, you will need to consult the counter of the respective bus operators. You can also call the EasyRide customer care to discuss the appropriate actions.</p>
+            <!-- faq 3 -->
+            <div class="card faq-card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+                        How can I cancel my bus ticket online?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseThree" class="collapse faq-body" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                    To cancel the bus ticket online, you need to click on the cancellation link provided on our home page. Enter your ticket number and the e-mail ID that was provided at the time of bus booking and click on cancel ticket.
+                  </div>
+                </div>
             </div>
-          </div>  
 
-          <div class="card faq-card">
-            <div class="card-body">
-              <h5 class="card-title">I missed the bus. Do I get a refund?</h5>
-              <p class="card-text">EasyRide provides a 100% refund if the bus is missed due to either EasyRide or its partner company's fault. However, if the bus is missed due to any other reason not directly related to EasyRide no refund is provided.</p>
-            </div>
-          </div>  
+            <!-- faq 4 -->
+              <div class="card faq-card">
+                <div class="card-header" id="headingFour">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                        How can I get a refund in case I cancel my ticket?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseFour" class="collapse faq-body" aria-labelledby="headingFour" data-parent="#accordion">
+                  <div class="card-body">
+                    The refund is provided as per cancellation policy of the operator. The refund can be credited to the source of payment (Example: debit card, credit card, net banking). Wallet credit can be used for bus booking in future (within 6 months of cancellation).                
+                    </div>
+                </div>
+              </div>
+
+              <!-- faq 5 -->
+              <div class="card faq-card">
+                <div class="card-header" id="headingFive">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                        What happens if the bus does not leave on time or is canceled?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseFive" class="collapse faq-body" aria-labelledby="headingFive" data-parent="#accordion">
+                  <div class="card-body">
+                    If your bus does not leave on time or is canceled, in such situations, you will need to consult the counter of the respective bus operators. You can also call the EasyRide customer care to discuss the appropriate actions.                
+                    </div>
+                </div>
+              </div>
+
+              <!-- faq 6 -->
+              <div class="card faq-card">
+                <div class="card-header" id="headingSix">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link qns" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="true" aria-controls="collapseSix">
+                        I missed the bus. Do I get a refund?
+                    </button>
+                  </h5>
+                </div>
+            
+                <div id="collapseSix" class="collapse faq-body" aria-labelledby="headingSix" data-parent="#accordion">
+                  <div class="card-body">
+                    EasyRide provides a 100% refund if the bus is missed due to either EasyRide or its partner company's fault. However, if the bus is missed due to any other reason not directly related to EasyRide no refund is provided.                
+                    </div>
+                </div>
+              </div>
+        </div>
     </div>
-    
+
+    <div id="footer-placeholder"></div>
+
 </body>
 </html>
