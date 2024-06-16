@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Product Table</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>	
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .form-container{
+            margin: auto;
+            width: 500px;
+        }
+        button{
+            margin-top: 10px;
+        }
+        p{
+            text-align: right;
+            color: red;
+        }
+
+        .invalid{
+            border: 1px solid red !important;
+        }
+    </style>
+
+    <script>
+        function CheckFormValidity(name, price, quantity){
+            // -- Validation Start --
+            if(name == "") {
+                document.getElementById("nameError").innerHTML = "Please fill the product name";
+                var element = document.getElementById("name");
+                element.classList.add("invalid");
+                return false;
+            }
+            if(price == "") {
+                document.getElementById("priceError").innerHTML = "Please fill the product price";
+                var element = document.getElementById("price");
+                element.classList.add("invalid");
+                return false;
+            }
+            if(price <= 0)
+            {
+                document.getElementById("priceError").innerHTML = "Please enter a price greater than 0";
+                var element = document.getElementById("price");
+                element.classList.add("invalid");
+                return false;
+            }
+            if(quantity == "") {
+                document.getElementById("quantityError").innerHTML = "Please fill the product quantity";
+                var element = document.getElementById("quantity");
+                element.classList.add("invalid");
+                return false;
+            }
+            if(quantity % 1 != 0)
+            {
+                document.getElementById("quantityError").innerHTML = "Please enter a whole number for quantity";
+                var element = document.getElementById("quantity");
+                element.classList.add("invalid");
+                return false;
+            }
+            // -- Validation End --
+
+            return true;
+        }
+
+        function AddProduct() {
+            // -- Clear Error Messages --
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("priceError").innerHTML = "";
+            document.getElementById("quantityError").innerHTML = "";
+            document.getElementById("name").classList.remove("invalid");
+            document.getElementById("price").classList.remove("invalid");
+            document.getElementById("quantity").classList.remove("invalid");
+            // -- Clear Error Messages --
+
+            var name = document.getElementById("name").value;
+            var price = document.getElementById("price").value;
+            var quantity = document.getElementById("quantity").value;
+
+           if(!CheckFormValidity(name, price, quantity)){
+                return;
+           }
+
+            // -- Add Product to Table --
+            var table = document.getElementById("TableId");
+
+            var row = table.insertRow(-1); // create a row at the end of the table (-1) (append row to the table)
+            var cell1 = row.insertCell(0); // add cells to row (empty cells)
+            var cell2 = row.insertCell(1); 
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+
+            if(price % 1 == 0)
+            {
+                price = price + ".00";
+            }
+
+            cell1.innerHTML = table.rows.length - 1;
+            cell2.innerHTML = name;
+            cell3.innerHTML = "$" + price;
+            cell4.innerHTML = quantity;
+            // -- Add Product to Table --
+
+            // -- Clear Form --
+            document.getElementById("name").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("quantity").value = "";
+            document.getElementById("nameError").innerHTML = "";
+            document.getElementById("priceError").innerHTML = "";
+            document.getElementById("quantityError").innerHTML = "";
+            // -- Clear Form --
+
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <h1 class="text-center">Product Form</h1>
+
+    <div class="form-container">
+        <form class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" class="form-control" required:>
+            <p id="nameError"></p> <!-- Error message will be displayed here -->
+
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" class="form-control" required>
+            <p id="priceError"></p> <!-- Error message will be displayed here -->
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" class="form-control" required>
+            <p id="quantityError"></p> <!-- Error message will be displayed here -->
+
+            <button type="button" class="btn btn-primary" onclick="AddProduct()">Add Product</button>
+        </form>
+    </div>
+
+    <h1>Product Data</h1>
+    <table id="TableId">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td>Product 1</td>
+            <td>$10.00</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Product 2</td>
+            <td>$15.00</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Product 3</td>
+            <td>$20.00</td>
+            <td>3</td>
+        </tr>
+    </table>
+</body>
+</html>
