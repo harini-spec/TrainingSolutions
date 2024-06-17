@@ -1,8 +1,8 @@
 A registration page with 
 Name, Phone, Email, Date Of birth, 
+Gender(Radio), Qualification(Check), 
+Profession(Drop Down - Data list)
 Age(Auto calculated based on Date of birth), 
-Gender(Radio), 
-Qualification(Check), Profession(Drop Down - Data list)
 Load data list with predefined values from array(string)
 If a new entry is made apart from the given value, then include in the array
 
