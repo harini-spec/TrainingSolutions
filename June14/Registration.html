@@ -23,7 +23,27 @@
         }
 
         button{
-          margin-bottom: 20px;
+          margin-bottom: 10px;
+        }
+
+        .form-div{
+          padding: 20px;
+          border-radius: 20px;
+          background-color: rgb(233,236,239);
+          margin-bottom: 40px;
+        }
+
+        .error{
+          box-shadow: 2px 2px 2px 2px pink;
+        }
+
+        .success{
+          box-shadow: 2px 2px 2px 2px green;
+        }
+
+        .error_div{
+          color: red;
+          text-align: right;
         }
 
     </style>
@@ -34,23 +54,23 @@
     <form>
         <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter Name">
+            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter Name" onblur="validateName()" />
+            <p id="name_error" class="error_div"></p>
         </div>
         <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="text" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number">
+            <input type="text" class="form-control" id="phone" aria-describedby="phoneHelp" placeholder="Enter Phone Number" onblur="validatePhone()">
+            <p id="phone_error" class="error_div"></p>
         </div>
         <div class="form-group">
           <label for="email">Email address</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" placeholder="Enter Password">
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" onblur="validateEmail()">
+          <p id="email_error" class="error_div"></p>
         </div>
         <div class="form-group">
             <label for="dob">Date of Birth</label>
-            <input type="date" class="form-control" id="dob" onblur="calculateAge()">
+            <input type="date" class="form-control" id="dob" onblur="validateDOB()">
+            <p id="dob_error" class="error_div"></p>
         </div>
         <div class="form-group">
           <label for="age">Age</label>
@@ -60,38 +80,41 @@
         <div class="form-group">
           <label>Gender: </label>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" id="male" value="Male">
+            <input class="form-check-input" type="radio" name="gender" id="male" value="Male" onclick="validateGender()">
             <label class="form-check-label" for="male">
               Male
             </label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" id="female" value="Female">
+              <input class="form-check-input" type="radio" name="gender" id="female" value="Female" onclick="validateGender()">
               <label class="form-check-label" for="female">
                 Female
               </label>
           </div>
+          <p id="gender_error" class = "error_div"></p>
         </div>
         
         <div class="form-group">
           <label>Qualification: </label>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="diploma" value="diploma">
+            <input class="form-check-input" type="checkbox" id="diploma" value="diploma" onclick="validateQualification()">
             <label class="form-check-label" for="diploma">Diploma</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="bachelors" value="bachelors">
+              <input class="form-check-input" type="checkbox" id="bachelors" value="bachelors" onclick="validateQualification()">
               <label class="form-check-label" for="bachelors">Bachelors</label>
             </div>
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="checkbox" id="masters" value="masters">
+              <input class="form-check-input" type="checkbox" id="masters" value="masters" onclick="validateQualification()">
               <label class="form-check-label" for="masters">Masters</label>
             </div>
+            <p id="qualification_error" class="error_div"></p>
         </div>
 
         <div class="form-group" id="professions">
           <label for="profession">Profession:</label>
-          <input name="profession" id="profession" class="form-control" placeholder="Enter Profession" onfocus="loadDataList()">
+          <input name="profession" id="profession" class="form-control" placeholder="Enter Profession" onfocus="loadDataList()" onblur="validateProfession()">
+          <p id="profession_error" class="error_div"></p>
         </div>
 
         <center>

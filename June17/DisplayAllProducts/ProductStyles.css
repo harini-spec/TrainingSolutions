@@ -1,0 +1,30 @@
+.price *{
+    display: inline !important;
+}
+
+.price h5{
+    margin-left: 10px;
+    color: green;
+}
+
+.card{
+    height: 100%;
+}
+
+.main-div{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card-div{
+    margin: 20px 0px;
+    flex: 20%;
+}
+
+.tags{
+    background-color: rgb(220, 220, 255);
+    width: 60%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 5px;
+}
