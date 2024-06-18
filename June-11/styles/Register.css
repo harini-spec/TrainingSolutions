@@ -3,12 +3,7 @@ body{
 }
 
 .main-register-container{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
+    margin: 80px auto;
     min-width: 80%;
     min-height: 80%;
     background-color: white;
@@ -19,7 +14,6 @@ body{
 }
 
 .register-input-container{
-    margin: auto;
     padding: 40px;
     flex: 50%;
 }
@@ -47,4 +41,16 @@ body{
 .register-image-container img{
     height: 400px;
     width: 400px;
+}
+
+i{
+    margin-bottom: 10px;
+}
+
+.icon-pos-nodataError{
+    padding-bottom: 30px;
+}
+
+.PasswordError-icon-pos-formatError{
+    padding-bottom: 100px;
 }

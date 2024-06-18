@@ -1,0 +1,12 @@
+.error_msg {
+  text-align: right;
+  color: red;
+}
+
+.success {
+  box-shadow: 2px 2px 2px 2px green;
+}
+
+.error {
+  box-shadow: 2px 2px 2px 2px pink;
+}/*# sourceMappingURL=ErrorStyles.css.map */
