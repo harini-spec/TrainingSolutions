@@ -6,6 +6,11 @@
     color: red;
 }
 
+@mixin general_success_message(){
+    text-align: right;
+    color: green;
+}
+
 // Mixin for wrong input - Input box highlight
 @mixin wrong_input(){
     box-shadow: 2px 2px 2px 2px pink;
@@ -19,6 +24,10 @@
 // Error message class - uses Mixin general_error_message
 .error_msg{
     @include general_error_message();
+}
+
+.success_msg{
+    @include general_success_message();
 }
 
 // Correct input class - uses Mixin correct_input

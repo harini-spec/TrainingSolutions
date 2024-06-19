@@ -4,9 +4,6 @@ Frontend for backend API:
     Proper folder structure
 
 Pages:
-Register                -
-Login                   -
-Home                    -
 Bus List Page 
 Payment Page 
 
@@ -14,3 +11,7 @@ User Page
 Driver Page 
 Admin Page 
 Forgot Password Page 
+
+Works:
+favicon
+Check if token expired 

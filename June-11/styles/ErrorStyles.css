@@ -3,6 +3,11 @@
   color: red;
 }
 
+.success_msg {
+  text-align: right;
+  color: green;
+}
+
 .success {
   box-shadow: 2px 2px 2px 2px green;
 }

@@ -1,21 +1,11 @@
-body{
-    background-color: rgb(28, 111, 93) !important;
-}
-
 .main-login-container{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    min-width: 70%;
-    min-height: 60%;
-    background-color: white;
-    border-radius: 20px;
+    margin: 40px auto;
+    min-width: 80%;
+    min-height: 80%;
     display: flex;
     flex-wrap: wrap;
     width: fit-content;
+    border-radius: 20px;
 }
 
 .login-input-container{
@@ -27,10 +17,12 @@ body{
 
 .login-input-container button{
     margin: 20px;
+    color: white;
     background-color: rgb(28, 111, 93);
 }
 
 .login-input-container button:hover{
+    color: white;
     background-color: rgb(10, 96, 77);
 }
 
@@ -57,10 +49,18 @@ body{
     width: 80%;
 }
 
-.forgot-pwd{
+/* .forgot-pwd{
     margin-right: 50px !important;
     margin-left: auto;
-    text-decoration: none;
-    color: black;
-    font-weight: 700;
+    color: rgb(54, 54, 247) !important;
+    text-decoration: underline;
+    font-size: 17px !important;
+} */
+
+i{
+    padding-bottom: 15px;
+}
+
+#register_text{
+    color: rgb(54, 54, 247) !important;
 }
