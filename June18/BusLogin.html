@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bus Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script>
+        const clickButton =()=>{
+            const txtUid = document.getElementById('txtUid').value; // *1 to convert string to number
+            const txtPass = document.getElementById('txtPass').value;
+            fetch('http://localhost:5251/api/Customer/LoginCustomer', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                    },
+                body: JSON.stringify({
+                    "email": txtUid,
+                    "password": txtPass
+                })
+            })
+        .then(res => res.json())
+        .then(data => {
+            localStorage.setItem("token", data.token);
+            // console.log(localStorage.getItem("token"));
+        })
+        .catch(error => {
+            console.error(error);
+        });
+        }
+
+        const GetRewardPoints =()=>{
+            const token = localStorage.getItem("token");
+            fetch('http://localhost:5251/api/Customer/GetRewardPointsOfCustomer', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            document.getElementById('divMessage').innerHTML = "Your reward points: " + data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    const DeleteUserAccount = () => {
+        const token = localStorage.getItem("token");
+        fetch('http://localhost:5251/api/Customer/DeleteCustomerAccount', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        .then(res => res.text())
+        .then(data => {
+            console.log(data);
+            document.getElementById('divDeleteMessage').innerHTML = "Your account has been deleted";
+        })
+        .catch(error => {
+            document.getElementById('divDeleteMessage').innerHTML = "";
+            alert("Your account has been deleted successfully. Please activate your account to login again.");
+            console.error(error);
+        });
+    }
+
+    const ActivateUserAccount = () => {
+        const txtUid = document.getElementById('ActivatetxtUid').value; 
+        const txtPass = document.getElementById('ActivatetxtPass').value;
+        const token = localStorage.getItem("token");
+        fetch('http://localhost:5251/api/Customer/ActivateDeletedCustomerAccount', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                    "email": txtUid,
+                    "password": txtPass
+            })
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            localStorage.setItem("token", data.token);
+            document.getElementById('divActivateMessage').innerHTML = "Your account has been activated";
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    </script>
+
+    <style>
+        .container{
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        button{
+            margin: 10px 0px;
+        }
+    </style>
+</head>
+<body>
+    <!-- hani@gmail.com haniPass1@ -->
+     <div class="container">
+        <h1>Customer Login</h1>
+        <input class="form-control" type ="text" id="txtUid" placeholder="abc@gmail.com"/>
+        <input class="form-control" type ="password" id="txtPass" placeholder="xxx"/>
+        <button class="btn btn-success" onclick="clickButton()">Login</button>
+
+        <hr/>
+
+        <h3>Reward Points of Customer</h3>
+        <button class="btn btn-success" onclick="GetRewardPoints()">Get Reward Points</button>
+        <div id="divMessage">
+        </div>
+
+        <hr/>
+
+        <h3>User Account</h3>
+        <h6>Delete User Account</h6>
+        <button class="btn btn-danger" onclick="DeleteUserAccount()">Delete User Account</button>
+        <div id="divDeleteMessage">
+        </div>
+
+        <hr/>
+
+        <h6>Activate User Account</h6>
+        <input class="form-control" type ="text" id="ActivatetxtUid" placeholder="abc@gmail.com"/>
+        <input class="form-control" type ="password" id="ActivatetxtPass" placeholder="xxx"/>
+        <button class="btn btn-success" onclick="ActivateUserAccount()">Activate User Account</button>
+        <div id="divActivateMessage">
+        </div>
+    </div>
+
+</body>
+</html>
