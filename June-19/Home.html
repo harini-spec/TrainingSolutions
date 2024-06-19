@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+    <link href="./HomeStyles.css" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="./Resources/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+
+        $(function(){
+          $("#nav-placeholder").load("NavBar.html");
+        });
+        
+    </script>
+</head>
+
+<body>
+
+    <nav id="nav-placeholder"></nav>
+
+    <div class="main-container">
+        <div class="text-container">
+            <div>
+                <h1 class="greeting">Welcome to the Quote Factory</h1>
+                <p>Your daily does of quotes are manufactured here!</p>
+            </div>
+            
+        </div>
+    </div>
+
+</body>
+</html>

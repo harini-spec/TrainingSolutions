@@ -1,0 +1,24 @@
+a, body{
+    font-size: 20px !important;
+}
+
+.navbar-custom{
+    padding: 2% 5% !important;
+    background-color: black !important;
+}
+
+li{
+    padding: 0 10px;
+}
+
+a{
+    color: white !important;
+}
+
+.navbar-toggler-icon{
+    color: white !important;
+}
+
+.dropdown{
+    background-color: white !important;
+}

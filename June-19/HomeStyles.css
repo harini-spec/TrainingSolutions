@@ -1,0 +1,22 @@
+.main-container{
+    height: 600px;
+    width: 100%;
+    margin: 0 !important;
+    background-image: url("./Resources/bg.jpg");
+    background-size: 100% 700px;
+}
+
+.text-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 600px;
+    color: white;
+    font-size: 2rem;
+    text-align: center;
+    font-weight: 700;
+}
+
+.greeting{
+    font-size: 5rem;
+}
