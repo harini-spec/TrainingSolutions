@@ -8,10 +8,11 @@ a, body{
 }
 
 li{
-    padding: 0 10px;
+    padding: 0 15px;
 }
 
 a{
+    padding: 0 15px;
     color: white !important;
 }
 
@@ -26,4 +27,8 @@ a{
 
 .navbar-toggler-icon{
     color: white !important;
+}
+
+.left-icon{
+    margin-right: 5px;
 }

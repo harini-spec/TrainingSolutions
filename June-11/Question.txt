@@ -4,14 +4,15 @@ Frontend for backend API:
     Proper folder structure
 
 Pages:
-Bus List Page 
-Payment Page 
+    Bus List Page:
+        Search
+        Available Seats 
+        Go for payment - check for exp of token 
+    Payment Page 
+    Cancellation Page - In account page 
 
-User Page 
-Driver Page 
-Admin Page 
-Forgot Password Page 
-
-Works:
-favicon
-Check if token expired 
+    User Page 
+    Driver Page 
+    Admin Page 
+    
+    Forgot Password Page 

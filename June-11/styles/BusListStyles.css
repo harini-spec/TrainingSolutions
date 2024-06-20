@@ -1,11 +1,107 @@
-.search-button{
-    background-color: rgb(28,111,93) !important;
-    color: white !important;
-    margin-top: 10px;
-    font-size: 20px !important;
-    padding: 10px !important;
+.main-container{
+    background-image: url("/Media/Images/bg1.jpg");
+    background-size: 100% 500px;
 }
 
-.User-Input-Form-Container{
-margin: auto;
+.input-main-container{
+    width : 100%;
+    height: 250px;
+    display: flex;
+    overflow-x: auto;
+}
+
+.first{
+    margin-left: 100px !important;
+}
+
+.last{
+    margin-right: 100px !important;
+}
+
+.last button{
+    height: 100%;
+    width: 100%;
+    border-radius: 0 !important;
+    background-color: rgb(28, 111, 93);
+    color: white;
+    font-size: 25px !important;
+}
+
+.input-container {
+    margin-top: 80px;
+    flex: 100% !important;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    height: 25%;
+    width: 50% !important;
+}
+
+.icon{
+    flex: 10%;
+}
+
+.input-box {
+    flex: 90%;
+}
+
+.icon-img{
+    width: 50px;
+}
+
+.from-location, .to-location, .date{
+    height: 100% !important;
+    width: 250px !important;
+    border: none !important;
+    box-shadow: none;
+    font-size: 25px !important;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.search:hover{
+    background-color: rgb(10, 96, 77) !important;
+    color: white !important;
+}
+
+.buslist-heading{
+    margin: 20px 0;
+    font-size: 40px;
+}
+
+.col2{
+    text-align: center;
+}
+
+.col3{
+    text-align: right;
+}
+
+.card{
+    margin-bottom: 20px;
+}
+
+.pagination-container{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.pagination .page-link{
+    color: black !important;
+}
+
+.filters{
+    margin-top: 25px !important;
+}
+
+.filterAsc, .filterDesc{
+    background-color: rgb(28,111,93) !important;
+    color: white !important;
 }
