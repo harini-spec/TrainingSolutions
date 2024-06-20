@@ -97,11 +97,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: black !important;
 }
 
-.filters{
+.sort{
     margin-top: 25px !important;
 }
 
-.filterAsc, .filterDesc{
+.sortAsc, .sortDesc{
     background-color: rgb(28,111,93) !important;
     color: white !important;
 }
