@@ -5,3 +5,5 @@ Please use the above URL.
 3) Nav bar with navigation to home and quotes
 4) In the Quotes page show only 5 quotes per page - Implement pagination
 5) Display of Quote is your creativity
+6) Sorting (asc, desc)
+7) Searching
