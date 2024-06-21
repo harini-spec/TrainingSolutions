@@ -30,28 +30,3 @@ function parseJwt (token) {
 
     return JSON.parse(jsonPayload);
 }
-
-function checkAuthorization() {
-    var token = sessionStorage.getItem('token');
-    if (token == null) {
-        window.location.href = "login.html";
-        alert("Please login first.")
-    }
-    else{
-        var decoded = parseJwt(token);
-        var role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-        var exp = decoded['exp'] * 1000;
-        var expiry_date = new Date(exp);
-        var current_date = new Date();
-        console.log(expiry_date);
-        console.log(current_date);
-        if((role == "Customer" || role == "Admin") && current_date <= expiry_date){
-            console.log(decoded['exp']);
-            window.location.href = "BusList.html";
-        }
-        else if(current_date > expiry_date){
-            alert("Session timed out. Please login again.")
-            window.location.href = "login.html";
-        }
-    }
-}

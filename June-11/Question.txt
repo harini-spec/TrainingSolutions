@@ -5,10 +5,9 @@ Frontend for backend API:
 
 Pages:
     Bus List Page:
-        Search
         Available Seats 
         Go for payment - check for exp of token 
-    Payment Page 
+    Payment Page - check if logged in 
     Cancellation Page - In account page 
 
     User Page 
@@ -16,3 +15,6 @@ Pages:
     Admin Page 
     
     Forgot Password Page 
+
+Note:
+    Before every page, check if its restricted - check if logged in and authorized, token expired or not

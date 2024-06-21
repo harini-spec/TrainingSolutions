@@ -10,6 +10,17 @@
     overflow-x: auto;
 }
 
+input.form-control:-webkit-autofill {
+    background-color: transparent !important;
+    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+    -webkit-text-fill-color: #000 !important; /* Adjust the text color if needed */
+}
+
+input{
+    margin-top: 15px !important;
+    height: 50px !important;
+}
+
 .first{
     margin-left: 100px !important;
 }
@@ -28,14 +39,13 @@
 }
 
 .input-container {
-    margin-top: 80px;
+    margin-top: 75px;
     flex: 100% !important;
     background-color: white;
     display: flex;
     align-items: center;
-    flex-wrap: nowrap;
-    height: 25%;
     width: 50% !important;
+    height : 100px;
 }
 
 .icon{
@@ -43,24 +53,20 @@
 }
 
 .input-box {
+    margin-left: 7px;
+    padding-right: 10px;
     flex: 90%;
 }
 
 .icon-img{
-    width: 50px;
+    width: 60px;
 }
 
 .from-location, .to-location, .date{
-    height: 100% !important;
     width: 250px !important;
     border: none !important;
     box-shadow: none;
     font-size: 25px !important;
-}
-
-input[type="date"]::-webkit-calendar-picker-indicator {
-    display: none;
-    -webkit-appearance: none;
 }
 
 .search:hover{
@@ -102,6 +108,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 .sortAsc, .sortDesc{
+    margin-right: 20px;
     background-color: rgb(28,111,93) !important;
     color: white !important;
 }

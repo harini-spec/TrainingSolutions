@@ -17,12 +17,15 @@ const getData = () => {
 }
 
 const loadBuses = (data, pgno) => {
+    document.querySelector('.sort').innerHTML = '<button type="button" class="btn sortAsc" onclick="sortAsc()">Asc Departure</button>' +
+    '<button type="button" class="btn sortDesc" onclick="sortDesc()">Desc Departure</button>';
+    document.querySelector('.buslist-heading').innerHTML = '<h1> Bus Schedules </h1>';
+
     var buslist_row = document.querySelector(".buslist-row");
     buslist_row.removeAttribute('id');
     buslist_row.setAttribute('id', pgno);
 
     var buslist_html = '';
-    console.log(data);
 
     const ItemsPerPage = 5;
     var StartIndex = (pgno-1) * ItemsPerPage;
@@ -31,7 +34,7 @@ const loadBuses = (data, pgno) => {
 
     sliced_data.forEach(element => {
         buslist_html += 
-        '<div class="card">' +
+        '<div class="card" id=' + element.scheduleId + ' >' +
         '<div class="card-body">' +
             '<div class="row">' +
                 '<div class="col col1">' + 
@@ -139,4 +142,127 @@ function sortDesc(){
         loadPagination(data);
         loadBuses(data, 1);
     });
+}
+
+function checkAuthorization() {
+    var token = sessionStorage.getItem('token');
+    if (token == null) {
+        window.location.href = "login.html";
+        alert("Please login first.")
+    }
+    else{
+        var decoded = parseJwt(token);
+        var role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+        var exp = decoded['exp'] * 1000;
+        var expiry_date = new Date(exp);
+        var current_date = new Date();
+        if((role == "Customer" || role == "Admin") && current_date <= expiry_date){
+            return;
+        }
+        else if(current_date > expiry_date){
+            alert("Session timed out. Please login again.")
+            window.location.href = "login.html";
+        }
+    }
+}
+
+const getSchedulesOnAGivenDate = (source, destination, date) => {
+    var token = sessionStorage.getItem('token');
+    return fetch('http://localhost:5251/api/Schedule/BusesScheduledOnGivenDateAndRoute', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({
+                source: source,
+                destination: destination,
+                dateTimeOfDeparture: date
+            })})
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+}
+
+const findSchedules = () => {
+    var source = document.getElementById('source').value;
+    var destination = document.getElementById('destination').value;
+    var date = document.getElementById('date').value;
+
+    if(checkScheduleFormValidity()){
+        getSchedulesOnAGivenDate(source, destination, date).then(data => {
+            console.log(data);
+            if(data.errorCode && data.errorMessage && data.errorCode == 404){
+                console.log('No buses found for the given source, destination and date.');
+                document.querySelector('.buslist-heading').innerHTML = '<h1> 404 Not found </h1>'; 
+                document.querySelector('.sort').innerHTML = '';
+                document.querySelector('.buslist-row').innerHTML = '<p> No buses found for the given source, destination and date. </p> <button class = "btn btn-primary" style = "width: 100px" onclick = "window.location.reload()"> Refresh </button>';
+                document.querySelector('.pagination').innerHTML = '';
+            }
+            else{
+                loadPagination(data);
+                loadBuses(data, 1);
+            }
+        });
+    }
+}
+
+function checkScheduleFormValidity(){
+    if(validateSource() && validateDestination() && validateDate()){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+const validateSource = () => {
+    var source = document.getElementById('source').value;
+    if(source == ""){
+        document.getElementById('error-source').innerHTML = 'Please enter source.';
+        document.getElementById('source').classList.add('error');
+        return false;
+    }
+    else{
+        document.getElementById('error-source').innerHTML = '';
+        document.getElementById('source').classList.remove('error');
+        return true;
+    }
+}
+
+const validateDestination = () => {
+    var destination = document.getElementById('destination').value;
+    if(destination == ""){
+        document.getElementById('error-destination').innerHTML = 'Please enter destination.';
+        document.getElementById('destination').classList.add('error');
+        return false;
+    }
+    else{
+        document.getElementById('error-destination').innerHTML = '';
+        document.getElementById('destination').classList.remove('error');
+        return true;
+    }
+}
+
+const validateDate = () => {
+    var date = document.getElementById('date').value;
+    if(date == ""){
+        document.getElementById('error-date').innerHTML = 'Please enter date.';
+        document.getElementById('date').classList.add('error');
+        return false;
+    }
+    else if(date < new Date().toISOString().split('T')[0]){
+        document.getElementById('error-date').innerHTML = 'Please enter a valid date.';
+        document.getElementById('date').classList.add('error');
+        return false;
+    }
+    else{
+        document.getElementById('error-date').innerHTML = '';
+        document.getElementById('date').classList.remove('error');
+        return true;
+    }
 }
