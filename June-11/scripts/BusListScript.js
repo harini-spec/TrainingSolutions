@@ -62,7 +62,7 @@ const loadBuses = (data, pgno) => {
                     '<p class="card-body" style="padding: 0;"> Bus Number: ' + element.busNumber + '</p>' +
                 '</div>' +
                 '<div class="col col3">' +
-                    '<a href="#" class="btn btn-primary">Check Seats</a>' +
+                    '<a href = "javascript:displaySeats(\'' + element.busNumber + '\',' + element.scheduleId + ')" class="btn btn-primary">Check Seats</a>' +
                 '</div>' +
             '</div>' +
 
@@ -72,14 +72,125 @@ const loadBuses = (data, pgno) => {
     buslist_row.innerHTML = buslist_html;
 }
 
-const getSeatsOfBus = (scheduleId) => {
-    '<div class="row">' +
-    '<div class = "seats-container">' +
-        '<div class = "seat"> 1 </div>' +
-        '<div class = "seat"> 2 </div>' +
-        '<div class = "seat"> 3 </div>' +
-    '</div>' +
-    '</div>' 
+const checkIfAlreadyDisplayed = (scheduleId) => {
+    var ScheduleCard = document.getElementById(scheduleId);
+    if(ScheduleCard.classList.contains('seats-displayed')){
+        ScheduleCard.classList.remove('seats-displayed');
+        for(var i=0;i<ScheduleCard.childNodes.length;i++){
+            console.log(ScheduleCard.childNodes[i]);
+            if(ScheduleCard.childNodes[i].classList.contains('seats-row')){
+                ScheduleCard.removeChild(ScheduleCard.childNodes[i]);
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+const displaySeats = (BusNumber, scheduleId) => {
+    if(!checkIfAlreadyDisplayed(scheduleId)){
+        getSeatsOfBus(BusNumber).then(data => {
+            var ScheduleCard = document.getElementById(scheduleId);
+            ScheduleCard.classList.add('seats-displayed');
+
+            var upper_seats = data.filter(seat => seat.seatType == 'Upper');
+            var lower_seats = data.filter(seat => seat.seatType == 'Lower');
+    
+            var seats_html = '<div class="row mx-auto seats-row">' + '<hr/>'  +
+                             '<div class="driver-seat col3"> <img src="./Media/Images/steering-wheel.png" alt="Driver" style="width: 50px; height: 50px;"> </div>' +
+                             '<div class="driver-seat col3"> Driver </div>' + 
+                             '<h4>Upper Seats</h4>' +
+                             '<div class="seats-container grid">' ;
+                                
+            upper_seats.forEach(seat => {
+                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + '</div>';
+            });
+            seats_html += '</div>' + '<h4>Lower Seats</h4>' + '<div class="seats-container grid">' ;
+            lower_seats.forEach(seat => {
+                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + '</div>';
+            });
+            seats_html += '</div>' + '</div>' + 
+            '<div class="row button-addTicket"> <div class="col col3"> <a class="btn btn-primary" href="bookSeats(' + scheduleId + ')">Book Seats</a> </div> </div>';
+            
+            ScheduleCard.innerHTML += seats_html;
+
+            showSeatStatus(scheduleId);
+        });
+    }
+}
+
+const bookSeats = (scheduleId) => {
+    
+}
+
+const selectSeat = (scheduleId, seatId) => {
+    var selectedSeat = document.getElementById(scheduleId);
+    selectedSeat = selectedSeat.querySelector('#seat-' + seatId);
+
+    if(selectedSeat.classList.contains('booked')){
+        return;
+    }
+    else if(selectedSeat.classList.contains('selected')){
+        selectedSeat.classList.remove('selected');
+    }
+    else{
+        selectedSeat.classList.add('selected');
+    }
+}
+
+
+const showSeatStatus = (scheduleId) => {
+    var token = sessionStorage.getItem('token');
+    fetch('http://localhost:5251/api/Ticket/GetAvailableSeats?ScheduleID=' + scheduleId , {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }})
+        .then(res => res.json())
+        .then(data => {
+            var ScheduleCard = document.getElementById(scheduleId);
+            var seats = ScheduleCard.querySelectorAll('.seat');
+            var booked_ids = [];
+
+            seats.forEach(seat => {
+                var seat_id = seat.id.split('-')[1];
+                data.forEach(booked_seatIDs => {
+                    console.log(seat_id, booked_seatIDs.id);
+                    if(booked_seatIDs.id == seat_id){
+                        // seat.classList.add('booked');
+                        booked_ids.push(seat_id);
+                    }
+                });
+            });
+
+            seats.forEach(seat => {
+                var seat_id = seat.id.split('-')[1];
+                if(!booked_ids.includes(seat_id)){
+                    seat.classList.add('booked');
+                }
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+
+const getSeatsOfBus = (BusNumber) => {
+    var token = sessionStorage.getItem('token');
+    return fetch('http://localhost:5251/GetSeatsOfBus?BusNumber=' + BusNumber , {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }})
+            .then(res => res.json())
+            .then(data => {
+                return data;
+            })
+            .catch(error => {
+                console.error(error);
+            });
 }
 
 function loadPagination(data){
@@ -184,9 +295,7 @@ const findSchedules = () => {
 
     if(checkScheduleFormValidity()){
         getSchedulesOnAGivenDate(source, destination, date).then(data => {
-            console.log(data);
             if(data.errorCode && data.errorMessage && data.errorCode == 404){
-                console.log('No buses found for the given source, destination and date.');
                 document.querySelector('.buslist-heading').innerHTML = '<h1> 404 Not found </h1>'; 
                 document.querySelector('.sort').innerHTML = '';
                 document.querySelector('.buslist-row').innerHTML = '<p> No buses found for the given source, destination and date. </p> <button class = "btn btn-primary" style = "width: 100px" onclick = "window.location.reload()"> Refresh </button>';

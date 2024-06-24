@@ -6,7 +6,6 @@ function setNavDetails(){
     }
 
     if(sessionStorage.getItem("token")){
-        console.log("hello");
         var login_element = document.getElementById("login");
         var register_element = document.getElementById("register");
         if(login_element)

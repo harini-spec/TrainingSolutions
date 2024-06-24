@@ -112,3 +112,39 @@ input{
     background-color: rgb(28,111,93) !important;
     color: white !important;
 }
+
+.grid{
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+}
+
+.seats-row{
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.seat, .driver-seat{
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+}
+
+.booked{
+    background-color: red;
+    color: white;
+}
+
+.booked:hover{
+    background-color: red;
+    color: white;
+}
+
+.selected{
+    background-color: rgb(28,111,93);
+    color: white;
+}
+
+.button-addTicket{
+    margin: 20px 0px !important;
+}
