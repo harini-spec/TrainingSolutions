@@ -5,12 +5,12 @@ Frontend for backend API:
 
 Pages:
     Bus List Page:
-        Available Seats 
+        Go to add ticket page - sessionstorage has selected seats 
         Go for payment - check for exp of token 
     Payment Page - check if logged in 
     Cancellation Page - In account page 
 
-    User Page 
+    User Page - Display added, cancelled, booked tickets
     Driver Page 
     Admin Page 
     

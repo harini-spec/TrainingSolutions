@@ -78,7 +78,10 @@ const checkIfAlreadyDisplayed = (scheduleId) => {
         ScheduleCard.classList.remove('seats-displayed');
         for(var i=0;i<ScheduleCard.childNodes.length;i++){
             console.log(ScheduleCard.childNodes[i]);
-            if(ScheduleCard.childNodes[i].classList.contains('seats-row')){
+            if(ScheduleCard.childNodes[i].classList.contains('button-addTicket')){
+                ScheduleCard.removeChild(ScheduleCard.childNodes[i]);
+            }
+            if(ScheduleCard.childNodes[i].classList.contains('seatlist')){
                 ScheduleCard.removeChild(ScheduleCard.childNodes[i]);
             }
         }
@@ -96,21 +99,21 @@ const displaySeats = (BusNumber, scheduleId) => {
             var upper_seats = data.filter(seat => seat.seatType == 'Upper');
             var lower_seats = data.filter(seat => seat.seatType == 'Lower');
     
-            var seats_html = '<div class="row mx-auto seats-row">' + '<hr/>'  +
+            var seats_html = '<div class="seatlist"><div class="row mx-auto seats-row">' + '<hr/>'  +
                              '<div class="driver-seat col3"> <img src="./Media/Images/steering-wheel.png" alt="Driver" style="width: 50px; height: 50px;"> </div>' +
                              '<div class="driver-seat col3"> Driver </div>' + 
                              '<h4>Upper Seats</h4>' +
                              '<div class="seats-container grid">' ;
                                 
             upper_seats.forEach(seat => {
-                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + '</div>';
+                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + ' | Rs.' + seat.seatPrice + '</div>';
             });
             seats_html += '</div>' + '<h4>Lower Seats</h4>' + '<div class="seats-container grid">' ;
             lower_seats.forEach(seat => {
-                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + '</div>';
+                seats_html += '<div class="seat" onclick="selectSeat(' + scheduleId + ',' + seat.id + ')" id=seat-' + seat.id + '>' + seat.seatNumber + ' | Rs.' + seat.seatPrice + '</div>';
             });
             seats_html += '</div>' + '</div>' + 
-            '<div class="row button-addTicket"> <div class="col col3"> <a class="btn btn-primary" href="bookSeats(' + scheduleId + ')">Book Seats</a> </div> </div>';
+            '<div class="row button-addTicket"> <div class="col col3"> <a class="btn btn-primary" href="javascript:bookSeats(' + scheduleId + ')">Book Seats</a> </div> </div> </div>';
             
             ScheduleCard.innerHTML += seats_html;
 
@@ -120,7 +123,17 @@ const displaySeats = (BusNumber, scheduleId) => {
 }
 
 const bookSeats = (scheduleId) => {
-    
+    var selectedSeats = document.getElementById(scheduleId).querySelectorAll('.selected');
+    if(selectedSeats.length == 0){
+        Swal.fire('Please select seats to book.');
+        return;
+    }
+    else{
+        selectedSeats = Array.from(selectedSeats).map(seat => seat.id.split('-')[1]);
+        console.log(selectedSeats);
+        sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+        window.location.href = 'bookTicket.html';
+    }
 }
 
 const selectSeat = (scheduleId, seatId) => {
@@ -156,7 +169,6 @@ const showSeatStatus = (scheduleId) => {
             seats.forEach(seat => {
                 var seat_id = seat.id.split('-')[1];
                 data.forEach(booked_seatIDs => {
-                    console.log(seat_id, booked_seatIDs.id);
                     if(booked_seatIDs.id == seat_id){
                         // seat.classList.add('booked');
                         booked_ids.push(seat_id);

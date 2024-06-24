@@ -7,13 +7,12 @@
     width : 100%;
     height: 250px;
     display: flex;
-    overflow-x: auto;
 }
 
 input.form-control:-webkit-autofill {
     background-color: transparent !important;
     -webkit-box-shadow: 0 0 0 1000px white inset !important;
-    -webkit-text-fill-color: #000 !important; /* Adjust the text color if needed */
+    -webkit-text-fill-color: #000 !important; 
 }
 
 input{
@@ -111,11 +110,12 @@ input{
     margin-right: 20px;
     background-color: rgb(28,111,93) !important;
     color: white !important;
+    margin-bottom: 10px;
 }
 
 .grid{
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-columns: 25% 25% 25% 25%;
 }
 
 .seats-row{
@@ -128,6 +128,7 @@ input{
     border: 1px solid black;
     margin: 5px;
     padding: 5px;
+    min-width: 40px;
 }
 
 .booked{
@@ -147,4 +148,92 @@ input{
 
 .button-addTicket{
     margin: 20px 0px !important;
+}
+
+.buslist-row .card-title{
+    margin-bottom: 30px !important;
+}
+
+@media(max-width: 800px){
+    .seats-row{
+        width: 100%;
+        font-size: 1rem;
+    }
+
+    .buslist-row{
+        margin: auto;
+    }
+
+    .sort{
+        margin-top: 0 !important;
+        text-align: left;
+    }
+
+    .header-row{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+    }
+}
+
+@media(max-width: 1300px){
+    
+    .main-container{
+        height: 500px !important;
+    }
+
+    .input-main-container{
+        height: 500px !important;
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto;
+        width: 50%;
+    }
+
+    .input-container{
+        height: 90px;
+        margin-top: 10px;
+        flex-direction: row;
+    }
+
+    input{
+        margin-top: 0 !important;
+        margin-top: 0 !important;
+        height: 40px !important;
+    }
+    
+    .first{
+        margin-left: 0 !important;
+    }
+    
+    .last{
+        margin-right: 0 !important;
+    }
+
+    .icon-img{
+        height: 50px !important;
+        width: 50px !important;
+    }
+}
+
+@media(max-width: 700px){
+    .input-main-container{
+        width: 80% !important;
+        margin: auto;
+    }
+}
+
+@media(max-width: 450px){
+
+    body{
+        margin: auto !important;
+    }
+
+    .input-box input{
+        width: 200px !important;
+    }
+
+    .input-container{
+        margin: 20px !important;
+    }
 }
