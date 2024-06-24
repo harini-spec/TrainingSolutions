@@ -18,3 +18,16 @@ Pages:
 
 Note:
     Before every page, check if its restricted - check if logged in and authorized, token expired or not
+
+Expectations:
+    No console msgs
+    Check authentication
+    Error page - diff route
+    Clean code - 15 lines of executable code per function
+    Menus 
+    Layouts
+    My booked order - sorted order
+
+    User already logged - don't show register or log in, only logout
+
+    Responsive pages

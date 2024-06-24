@@ -7,6 +7,7 @@ h1{
 }
 
 .carousel-container{
+    position: relative;
     padding: 20px;
     margin-top: 30px;
     margin-bottom: 30px !important;
@@ -24,7 +25,6 @@ h3{
 }
 
 .card1{
-    margin-left: 20px;
     background-color: rgb(252,237,203) !important;
 }
 .card2{
@@ -40,15 +40,20 @@ h3{
     background-color: rgb(251, 227, 227) !important;
 }
 
+.carousel-container .card{
+    text-align: center;
+}
+
 .card{
     border-radius: 10px !important;
-    margin-right: 20px;
+    margin: 20px;
 }
 
 .qns{
+    text-align: left !important;
     text-decoration: none !important;
     color: black !important;
-    font-weight: 700 !important;
+    font-size: 1em !important;
 }
 
 .accordion .card, .card-header{
@@ -61,13 +66,11 @@ h3{
 .faq-card{
     margin-top: 20px;
     margin-right: 0 !important;
-    text-align: justify;
     background-color: rgb(248,249,250) !important;
 }
 
 .faq-body{
     padding-left: 10px;
-    font-size: 15px !important;
 }
 
 .faq-container{
@@ -99,7 +102,39 @@ h3{
 }
 
 .text-container{
+    width: 60%;
     position: relative;
     left: 50%;
     transform: translate(-50%, -250%);
+    /* top: 50%; */
+}
+
+@media(max-width: 1000px){
+    .carousel-container .card-group {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .carousel-container .card {
+        width: 100%;
+        margin: 20px 0;
+    }
+}
+
+@media (max-width: 1400px) {
+    .text-container {
+        transform: translate(-50%, -200%);
+    }
+}
+
+@media (max-width: 900px) {
+    .text-container {
+        transform: translate(-50%, -170%);
+    }
+}
+
+@media (max-width: 320px) {
+    .text-container {
+        transform: translate(-50%, -150%);
+    }
 }

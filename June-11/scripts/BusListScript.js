@@ -65,10 +65,21 @@ const loadBuses = (data, pgno) => {
                     '<a href="#" class="btn btn-primary">Check Seats</a>' +
                 '</div>' +
             '</div>' +
+
         '</div>' + 
         '</div>';
     });
     buslist_row.innerHTML = buslist_html;
+}
+
+const getSeatsOfBus = (scheduleId) => {
+    '<div class="row">' +
+    '<div class = "seats-container">' +
+        '<div class = "seat"> 1 </div>' +
+        '<div class = "seat"> 2 </div>' +
+        '<div class = "seat"> 3 </div>' +
+    '</div>' +
+    '</div>' 
 }
 
 function loadPagination(data){
@@ -142,28 +153,6 @@ function sortDesc(){
         loadPagination(data);
         loadBuses(data, 1);
     });
-}
-
-function checkAuthorization() {
-    var token = sessionStorage.getItem('token');
-    if (token == null) {
-        window.location.href = "login.html";
-        alert("Please login first.")
-    }
-    else{
-        var decoded = parseJwt(token);
-        var role = decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
-        var exp = decoded['exp'] * 1000;
-        var expiry_date = new Date(exp);
-        var current_date = new Date();
-        if((role == "Customer" || role == "Admin") && current_date <= expiry_date){
-            return;
-        }
-        else if(current_date > expiry_date){
-            alert("Session timed out. Please login again.")
-            window.location.href = "login.html";
-        }
-    }
 }
 
 const getSchedulesOnAGivenDate = (source, destination, date) => {
