@@ -1,23 +1,21 @@
 const setTicketDetailsInPage = () => {
     var token = sessionStorage.getItem('token');
     var scheduleId = sessionStorage.getItem('scheduleId');
-    var selectedSeats = sessionStorage.getItem('selectedSeats');
-
-    fetch('http://localhost:5251/api/Schedule/GetAllSchedules', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-        })
-        .then(res => res.json())
-        .then(data => {
-            var schedule = data.find(d => d.scheduleId == scheduleId);
-            displayTicketDetails(schedule);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        fetch('http://localhost:5251/api/Schedule/GetAllSchedules', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            }
+            })
+            .then(res => res.json())
+            .then(data => {
+                var schedule = data.find(d => d.scheduleId == scheduleId);
+                displayTicketDetails(schedule);
+            })
+            .catch(error => {
+                console.error(error);
+            });
 }
 
 const displayTicketDetails = async(element) => {
@@ -30,33 +28,6 @@ const displayTicketDetails = async(element) => {
     document.getElementById('departure').innerHTML += element.dateTimeOfDeparture.split('T')[0] + ', ' + element.dateTimeOfDeparture.split('T')[1];
     document.getElementById('arrival').innerHTML += element.dateTimeOfArrival.split('T')[0] + ', ' + element.dateTimeOfArrival.split('T')[1];
     getPassengerDetails(seats);
-}
-
-const getSeatsFromSeatIds = () => {
-    var token = sessionStorage.getItem('token');
-    var selectedSeats = sessionStorage.getItem('selectedSeats');
-    var seatIds = selectedSeats.split(',').map(seat => seat.split("\"")[1]);
-
-    // Create an array of fetch promises
-    var fetchPromises = seatIds.map(seatId => 
-        fetch('http://localhost:5251/GetSeatsBySeatId?SeatId=' + seatId, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        }).then(res => res.json())
-    );
-
-    // Return a promise that resolves when all fetch calls are complete
-    return Promise.all(fetchPromises)
-        .then(results => {
-            return results; // Array of seat data
-        })
-        .catch(error => {
-            console.error('Error fetching seats:', error);
-            throw error;
-        });
 }
 
 const getPassengerDetails = (selectedSeats) => {

@@ -15,8 +15,11 @@ function setNavDetails(){
     }
     else{
         var logout_element = document.getElementById("logout");
+        var ticket_element = document.getElementById("ticket");
         if(logout_element)
             logout_element.remove();
+        if(ticket_element)
+            ticket_element.remove();
     }
 }
 

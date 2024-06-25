@@ -20,13 +20,13 @@ Notes:
         Before every page, check if its restricted - check if logged in and authorized, token expired or not
 
     Target:
-        User Page : Display added, cancelled, booked tickets
-            Added ticket - can book
-            Booked ticket - can cancel
-        Admin page 
+        User Page : 
+            Added ticket - can book - seperate page 
+            Booked ticket - can cancel - seperate page - seperate seats, total ticket
+            Checkbox - for booked, not booked, cancelled 
+            Sort asc and desc of dod 
 
-    26/6:
-        Cancellation page 
+        Admin page - bus, route, schedule 
 
     Pages:
         Driver Page 

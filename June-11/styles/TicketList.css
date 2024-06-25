@@ -1,0 +1,49 @@
+.col2{
+    text-align: center;
+}
+
+.col3{
+    text-align: right !important;
+}
+
+.ticket-container{
+    width: 80%;
+    margin: auto;
+}
+
+.ticket-card{
+    margin: 10px;
+}
+
+.booked, .not-booked, .cancelled{
+    padding: 7px 0px;
+    border-radius: 10px;
+    width: 120px;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+}
+
+.booked{
+    background-color: rgb(28,111,93);
+    color: white;
+}
+
+.not-booked{
+    background-color: rgb(213, 213, 1);
+    color: white;
+}
+
+.cancelled{
+    background-color: rgb(255, 0, 0);
+    color: white;
+
+}
+
+.ticket-button{
+    margin-top: 5px;
+}
+
+.status_row{
+    margin-top: 20px !important;
+}

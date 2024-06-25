@@ -2,7 +2,7 @@ function checkAuthorization() {
     var token = sessionStorage.getItem('token');
     if (token == null) {
         Swal.fire({
-            title: "Please login first to book buses",
+            title: "Please login first!",
             confirmButtonText: "OK"
             }).then((result) => {
             if (result.isConfirmed) {
