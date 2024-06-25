@@ -90,7 +90,7 @@ const getPassengerDetails = (selectedSeats) => {
                     '</div>' +
                     '</div>';
     });
-    document.querySelector('.passenger-form-container').innerHTML = form_data + '<div class="continue-button"> <button class="btn btn-primary" onclick="validationPassengerForm()">Continue</button> </div>';
+    document.querySelector('.passenger-form-container').innerHTML = form_data + '<div class="continue-button"> <p id="ticket_error_msg"></p> <button class="btn btn-primary continue" onclick="validationPassengerForm()">Continue</button> </div>';
 }
 
 const validatePhone = (seatNumber) => {
@@ -196,16 +196,19 @@ const selectMale = (seatNumber) => {
 }
 
 const validationPassengerForm = () => {
+    var formStatus = true;
     document.querySelectorAll('.passenger-form-row').forEach(row => {
         var name_res = validateName(row.id);
         var age_res = validateAge(row.id);
         var gender_res = validateGender(row.id);
         var phone_res = validatePhone(row.id);
         if(!(name_res && age_res && gender_res && phone_res)) {
-            return;
+            formStatus = false;
         }
     });
-    addTicket();
+    if(formStatus == true){
+        addTicket();
+    }
 }
 
 const addTicket = () => {
@@ -228,7 +231,6 @@ const addTicket = () => {
         });
         passengers.push(JSON.parse(res));
     });
-    // console.log(passengers);
     addTicketToDb(passengers);
 }
 
@@ -247,11 +249,35 @@ const addTicketToDb = (passengers) => {
             'Authorization': 'Bearer ' + token
         },
         body: ticket_body})
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                res.json().then(data => {
+                    if(data.errorMessage.includes("Following seats are not available"))
+                        throw new Error(data.errorMessage);
+                    if(res.status === 404 || res.status === 400)
+                        throw new Error('Error in adding ticket!');
+                    else
+                        throw new Error('Network response was not ok');
+                })
+                .catch(error => {
+                    console.log(error.message);
+                    document.getElementById('ticket_error_msg').classList.add('error_msg');
+                    if(error.message.includes("Following seats are not available"))
+                        document.getElementById('ticket_error_msg').innerHTML = "Some seats are not available <br>Go back to the previous page and select available seats!";
+                    else if(error.message === 'Error in adding ticket!')
+                        document.getElementById('ticket_error_msg').innerHTML = error.message;
+                    else
+                        document.getElementById('ticket_error_msg').innerHTML = "Sorry, an error occured! Please try again!";   
+                    return false;
+                });
+            }
+            else
+                return res.json();
+         })
         .then(data => {
+            if(data == undefined)
+                return;
             displayCostDetails(data);
-            console.log(data);
-            // return data;
         })
         .catch(error => {
             console.error(error);
@@ -259,5 +285,53 @@ const addTicketToDb = (passengers) => {
 }
 
 const displayCostDetails = (ticket) => {
-    document.querySelector('.Cost-Details').innerHTML = "hello";
+    var continue_button = document.querySelector('.continue');
+    continue_button.remove();
+    document.querySelector('.cost-card').removeAttribute('id');
+
+    var GST_Amount = ticket.total_Cost * ticket.gstPercentage/100;
+    var Discount_Amount = ticket.total_Cost * ticket.discountPercentage/100;
+
+    document.querySelector('.base').innerHTML = ticket.total_Cost;
+    document.querySelector('.gst').innerHTML = "+ ₹" + GST_Amount;
+    document.querySelector('.discount').innerHTML = "- ₹" + Discount_Amount;
+    document.querySelector('.final_fare').innerHTML = ticket.final_Amount;
+
+    document.querySelector(".Cost-Details").id = ticket.ticketId;
+}
+
+const bookTicket = (Method) => {
+    var token = sessionStorage.getItem('token');
+    var ticketId = document.querySelector('.Cost-Details').id;
+
+    fetch('http://localhost:5251/api/Transaction/BookTicket?TicketId='+ticketId+'&PaymentMethod='+Method, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+        }})
+        .then(res => {
+            if (!res.ok) {
+                res.json().then(data => {
+                    if(res.status === 500)
+                        throw new Error('Error in booking ticket! Try again later!');
+                    else
+                        throw new Error(data.errorMessage);
+                })
+                .catch(error => {
+                    Swal.fire("Error in Booking Ticket!", error.message, "error")
+                    return false;
+                });
+            }
+            else
+                return res.json();
+         })
+        .then(data => {
+            if(data == undefined)
+                return;
+            Swal.fire("Ticket Booked Successfully!", "Your ticket has been booked successfully!", "success")
+        })
+        .catch(error => {
+            console.error(error);
+    });
 }

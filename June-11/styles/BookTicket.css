@@ -1,6 +1,6 @@
 .Ticket-Container{
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 70% 30%;
     padding: 0 5%;
     margin-top: 20px;
     margin-bottom: 30px; 
@@ -81,6 +81,10 @@ b{
         margin-top: 30px;
         margin-bottom: 40px;
     }
+
+    .Cost-Details{
+        margin-top: 30px;
+    }
 }
 
 .error_msg {
@@ -89,4 +93,38 @@ b{
 
 .continue-button{
     text-align: right;
+}
+
+.Cost-Details{
+    margin-left: 20px;
+    margin-right: 5%;
+}
+
+.Cost-Details row{
+    display: flex;
+}
+
+.AmtDesc-col{
+    flex: 70% !important;
+}
+
+.amount-col{
+    flex: 30% !important;
+    font-weight: 500;
+}
+
+.discount{
+    color: green;
+}
+
+.amount{
+    font-size: 1rem;
+}
+
+#hide{
+    display:none;
+}
+
+#bookTicket_gpay, #bookTicket_paytm{
+    width: 100%;
 }

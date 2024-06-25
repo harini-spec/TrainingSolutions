@@ -15,26 +15,19 @@ Expectations:
     Responsive pages
 
 
-Notes:
-    Pages:
-        Payment Page 
-        Cancellation Page - In account page 
-
-        User Page - Display added, cancelled, booked tickets
-        Driver Page 
-        Admin Page 
-        
-        Forgot Password Page 
-
+Notes: 
     Note:
         Before every page, check if its restricted - check if logged in and authorized, token expired or not
 
     Target:
-        Deal with error of Addticket fetch call
-            Payment Page 
-                User Page 
-    
+        User Page : Display added, cancelled, booked tickets
+            Added ticket - can book
+            Booked ticket - can cancel
         Admin page 
 
     26/6:
         Cancellation page 
+
+    Pages:
+        Driver Page 
+        Forgot Password Page 

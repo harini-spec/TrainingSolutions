@@ -57,6 +57,7 @@
                   </div>
                   <div class="col col3">
                       <h5 class="card-title" id="seats"> Seats: </h5>
+                  </div>
               </div>
       
               <div class="row">
@@ -82,7 +83,6 @@
             </div> 
           </div>
       </div>
-      </div>
 
       <div class="Passenger-Details">
         <div class="card">
@@ -97,14 +97,66 @@
               </div>
         </div>
       </div>
+    </div>
+  </div>
 
+    <div class="Cost-Details">
+      <div class="card cost-card" id="hide">
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <h5 class="card-title"> Cost Details </h5>
+                </div>
+            </div>
+            <div class="amount">
+              <div class="row">
+                <div class="col AmtDesc-col">
+                    <p> Base Fare: </p> 
+                </div>
+                <div class="col amount-col">
+                    <p class="base"> ₹4000 </p>
+                </div>  
+              </div>
+              <div class="row">
+                <div class="col AmtDesc-col">
+                    <p> Gst Amount </p> 
+                </div>
+                <div class="col amount-col">
+                    <p class="gst"> + ₹400 </p>
+                </div>  
+              </div>
+              <div class="row">
+                <div class="col AmtDesc-col">
+                    <p> Discount Amount </p> 
+                </div>
+                <div class="col amount-col">
+                    <p class="discount"> - ₹400 </p>
+                </div>  
+              </div>
+              <hr/>
+              <div class="row">
+                <div class="col AmtDesc-col">
+                    <p> Final Fare: </p> 
+                </div>
+                <div class="col amount-col">
+                    <p class="final_fare"> ₹4000 </p>
+                </div>  
+              </div>
+              <div class="row">
+                <div class="col col1">
+                    <button class="btn btn-success" id="bookTicket_gpay" onclick="bookTicket('gpay')"> GPAY </button>
+                </div>
+                <div class="col col2">
+                    <button class="btn btn-success" id="bookTicket_paytm" onclick="bookTicket('paytm')"> PayTM </button>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
     </div>
 
-    <div class="Cost-Details"></div>
 
-  </div>
-  </div>
-  
+  </div></div>
 
   <footer id="footer-placeholder"></footer>
 </body>
