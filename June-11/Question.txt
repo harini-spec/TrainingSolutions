@@ -3,22 +3,6 @@ Frontend for backend API:
     SCSS comments if used any 
     Proper folder structure
 
-Pages:
-    Bus List Page:
-        Go to add ticket page - sessionstorage has selected seats 
-        Go for payment - check for exp of token 
-    Payment Page - check if logged in 
-    Cancellation Page - In account page 
-
-    User Page - Display added, cancelled, booked tickets
-    Driver Page 
-    Admin Page 
-    
-    Forgot Password Page 
-
-Note:
-    Before every page, check if its restricted - check if logged in and authorized, token expired or not
-
 Expectations:
     No console msgs
     Check authentication
@@ -27,7 +11,30 @@ Expectations:
     Menus 
     Layouts
     My booked order - sorted order
-
     User already logged - don't show register or log in, only logout
-
     Responsive pages
+
+
+Notes:
+    Pages:
+        Payment Page 
+        Cancellation Page - In account page 
+
+        User Page - Display added, cancelled, booked tickets
+        Driver Page 
+        Admin Page 
+        
+        Forgot Password Page 
+
+    Note:
+        Before every page, check if its restricted - check if logged in and authorized, token expired or not
+
+    Target:
+        Deal with error of Addticket fetch call
+            Payment Page 
+                User Page 
+    
+        Admin page 
+
+    26/6:
+        Cancellation page 

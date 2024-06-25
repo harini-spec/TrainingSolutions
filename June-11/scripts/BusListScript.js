@@ -41,7 +41,7 @@ const loadBuses = (data, pgno) => {
                     '<h5 class="card-title">' + element.source + '</h5>' +
                 '</div>' +
                 '<div class="col col2">' +
-                    '<h5 class="card-title"> <i class="fa-solid fa-arrow-right"></i> </h5>' +
+                    '<h5 class="card-title" style="text-align:center"> <i class="fa-solid fa-arrow-right"></i> </h5>' +
                 '</div>' +
                 '<div class="col col3">' +
                     '<h5 class="card-title">' + element.destination + '</h5>' +
@@ -131,6 +131,7 @@ const bookSeats = (scheduleId) => {
     else{
         selectedSeats = Array.from(selectedSeats).map(seat => seat.id.split('-')[1]);
         console.log(selectedSeats);
+        sessionStorage.setItem('scheduleId', scheduleId);
         sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
         window.location.href = 'bookTicket.html';
     }

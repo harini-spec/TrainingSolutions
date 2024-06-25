@@ -131,6 +131,10 @@ input{
     min-width: 40px;
 }
 
+.seat:hover{
+    cursor: pointer;
+}
+
 .booked{
     background-color: red;
     color: white;
@@ -139,6 +143,7 @@ input{
 .booked:hover{
     background-color: red;
     color: white;
+    cursor: not-allowed;
 }
 
 .selected{
