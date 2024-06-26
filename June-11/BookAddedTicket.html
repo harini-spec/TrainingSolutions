@@ -27,6 +27,7 @@
     <script src="./scripts/BookAddedTicketScript.js"></script>
     <script src="./scripts/ScheduleDataScript.js"></script>
     <script src="./scripts/BookTicketScript.js"></script>
+    <script src="./scripts/ManipulateAddedTicket.js"></script>
     
     <script>
         $(document).ready(function(){
@@ -40,7 +41,8 @@
                 else 
                     {
                         Swal.fire({
-                            title: "Ticket Expired",
+                            title: "Ticket Not Found!",
+                            text: "The ticket you are trying to access is either expired or deleted. Please try again.",
                             confirmButtonText: "OK"
                             }).then((result) => {
                             if (result.isConfirmed) {
@@ -98,6 +100,7 @@
                 </div>
 
             </div>
+            
             <div class = "card passenger-info">
                 <h3 class="passenger-info-header"> Passenger Details </h3> <hr/>
                 <div class="row passenger-form-row">

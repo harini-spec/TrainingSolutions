@@ -43,7 +43,6 @@
 .cancelled{
     background-color: rgb(255, 0, 0);
     color: white;
-
 }
 
 .ticket-button{
@@ -71,5 +70,16 @@ select{
     .col3{
         margin-top:10px;
         text-align: left !important;
+    }
+
+    .status_row{
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .main-ticketlist-container{
+        width: 100%;
     }
 }

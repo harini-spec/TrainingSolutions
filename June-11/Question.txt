@@ -23,7 +23,7 @@ Notes:
         User Page : 
             Added ticket 
                 - Edit passenger info
-                - can remove item
+\                
             Booked ticket - seperate page
                 - can cancel seperate seats
                 - can cancel total ticket
@@ -32,7 +32,7 @@ Notes:
         Admin page 
             - bus, route, schedule - input pages
             - update status to ride over 
-            
+
         User page - Reward points display 
         Driver Page 
         Feedback Page 

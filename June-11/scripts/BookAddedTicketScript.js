@@ -23,29 +23,32 @@ const displayPassengerDetails = (ticket, seats) => {
         var female = true ? gender === "Female" : false;
 
         passengerDetails += 
-                    `<div class="row" id=${detail.seatId}>
+                    `<div class="row single-passenger-row" id=${detail.seatId}>
                         <div class="col">
                             <label for="seat"> Seat </label>
                             <p class="seat"> ${detail.seatNumber} </p> 
                         </div>
                         <div class="col">
-                            <label for="name"> Name </label>
-                            <p class="name"> ${detail.passengerName} </p>
+                            <label for="name"> Name </label><br>
+                            <input value=${detail.passengerName} readonly="readonly" class="name form-group" />
                         </div>
                         <div class="col age-container">
-                            <label for="age"> Age </label>
-                            <p class="age"> ${detail.passengerAge} </p>
+                            <label for="age"> Age </label><br>
+                            <input value=${detail.passengerAge} readonly="readonly" class="age form-group" />
                         </div>
                         <div class="col gender">
-                            <label for="gender"> Gender </label>
+                            <label for="gender"> Gender </label><br>
                             <div class="gender-input">
                             <div id="Male" class=${female? null : "selected"}><i class="fa-solid fa-person"></i>Male</div>
                             <div id="Female" class=${female? "selected" : null}><i class="fa-solid fa-person-dress"></i>Female</div>
                             </div>  
                         </div>
                         <div class="col">
-                            <label for="phone"> Phone </label>
-                            <p class="phone"> ${detail.passengerPhone ? detail.passengerPhone : "-"} </p>
+                            <label for="phone"> Phone </label><br>
+                            <input value=${detail.passengerPhone ? detail.passengerPhone : "-"} readonly="readonly" class="phone form-group" />
+                        </div>
+                        <div class="col">
+                            <button class="btn btn-danger remove-button" onclick="removeTicketItem(${ticket.ticketId}, ${detail.seatId})"><i class="fa-solid fa-xmark"></i></button>
                         </div>
                     </div>`;
     });

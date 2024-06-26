@@ -128,3 +128,16 @@ b{
 #bookTicket_gpay, #bookTicket_paytm{
     width: 100%;
 }
+
+@media(max-width: 800px){
+    .passenger-form-row{
+        display: flex;
+    }
+    .passenger-form-row .col{
+        flex: 100%;
+        width: 100% !important;
+    }
+    .gender-input{
+        width: 200px !important;
+    }
+}
