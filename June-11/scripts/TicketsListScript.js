@@ -1,6 +1,6 @@
 const getTickets = () => {
     var token = sessionStorage.getItem("token");
-    fetch('http://localhost:5251/api/Ticket/GetAllTicketsOfCustomer', {
+    return fetch('http://localhost:5251/api/Ticket/GetAllTicketsOfCustomer', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -9,7 +9,7 @@ const getTickets = () => {
     })
     .then(res => res.json())
     .then(data => {
-        displayTickets(data);
+        return data;
     })
     .catch(error => {
         console.error(error);
@@ -17,8 +17,14 @@ const getTickets = () => {
 }
 
 const displayTickets = async (tickets) => {
+
     var ticket_container = document.querySelector(".ticket-container");
     var tickets_data = "";
+
+    if(tickets.length == 0) {
+        ticket_container.innerHTML = '<div class="error-container"><h3> 404 NOT FOUND </h3><p> No tickets available </p><h4/></div>';
+        return;
+    }
 
     // Create an array of promises for fetching schedules
     const schedulePromises = tickets.map(async element => {
@@ -104,6 +110,50 @@ const displayStatusAndButton = () => {
 const displayBookTicketPage = (ticketId) => {
     sessionStorage.setItem("ticketId", ticketId);
     // window.location.href = "bookTicket.html";
+}
+
+const filterTickets = async() => {
+    var tickets = await getTickets().then(data => {return data});
+    var filter = document.querySelector("#filter").value;
+
+    if(filter == "Booked")
+        tickets = tickets.filter(ticket => ticket.status == "Booked");
+    else if(filter == "Not_Booked")
+        tickets = tickets.filter(ticket => ticket.status == "Not Booked");
+    else if(filter == "Cancelled")
+        tickets = tickets.filter(ticket => ticket.status == "Cancelled");
+    else if(filter == "All")
+        tickets = tickets;
+
+    displayTickets(tickets);
+}
+
+const sortTickets = async() => {
+    var tickets = await getTickets().then(data => {return data});
+    var sort = document.querySelector("#sort").value;
+    console.log(tickets);
+    if(sort == "booking_recent")
+        tickets = tickets.sort((a, b) => b.ticketId - a.ticketId);
+    else if(sort == "booking_oldest")
+        tickets = tickets.sort((a, b) => a.ticketId - b.ticketId);
+    else if (sort === "dod_asc" || sort === "dod_desc") {
+
+        // Creates a Promise that is resolved with an array of results when all of the provided Promises resolve, 
+        // or rejected when any Promise is rejected.
+        // Waits for all the values to be returned and then assigns them to the tickets array
+        await Promise.all(tickets.map(async ticket => {
+            const schedule = await getScheduleByScheduleId(ticket.scheduleId);
+            ticket["schedule"] = schedule;
+        }));
+
+        tickets = tickets.sort((a, b) => {
+            let dateA = new Date(a.schedule.dateTimeOfDeparture);
+            let dateB = new Date(b.schedule.dateTimeOfDeparture);
+            return sort === "dod_asc" ? dateA - dateB : dateB - dateA;
+        });
+    }
+
+    displayTickets(tickets);
 }
 
 const getScheduleByScheduleId = (scheduleId) => {
