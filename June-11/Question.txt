@@ -20,18 +20,16 @@ Notes:
         Before every page, check if its restricted - check if logged in and authorized, token expired or not
 
     Target:
-        User Page : 
-            Added ticket 
-                - Edit passenger info
-\                
-            Booked ticket - seperate page
-                - can cancel seperate seats
-                - can cancel total ticket
 
-    Pages:
         Admin page 
             - bus, route, schedule - input pages
-            - update status to ride over 
+
+    Pages:
+        Admin page:
+            - Update status to ride over - Add ride over status to ticketslist
+
+        Book Added ticket Page: 
+            - Edit passenger info
 
         User page - Reward points display 
         Driver Page 

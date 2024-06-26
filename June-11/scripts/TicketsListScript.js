@@ -113,6 +113,11 @@ const displayBookTicketPage = (ticketId) => {
     window.location.href = "BookAddedTicket.html";
 }
 
+const displayCancelTicketPage = (ticketId) => {
+    sessionStorage.setItem("ticketId", ticketId);
+    window.location.href = "CancelTicket.html";
+}
+
 const filterTickets = async() => {
     var tickets = await getTickets().then(data => {return data});
     var filter = document.querySelector("#filter").value;

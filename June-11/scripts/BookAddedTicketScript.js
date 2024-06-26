@@ -1,6 +1,5 @@
-const displayTicketDetails = (ticket) => {
+const displayTicketDetails = async (ticket) => {
     var seats = [];
-    console.log(ticket);
     getScheduleByScheduleId(ticket.scheduleId).then(schedule => {
         ticket.addedTicketDetailDTOs.forEach(detail => {seats.push(detail.seatNumber)});
         document.getElementById("from").innerHTML = schedule.source;
@@ -9,15 +8,17 @@ const displayTicketDetails = (ticket) => {
         document.getElementById("seats").innerHTML = seats.join(', ');
         document.getElementById("departure").innerHTML = schedule.dateTimeOfDeparture.split("T")[1] + ", " + schedule.dateTimeOfDeparture.split("T")[0];
         document.getElementById("arrival").innerHTML = schedule.dateTimeOfArrival.split("T")[1] + ", " + schedule.dateTimeOfArrival.split("T")[0];
-        displayPassengerDetails(ticket, seats);
-        displayCostDetails(ticket);
+        displayPassengerDetails(ticket);
     });
 }
 
-const displayPassengerDetails = (ticket, seats) => {
+const displayPassengerDetails = (ticket) => {
     var passengerDetails = "";
     document.querySelector(".Cost-Details").id = ticket.ticketId;
     var passenger_container = document.querySelector(".passenger-form-row");
+
+    console.log(ticket.addedTicketDetailDTOs);
+
     ticket.addedTicketDetailDTOs.forEach(detail => {
         var gender = detail.passengerGender;
         var female = true ? gender === "Female" : false;
@@ -30,11 +31,11 @@ const displayPassengerDetails = (ticket, seats) => {
                         </div>
                         <div class="col">
                             <label for="name"> Name </label><br>
-                            <input value=${detail.passengerName} readonly="readonly" class="name form-group" />
+                            <p class="name"> ${detail.passengerName} </p> 
                         </div>
                         <div class="col age-container">
                             <label for="age"> Age </label><br>
-                            <input value=${detail.passengerAge} readonly="readonly" class="age form-group" />
+                            <p class="age"> ${detail.passengerAge} </p> 
                         </div>
                         <div class="col gender">
                             <label for="gender"> Gender </label><br>
@@ -45,7 +46,7 @@ const displayPassengerDetails = (ticket, seats) => {
                         </div>
                         <div class="col">
                             <label for="phone"> Phone </label><br>
-                            <input value=${detail.passengerPhone ? detail.passengerPhone : "-"} readonly="readonly" class="phone form-group" />
+                            <p class="phone"> ${detail.passengerPhone ? detail.passengerPhone : "-"} </p> 
                         </div>
                         <div class="col">
                             <button class="btn btn-danger remove-button" onclick="removeTicketItem(${ticket.ticketId}, ${detail.seatId})"><i class="fa-solid fa-xmark"></i></button>
@@ -55,6 +56,8 @@ const displayPassengerDetails = (ticket, seats) => {
     passenger_container.innerHTML = passengerDetails;
     return;
 }
+// For Edit form: <input value=${detail.passengerName} readonly="readonly" class="name form-group" />
+
 
 const displayCostDetails = (ticket) => {
     var gst = ticket.total_Cost * ticket.gstPercentage / 100;
