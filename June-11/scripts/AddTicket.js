@@ -271,38 +271,3 @@ const displayCostDetails = (ticket) => {
     document.querySelector(".Cost-Details").id = ticket.ticketId;
 }
 
-const bookTicket = (Method) => {
-    var token = sessionStorage.getItem('token');
-    var ticketId = document.querySelector('.Cost-Details').id;
-
-    fetch('http://localhost:5251/api/Transaction/BookTicket?TicketId='+ticketId+'&PaymentMethod='+Method, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }})
-        .then(res => {
-            if (!res.ok) {
-                res.json().then(data => {
-                    if(res.status === 500)
-                        throw new Error('Error in booking ticket! Try again later!');
-                    else
-                        throw new Error(data.errorMessage);
-                })
-                .catch(error => {
-                    Swal.fire("Error in Booking Ticket!", error.message, "error")
-                    return false;
-                });
-            }
-            else
-                return res.json();
-         })
-        .then(data => {
-            if(data == undefined)
-                return;
-            Swal.fire("Ticket Booked Successfully!", "Your ticket has been booked successfully!", "success")
-        })
-        .catch(error => {
-            console.error(error);
-    });
-}

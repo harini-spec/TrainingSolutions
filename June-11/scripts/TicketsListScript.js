@@ -95,7 +95,8 @@ const displayStatusAndButton = () => {
         var ticketId = card.querySelector(".card-body").id;
 
         if (status.id == "Not") {
-            button.innerHTML = `<button class="btn btn-success" onclick="displayBookTicketPage('${ticketId}')"> Book </button>`;
+            button.innerHTML = `<button class="btn btn-success" onclick="displayBookTicketPage('${ticketId}')"> Book </button>
+            <button class="btn btn-danger" onclick="deleteAddedTicket('${ticketId}')"> Delete </button>`;
             status.classList.add("not-booked");
         } else if(status.id == "Booked") {
             button.innerHTML = `<button class="btn btn-danger" onclick="displayCancelTicketPage('${ticketId}')"> Cancel </button>`;
@@ -109,7 +110,7 @@ const displayStatusAndButton = () => {
 
 const displayBookTicketPage = (ticketId) => {
     sessionStorage.setItem("ticketId", ticketId);
-    // window.location.href = "bookTicket.html";
+    window.location.href = "BookAddedTicket.html";
 }
 
 const filterTickets = async() => {
@@ -154,22 +155,4 @@ const sortTickets = async() => {
     }
 
     displayTickets(tickets);
-}
-
-const getScheduleByScheduleId = (scheduleId) => {
-    var token = sessionStorage.getItem('token');
-    return fetch('http://localhost:5251/api/Schedule/GetAllSchedules', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + token
-        }
-    })
-    .then(res => res.json())
-    .then(data => {
-        return data.find(schedule => schedule.scheduleId == scheduleId);
-    })
-    .catch(error => {
-        console.error(error);
-    });
 }

@@ -21,13 +21,19 @@ Notes:
 
     Target:
         User Page : 
-            Added ticket - can book - seperate page 
-            Booked ticket - can cancel - seperate page - seperate seats, total ticket
-            Checkbox - for booked, not booked, cancelled 
-            Sort asc and desc of dod 
-
-        Admin page - bus, route, schedule 
+            Added ticket 
+                - Edit passenger info
+                - can remove item
+            Booked ticket - seperate page
+                - can cancel seperate seats
+                - can cancel total ticket
 
     Pages:
+        Admin page 
+            - bus, route, schedule - input pages
+            - update status to ride over 
+            
+        User page - Reward points display 
         Driver Page 
+        Feedback Page 
         Forgot Password Page 
