@@ -231,7 +231,6 @@ const addTicketToDb = (passengers) => {
                         throw new Error('Network response was not ok');
                 })
                 .catch(error => {
-                    console.log(error.message);
                     document.getElementById('ticket_error_msg').classList.add('error_msg');
                     if(error.message.includes("Following seats are not available"))
                         document.getElementById('ticket_error_msg').innerHTML = "Some seats are not available <br>Go back to the previous page and select available seats!";

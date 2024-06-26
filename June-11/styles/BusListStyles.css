@@ -107,7 +107,7 @@ input{
 }
 
 .sortAsc, .sortDesc{
-    margin-right: 20px;
+    margin-left: 20px;
     background-color: rgb(28,111,93) !important;
     color: white !important;
     margin-bottom: 10px;
