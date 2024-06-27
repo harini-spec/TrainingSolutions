@@ -1,0 +1,10 @@
+Installation: 
+    https://www.python.org/downloads/release/python-3124/
+    https://www.digitalocean.com/community/tutorials/install-python-windows-10#step-2-running-the-executable-installer
+    After installation, restart vscode and cmd  
+    
+List Comprehension:
+    https://realpython.com/python-iterators-iterables/#iterating-through-comprehensions
+
+All possible Permutations of a string:   
+    https://www.youtube.com/watch?v=TdLjg6Fk12M

@@ -1,0 +1,15 @@
+Topics
+1) Initial setup of python
+2) Identifying the IDE/Development environment
+3) Basics
+    1.Understanding Execution
+    2.Input
+    3.Output
+    4.Datatypes
+    5.Operators
+    6.Conditional statements
+    7. Iterations
+    8. Methods
+	9. Parameter
+	10. Returns
+    11. List and Indexing
