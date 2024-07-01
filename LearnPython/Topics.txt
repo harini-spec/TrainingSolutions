@@ -1,4 +1,4 @@
-Topics
+Day 1 Topics
 1) Initial setup of python
 2) Identifying the IDE/Development environment
 3) Basics
@@ -14,9 +14,18 @@ Topics
 	10. Returns
     11. List and Indexing
 
-Topics
+Day 2 Topics
 12) String manipulating
 13) Functions 
 14) Tuples
 15) Dictionaries
 16) Sets
+
+Day 3 Topics:
+17) Python class
+18) Destructor
+19) Inheritance in python
+20) Polymorphism in python
+21) Modules in python
+22) Exception Handling(Try Except)
+23) File handling - Read and Write
