@@ -1,3 +1,5 @@
+June 27 - July 2
+
 Day 1 Topics
 1) Initial setup of python
 2) Identifying the IDE/Development environment

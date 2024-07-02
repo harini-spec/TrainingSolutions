@@ -1,0 +1,38 @@
+To get all dict keys: dict.keys() - list
+To get value of a particular dict key: dict.get("key")
+To check if key in dict: key in dict.keys()
+
+Integer division: //
+Float division: /
+
+Leap yr conditions: 
+    Divisible by 4 and not by 100 - leap yr 
+    Divisible by 4, 100 and not 400 - Not a leap yr 
+    Divisible by 4, 100 and 400 - leap yr 
+
+Convert string to char list: list(string)
+
+Sort a dict - first based on values desc, then based on keys asc: 
+    sorted(occurence_dict.items(), key=lambda x: (-x[1], x[0])) 
+        - Here x[1] is the value - it is taken as negative so that the sorting will be done in desc order 
+            ==> 2, 4, 5 ==> -2, -4, -5 ==> sorted in asc order ==> -5, -4, -2
+        - x[0] is the key - by default, sorting done in asc order 
+
+    Ref: https://stackoverflow.com/questions/15371691/how-to-sort-a-dictionary-by-value-desc-then-by-key-asc
+
+List comprehension:
+    fruits = ["apple", "banana", "cherry", "kiwi", "mango"]
+
+    newlist = [x if x != "banana" else "orange" for x in fruits]
+    newlist = [x for x in fruits if "a" in x]
+
+List comprehension for multiple loops:
+    result = [[x,y,z] for x in x_list for y in y_list for z in z_list if (x+y+z)!=n]
+
+Take variable number of parameters as input: 
+    def func_name(*vals):{}
+    - These values are taken as - tuples
+    - Ex:
+        def getvals(*vals):
+            print(type(vals)) # Tuple 
+        getvals("hello", "welcome", "hi")

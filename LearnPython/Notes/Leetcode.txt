@@ -1,0 +1,6 @@
+Find index of character in a string:
+    str_val.index("char")
+
+Slice string from an index till end:
+    str_val[index:]     # don't give -1 as it will then ignore the last character 
+

@@ -8,3 +8,6 @@ List Comprehension:
 
 All possible Permutations of a string:   
     https://www.youtube.com/watch?v=TdLjg6Fk12M
+
+2D Array in python:
+    https://www.geeksforgeeks.org/python-using-2d-arrays-lists-the-right-way/
