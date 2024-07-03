@@ -21,10 +21,7 @@ Part C
 9) https://leetcode.com/problems/text-justification/description/
 
 
-2) https://leetcode.com/problems/zigzag-conversion/description/
 3) https://leetcode.com/problems/3sum-closest/description/
-4) https://leetcode.com/problems/generate-parentheses/description/
-6) https://leetcode.com/problems/group-anagrams/description/
 7) https://leetcode.com/problems/jump-game/description/
 8) https://leetcode.com/problems/unique-paths/description/
 9) https://leetcode.com/problems/text-justification/description/

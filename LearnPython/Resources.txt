@@ -11,3 +11,6 @@ All possible Permutations of a string:
 
 2D Array in python:
     https://www.geeksforgeeks.org/python-using-2d-arrays-lists-the-right-way/
+
+String Manipulation:
+    https://www.w3schools.com/python/python_ref_string.asp

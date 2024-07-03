@@ -3,4 +3,3 @@ Find index of character in a string:
 
 Slice string from an index till end:
     str_val[index:]     # don't give -1 as it will then ignore the last character 
-
