@@ -1,0 +1,63 @@
+Table structure:
+    Employee: ID, Name, Gender, Age, Dept ID, Position
+    Department: Dept ID, Dept 
+    Salary: Emp ID, Salary Amount
+
+Docker commands:
+    Pull postgres docker image:
+        Docker pull postgres 
+
+    Create container and let it run:
+        docker run --name pgsql-dev-container -e POSTGRES_PASSWORD=root -p 5432:5432 postgres
+            ==> -e for environment variables ==> password 
+
+    Interactive terminal inside the container:
+        docker exec -it pgsql-dev bash
+
+    Start PostgreSQL:
+        psql -h localhost _U postgres
+                (or)
+        psql -U username database-name  
+
+Postgres commands:
+    List databases:
+        SELECT datname FROM pg_database;
+
+    Create database:
+        Create database database-name 
+    
+    Connection to a created database:
+        \c database-name 
+
+    Create tables:
+        create table Departments(ID int primary key, Department varchar(20));
+        select * from Departments;
+
+        create table Employees(ID int primary key, Name varchar(20), Gender varchar(10), Age int, deptID int, constraint fk_dept foreign key(deptID) references departments(ID));
+        select * from Employees 
+
+        create table SalaryDetails(empID int, Salary numeric, constraint fk_emp foreign key(empID) references employees(id));
+        select * from Salarydetails;
+
+    Show tables:
+        \dt
+
+    Insert values:
+        insert into departments values(1, 'CS');
+        insert into departments values(2, 'DEV'), (3, 'Operations');
+
+        insert into employees values(1, 'Sam', 'Male', 21, 1);
+        insert into employees values(2, 'Ram', 'Male', 21, 2), (3, 'Ramu', 'Male', 23, 3);
+
+        insert into salarydetails values(1, 100000), (2, 200000), (3, 300000);
+
+    Add Phone column to Employees table: 
+        alter table employees add phone varchar(10);
+
+    Update phone number of employees:
+        update employees set phone = '9999999999' where id = 1;
+        update employees set phone = '8888888888' where id = 2;
+        update employees set phone = '7777777777' where id = 3;
+
+    Execute a select query that prints employee_name, age, phone, Department_name and salary
+        select name, age, phone, department, salary from employees e join salarydetails s on e.id = s.empid join departments d on d.id = e.deptid;
