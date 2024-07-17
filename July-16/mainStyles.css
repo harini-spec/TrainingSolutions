@@ -1,0 +1,59 @@
+.main_container{
+    margin-top: 50px;
+}
+
+.guess_container{
+    margin: auto;
+    width: 270px;
+    margin-bottom: 10px;
+}
+
+.guess_container .col{
+    border: 2px solid rgb(211,214,218);
+    margin: 4px;
+    height: 50px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.keyboard_container{
+    margin: auto;
+    width: 487px;
+    text-align: center;
+}
+
+.keyboard_container .row button{
+    display: inline-block;
+    width: 45px;
+    height: 60px;
+    background-color: rgb(211,214,218);
+    color: black;
+    border: 0px;
+    font-weight: 700;
+    font-size: 20px;
+    margin: 3px;
+    align-items: center;
+}
+
+.keyboard_container .row .big{
+    width: 70px;
+    font-size: 15px;
+    align-items: center;
+}
+
+.row2{
+    margin-left: 12px !important;
+}
+
+.active_container{
+    border: 2px solid black !important;
+}
+
+.correct_pos{
+    background-color: rgb(68, 194, 101) !important;
+    color: white !important;
+}
