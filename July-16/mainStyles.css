@@ -54,6 +54,16 @@
 }
 
 .correct_pos{
-    background-color: rgb(68, 194, 101) !important;
     color: white !important;
+    background-color: rgb(68, 194, 101) !important;
+}
+
+.correct_char{
+    color: white !important;
+    background-color: rgb(201,180,88) !important;
+}
+
+.wrong_char{
+    color: white !important;
+    background-color: rgb(120,124,126) !important;
 }

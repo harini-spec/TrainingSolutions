@@ -3,7 +3,7 @@ const word = words[Math.floor(Math.random() * words.length)]
 var current_row = 0
 var current_col = 0
 var current_str = ""
-console.log(word)
+var found = false
 
 const loadGuessContainer = () => {
     var guess_container = document.querySelector('.guess_container')
@@ -30,15 +30,15 @@ const loadGuessContainer = () => {
 }
 
 const displayLetter = (letter) => {
+    if(found) return
     if(letter.length == 1){
-        if(current_col < 5){
+        if(current_col < 5 && current_row < 6){
             var guess = document.querySelector(`.guess-${current_row}`)
             var cols = guess.querySelectorAll('.col')
             cols[current_col].innerHTML = letter
             cols[current_col].classList.add("active_container")
             current_col++
             current_str += letter 
-            console.log(current_str)
         }
     }
     else if(letter=="Del"){
@@ -49,7 +49,6 @@ const displayLetter = (letter) => {
             cols[current_col].innerHTML = ""
             cols[current_col].classList.remove("active_container")
             current_str = current_str.slice(0, -1)
-            console.log(current_str)
         }
     }
     else{
@@ -59,27 +58,46 @@ const displayLetter = (letter) => {
     }
 }
 
+const MarkDivs = (col, classname) => {
+    col.classList.add(classname)
+    col.classList.remove("active_container")
+    col.style.border = "Transparent"
+    var elem = document.getElementById(col.innerHTML)
+    elem.classList.add(classname)
+}
+
 const validateWord = () => {
-    if(current_str == word)
+    if(current_row<=5 && !found){
         var guess = document.querySelector(`.guess-${current_row}`)
         var cols = guess.querySelectorAll('.col')
-        for(var i=0;i<5;i++){
-            cols[i].classList.add("correct_pos")
-            cols[i].classList.remove("active_container")
-            cols[i].style.border = "Transparent"
-            var elem = document.getElementById(cols[i].innerHTML )
-            elem.classList.add("correct_pos")
+    
+        if(current_str == word)
+            {
+                for(var i=0;i<5;i++){
+                    MarkDivs(cols[i], "correct_pos")
+                }
+                found = true
+            }
+        else{
+            for(var i=0;i<5;i++){
+                if(word.includes(cols[i].innerHTML) && word.indexOf(cols[i].innerHTML) == i)
+                {
+                    MarkDivs(cols[i], "correct_pos")
+                }
+                else if(word.includes(cols[i].innerHTML)){
+                    MarkDivs(cols[i], "correct_char")
+                }
+                else{
+                    MarkDivs(cols[i], "wrong_char")
+                }
+            }
         }
+        current_col = 0
+        current_row += 1
+        current_str = ""
+    }
 }
 
 const guessLetter = (letter) => {
     displayLetter(letter)
-    // var guess = document.querySelector(`.guess-${current_row}`)
-    // var cols = guess.querySelectorAll('.col')
-    // cols[current_col].innerHTML = letter
-    // current_col++
-    // if(current_col == 5){
-    //     current_row++
-    //     current_col = 0
-    // }
 }
